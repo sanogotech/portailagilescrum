@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Agile & Scrum - Mode Apprentissage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles inspired by quizRevision.html */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f9ff;
+            color: #2c3e50;
+            padding: 30px;
+        }
+        .quiz-container {
+            max-width: 960px;
+            margin: auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            margin-bottom: 30px;
+            border-radius: 10px;
+            padding: 25px;
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .question-card h5 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .answer-option {
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border: 1px solid #d0d9e2;
+            border-radius: 8px;
+            background-color: #f9fbfd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .answer-option:hover {
+            background-color: #e9f5ff;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+        .rationale {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f1f5f8;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2 class="quiz-header">Quiz Agile & Scrum - 40 Questions</h2>
+        <p class="text-muted text-center">Mode apprentissage avec explications détaillées pour chaque réponse</p>
+        <!-- Questions will be dynamically inserted here -->
+        <div id="quiz-questions">
+        <!-- Placeholder for dynamically inserted questions -->
+        </div>
+    </div>
+
+<script>
+const questions = [
+  {
+    question: "Quelle est la principale valeur du Manifeste Agile ?",
+    options: [
+      "Respect strict des processus et outils",
+      "Interaction avec les individus plutôt que les processus",
+      "Documentation exhaustive",
+      "Respect rigide du plan initial"
+    ],
+    answer: 1,
+    explanation: "Le Manifeste Agile met l'accent sur les individus et leurs interactions plus que sur les processus et les outils."
+  },
+  {
+    question: "Quel est le rôle principal du Scrum Master ?",
+    options: [
+      "Gérer l'équipe de développement",
+      "Imposer la méthode agile à toute l'entreprise",
+      "Supprimer les obstacles et faciliter le processus Scrum",
+      "Déterminer les priorités produit"
+    ],
+    answer: 2,
+    explanation: "Le Scrum Master est un facilitateur qui supprime les obstacles et s’assure que Scrum est bien compris et utilisé."
+  },
+  {
+    question: "Combien de temps dure typiquement un Sprint en Scrum ?",
+    options: [
+      "1 jour",
+      "1 à 4 semaines",
+      "3 à 6 mois",
+      "Jusqu'à livraison complète du projet"
+    ],
+    answer: 1,
+    explanation: "Un Sprint dure généralement de 1 à 4 semaines, toujours de durée fixe pour assurer la régularité."
+  },
+  {
+    question: "Quel artefact Scrum contient la liste des fonctionnalités à développer ?",
+    options: [
+      "Increment",
+      "Sprint Backlog",
+      "Product Backlog",
+      "Definition of Done"
+    ],
+    answer: 2,
+    explanation: "Le Product Backlog est une liste priorisée des fonctionnalités désirées pour le produit."
+  },
+  {
+    question: "Quelle réunion Scrum a lieu chaque jour ?",
+    options: [
+      "Sprint Review",
+      "Sprint Planning",
+      "Daily Scrum",
+      "Sprint Retrospective"
+    ],
+    answer: 2,
+    explanation: "Le Daily Scrum est une réunion quotidienne de 15 minutes où l’équipe synchronise son travail."
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  const q = questions[current];
+  const container = document.getElementById("quiz-questions");
+  container.innerHTML = `
+    <div class="question-card">
+      <h5>Q${current + 1}. ${q.question}</h5>
+      ${q.options.map((opt, idx) => `
+        <div class="answer-option" onclick="selectAnswer(${idx})" id="option${idx}">
+          <input type="radio" name="option" value="${idx}"> ${opt}
+        </div>
+      `).join('')}
+      <div class="rationale mt-3" id="explanation" style="display:none;"></div>
+      <div class="mt-4 text-end">
+        <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" style="display:none;">Suivant</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(selected) {
+  const q = questions[current];
+  const explanationDiv = document.getElementById("explanation");
+  const nextBtn = document.getElementById("nextBtn");
+  const options = document.querySelectorAll(".answer-option");
+
+  options.forEach((opt, idx) => {
+    opt.classList.remove("correct", "incorrect");
+    if (idx === q.answer) opt.classList.add("correct");
+    else if (idx === selected) opt.classList.add("incorrect");
+    opt.onclick = null;
+  });
+
+  if (selected === q.answer) score++;
+  explanationDiv.innerText = q.explanation;
+  explanationDiv.style.display = "block";
+  nextBtn.style.display = "inline-block";
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) loadQuestion();
+  else showResult();
+}
+
+function showResult() {
+  document.getElementById("quiz-questions").innerHTML = `
+    <div class="text-center">
+      <h3>Quiz terminé !</h3>
+      <p class="lead">Votre score : <strong>${score} / ${questions.length}</strong></p>
+      <button class="btn btn-primary" onclick="restartQuiz()">Recommencer</button>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  loadQuestion();
+}
+
+window.onload = loadQuestion;
+</script>
+
+</body>
+</html>

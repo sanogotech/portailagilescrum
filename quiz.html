@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Agile & SCRUM</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --scrum-orange: #ff7f2a;
+            --agile-blue: #4d8af0;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --white-color: #ffffff;
+            --grey-text: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            margin: auto;
+            background-color: var(--white-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .quiz-header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .quiz-header p {
+            text-align: center;
+            color: var(--grey-text);
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            margin-bottom: 1.5rem;
+        }
+
+        #question-counter {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        #question-card {
+            border: none;
+            border-radius: 10px;
+            padding: 2rem;
+            background-color: #fdfdfd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        #question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ecf0f1;
+            background-color: var(--white-color);
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--scrum-orange);
+            background-color: #fff9f5;
+        }
+        
+        .option-btn.correct {
+            background-color: #e9f7ef;
+            border-color: var(--success-color);
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .option-btn.incorrect {
+            background-color: #fdeded;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+
+        #explanation-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        #explanation-box h5 {
+            font-weight: 700;
+        }
+
+        .explanation-correct {
+             background-color: #e9f7ef;
+             border-left: 5px solid var(--success-color);
+        }
+
+        .explanation-incorrect {
+            background-color: #fdeded;
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+        }
+
+        /* Modal styling */
+        .modal-header {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+
+        .modal-title-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .final-score {
+            font-size: 3.5rem;
+            font-weight: 700;
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1><i class="fas fa-brain" style="color:var(--scrum-orange);"></i> Quiz Agile & SCRUM</h1>
+                <p>Testez vos connaissances et maîtrisez les concepts fondamentaux.</p>
+            </div>
+
+            <div class="progress-container">
+                 <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span id="question-counter">Question 1 / 40</span>
+                    <span id="current-score">Score: 0</span>
+                 </div>
+                <div class="progress" style="height: 10px;">
+                    <div id="progress-bar" class="progress-bar bg-info" role="progressbar" style="width: 2.5%;" aria-valuenow="2.5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+            <div id="question-card" class="card">
+                <div class="card-body">
+                    <h2 id="question-text">Chargement de la question...</h2>
+                    <div id="options-container">
+                        <!-- Les boutons d'options seront insérés ici par JavaScript -->
+                    </div>
+                    <div id="explanation-box" class="d-none">
+                        <h5 id="explanation-title"></h5>
+                        <p id="explanation-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-navigation">
+                <button id="prev-btn" class="btn btn-outline-secondary nav-btn" disabled><i class="fas fa-arrow-left"></i> Précédent</button>
+                <button id="next-btn" class="btn btn-primary nav-btn">Suivant <i class="fas fa-arrow-right"></i></button>
+                <button id="finish-btn" class="btn btn-success nav-btn d-none">Terminer & Voir les Résultats</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for results -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel"><i class="fas fa-trophy modal-title-icon"></i>Résultats du Quiz</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <h4 class="score-text">Votre score final est :</h4>
+                    <p class="final-score" id="final-score-percentage">0%</p>
+                    <p class="text-muted fs-5">
+                        <span id="final-score-correct">0</span> sur 
+                        <span id="final-score-total">0</span> bonnes réponses
+                    </p>
+                    <hr>
+                    <div id="final-recommendations"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="restart-quiz-btn"><i class="fas fa-redo"></i> Recommencer le quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const quizData = {
+            questions: [
+                // Section 1: Fondamentaux Agiles
+                {
+                    question: "Quelle est la valeur la plus importante du Manifeste Agile ?",
+                    options: [
+                        "Les processus et les outils plus que les individus et leurs interactions",
+                        "Des logiciels opérationnels plus qu’une documentation exhaustive",
+                        "La négociation contractuelle plus que la collaboration avec les clients",
+                        "Le suivi d’un plan plus que l’adaptation au changement"
+                    ],
+                    correctAnswer: "Des logiciels opérationnels plus qu’une documentation exhaustive",
+                    explanation: "Le Manifeste Agile valorise les éléments de gauche 'plus que' ceux de droite. Bien que les deux aient de la valeur, l'accent est mis sur les individus, le logiciel fonctionnel, la collaboration client et l'adaptation."
+                },
+                {
+                    question: "L'un des 12 principes du Manifeste Agile est : 'Livrer fréquemment un logiciel _______.'",
+                    options: ["parfait", "documenté", "opérationnel", "validé"],
+                    correctAnswer: "opérationnel",
+                    explanation: "Le principe met l'accent sur la livraison fréquente de valeur tangible sous la forme de logiciel qui fonctionne, de quelques semaines à quelques mois."
+                },
+                 {
+                    question: "Quel est le rôle principal du Product Owner dans un projet Scrum ?",
+                    options: [
+                        "Gérer l'équipe de développement au quotidien",
+                        "Maximiser la valeur du produit résultant du travail de l'équipe",
+                        "Organiser et faciliter les réunions Scrum",
+                        "Rédiger le code et effectuer les tests"
+                    ],
+                    correctAnswer: "Maximiser la valeur du produit résultant du travail de l'équipe",
+                    explanation: "Le Product Owner est le seul responsable de la gestion du Product Backlog et de s'assurer qu'il représente au mieux les besoins des parties prenantes, maximisant ainsi la valeur."
+                },
+                {
+                    question: "Quelle est la durée recommandée pour un Sprint en Scrum ?",
+                    options: [
+                        "Exactement 1 semaine",
+                        "De un à six mois",
+                        "De une à quatre semaines",
+                        "Aussi longtemps que nécessaire pour finir le backlog"
+                    ],
+                    correctAnswer: "De une à quatre semaines",
+                    explanation: "Un Sprint est une période de temps (time-box) d'un mois ou moins, pendant laquelle un incrément de produit 'Fini', utilisable et potentiellement publiable est créé. Les Sprints de 2 semaines sont les plus courants."
+                },
+                {
+                    question: "À quoi sert la réunion 'Daily Scrum' (mêlée quotidienne) ?",
+                    options: [
+                        "À résoudre des problèmes techniques complexes",
+                        "À planifier le travail pour le prochain Sprint",
+                        "À inspecter la progression vers l'objectif de Sprint et à adapter le Sprint Backlog",
+                        "À faire un rapport d'avancement détaillé au Scrum Master"
+                    ],
+                    correctAnswer: "À inspecter la progression vers l'objectif de Sprint et à adapter le Sprint Backlog",
+                    explanation: "C'est une réunion de 15 minutes pour l'équipe de développement afin de synchroniser les activités et de créer un plan pour les prochaines 24 heures. Ce n'est pas une session de résolution de problèmes."
+                },
+                {
+                    question: "Quel artefact Scrum est une liste ordonnée de tout ce qui est connu et requis pour le produit ?",
+                    options: [ "Sprint Backlog", "Incrément", "Product Backlog", "Burndown Chart"],
+                    correctAnswer: "Product Backlog",
+                    explanation: "Le Product Backlog est la source unique des exigences pour tout changement à apporter au produit. Le Product Owner est responsable de son contenu, de sa disponibilité et de son ordonnancement."
+                },
+                {
+                    question: "Qui est responsable de la gestion du Product Backlog ?",
+                    options: [
+                        "Le Scrum Master",
+                        "L'équipe de développement",
+                        "Le Product Owner",
+                        "Les parties prenantes (stakeholders)"
+                    ],
+                    correctAnswer: "Le Product Owner",
+                    explanation: "Le Product Owner est l'unique personne responsable de la gestion du Product Backlog, ce qui inclut l'expression claire des items, leur ordonnancement, et s'assurer qu'il est visible et compris."
+                },
+                {
+                    question: "Qu'est-ce que la 'Definition of Done' (Définition de 'Fini') ?",
+                    options: [
+                        "Le moment où le Sprint se termine.",
+                        "Une compréhension partagée de ce que signifie pour un travail d'être complet.",
+                        "Une liste de tâches assignées au Scrum Master.",
+                        "Le document de validation signé par le client."
+                    ],
+                    correctAnswer: "Une compréhension partagée de ce que signifie pour un travail d'être complet.",
+                    explanation: "La 'Definition of Done' est une liste de critères qui doivent être respectés pour qu'un élément du backlog soit considéré comme potentiellement livrable. Elle garantit la qualité et la transparence."
+                },
+                {
+                    question: "Quel est l'objectif principal de la 'Sprint Retrospective' ?",
+                    options: [
+                        "Démontrer l'incrément de produit aux parties prenantes.",
+                        "Planifier le travail pour le Sprint suivant.",
+                        "Inspecter le Sprint passé et identifier des améliorations pour le prochain.",
+                        "Évaluer la performance individuelle des membres de l'équipe."
+                    ],
+                    correctAnswer: "Inspecter le Sprint passé et identifier des améliorations pour le prochain.",
+                    explanation: "La rétrospective est une opportunité pour l'équipe Scrum de s'inspecter elle-même et de créer un plan d'améliorations à mettre en œuvre lors du prochain Sprint. Elle se concentre sur le processus."
+                },
+                {
+                    question: "Quelle est la taille recommandée pour une équipe de développement en Scrum ?",
+                    options: [ "3 à 9 membres", "10 à 15 membres", "Moins de 5 membres", "Peu importe la taille" ],
+                    correctAnswer: "3 à 9 membres",
+                    explanation: "Assez petite pour rester agile et assez grande pour compléter une quantité de travail significative. Moins de 3 personnes diminue l'interaction, plus de 9 nécessite trop de coordination."
+                },
+                {
+                    question: "En Scrum, qui estime la quantité de travail pour les items du Product Backlog ?",
+                    options: [ "Le Product Owner", "Le Scrum Master", "L'équipe de développement", "Un manager externe" ],
+                    correctAnswer: "L'équipe de développement",
+                    explanation: "Seuls les membres de l'équipe de développement peuvent estimer l'effort requis. Le Product Owner peut les aider à clarifier les exigences, mais l'estimation reste la responsabilité de ceux qui font le travail."
+                },
+                {
+                    question: "Qu'est-ce qu'une 'User Story' ?",
+                    options: [
+                        "Un rapport de bug détaillé.",
+                        "Une description d'une fonctionnalité du point de vue d'un utilisateur final.",
+                        "Une tâche technique pour les développeurs.",
+                        "Le contrat avec le client."
+                    ],
+                    correctAnswer: "Une description d'une fonctionnalité du point de vue d'un utilisateur final.",
+                    explanation: "Une User Story est une explication simple et informelle d'une fonctionnalité, typiquement exprimée sous la forme : 'En tant que <type d'utilisateur>, je veux <objectif> afin de <bénéfice>'."
+                },
+                {
+                    question: "Qu'est-ce que la 'Vélocité' d'une équipe Scrum ?",
+                    options: [
+                        "La vitesse à laquelle l'équipe tape du code.",
+                        "Une mesure de la quantité de travail qu'une équipe peut réaliser pendant un Sprint.",
+                        "Le nombre de bugs corrigés par Sprint.",
+                        "Un indicateur de performance individuelle."
+                    ],
+                    correctAnswer: "Une mesure de la quantité de travail qu'une équipe peut réaliser pendant un Sprint.",
+                    explanation: "La vélocité est calculée à la fin d'un Sprint en additionnant les points des User Stories 'Finies'. C'est une moyenne historique utilisée pour la planification future, pas un objectif à atteindre."
+                },
+                {
+                    question: "Pendant le Sprint, qui peut changer le Sprint Backlog ?",
+                    options: [ "Le Product Owner", "Le Scrum Master", "Les parties prenantes", "L'équipe de développement" ],
+                    correctAnswer: "L'équipe de développement",
+                    explanation: "Seule l'équipe de développement peut modifier son Sprint Backlog pendant un Sprint. Il s'agit de son plan pour atteindre l'objectif de Sprint."
+                },
+                {
+                    question: "L'objectif de la 'Sprint Review' (Revue de Sprint) est de :",
+                    options: [
+                        "Critiquer le travail de l'équipe de développement.",
+                        "Inspecter l'Incrément et adapter le Product Backlog si nécessaire.",
+                        "Approuver formellement le travail effectué.",
+                        "Tenir la rétrospective."
+                    ],
+                    correctAnswer: "Inspecter l'Incrément et adapter le Product Backlog si nécessaire.",
+                    explanation: "C'est une session de travail informelle où l'équipe Scrum et les parties prenantes collaborent sur ce qui a été fait. Le but est d'obtenir des retours et d'adapter le futur."
+                },
+                {
+                    question: "Quelle affirmation décrit le mieux le rôle du Scrum Master ?",
+                    options: [
+                        "C'est le chef de projet traditionnel.",
+                        "C'est un 'servant-leader' qui aide l'équipe à adopter Scrum.",
+                        "C'est le responsable de la livraison du produit.",
+                        "Il assigne les tâches aux développeurs."
+                    ],
+                    correctAnswer: "C'est un 'servant-leader' qui aide l'équipe à adopter Scrum.",
+                    explanation: "Le Scrum Master sert l'équipe en supprimant les obstacles, en facilitant les événements et en s'assurant que tout le monde comprend et applique les règles et les valeurs de Scrum."
+                },
+                {
+                    question: "Un Sprint peut-il être annulé ?",
+                    options: [
+                        "Non, un Sprint ne peut jamais être annulé.",
+                        "Oui, si l'équipe de développement n'arrive pas à finir son travail.",
+                        "Oui, mais seul le Product Owner a l'autorité pour le faire.",
+                        "Oui, le Scrum Master peut l'annuler à tout moment."
+                    ],
+                    correctAnswer: "Oui, mais seul le Product Owner a l'autorité pour le faire.",
+                    explanation: "Un Sprint peut être annulé si l'objectif du Sprint devient obsolète. C'est une décision rare et qui n'appartient qu'au Product Owner."
+                },
+                {
+                    question: "Qu'est-ce qu'un 'Spike' en Agile ?",
+                    options: [
+                        "Une erreur critique dans le code.",
+                        "Une User Story qui ne peut pas être estimée.",
+                        "Une tâche de recherche ou d'expérimentation pour réduire l'incertitude.",
+                        "Une augmentation soudaine de la vélocité."
+                    ],
+                    correctAnswer: "Une tâche de recherche ou d'expérimentation pour réduire l'incertitude.",
+                    explanation: "Un Spike est une sorte de User Story utilisée pour obtenir des informations, par exemple pour évaluer la faisabilité d'une approche technique ou comprendre une exigence complexe."
+                },
+                {
+                    question: "Dans le modèle de développement 'Waterfall' (en cascade), quand les tests sont-ils généralement effectués ?",
+                    options: [
+                        "Tout au long du projet",
+                        "Au début, avant le développement",
+                        "À la fin, après la phase de développement",
+                        "Jamais, on se fie au code"
+                    ],
+                    correctAnswer: "À la fin, après la phase de développement",
+                    explanation: "Le modèle en cascade est séquentiel. Les phases (conception, développement, test) se suivent. Les tests ne commencent qu'une fois que tout le développement est terminé."
+                },
+                {
+                    question: "Quel est le principal avantage de l'approche Agile par rapport au modèle en cascade ?",
+                    options: [
+                        "Elle garantit que le projet sera terminé à temps et dans le budget.",
+                        "Elle permet une meilleure adaptation au changement des exigences.",
+                        "Elle nécessite moins de documentation.",
+                        "Elle élimine le besoin de managers."
+                    ],
+                    correctAnswer: "Elle permet une meilleure adaptation au changement des exigences.",
+                    explanation: "L'agilité est fondée sur le développement itératif et incrémental, ce qui permet d'intégrer les retours et les changements à chaque cycle, réduisant les risques liés à des exigences mouvantes."
+                },
+                {
+                    question: "Dans Kanban, quelle est la métrique clé utilisée pour améliorer le flux de travail ?",
+                    options: ["La vélocité", "Le nombre de User Stories", "Le temps de cycle (Cycle Time)", "Les Story Points"],
+                    correctAnswer: "Le temps de cycle (Cycle Time)",
+                    explanation: "Le temps de cycle mesure le temps qu'il faut à un item de travail pour traverser le processus, du début à la fin. Le réduire est un objectif majeur de l'amélioration continue en Kanban."
+                },
+                {
+                    question: "Quelle est la principale fonction d'une limite de 'Work In Progress' (WIP) en Kanban ?",
+                    options: ["Stressé l'équipe pour qu'elle travaille plus vite", "Éviter la surcharge et encourager la finalisation des tâches", "Mesurer la performance des individus", "Planifier le travail pour les 6 prochains mois"],
+                    correctAnswer: "Éviter la surcharge et encourager la finalisation des tâches",
+                    explanation: "Les limites de WIP sont un mécanisme fondamental de Kanban. En limitant le nombre de tâches en cours, elles mettent en évidence les goulots d'étranglement et forcent l'équipe à se concentrer sur la fin du travail avant d'en commencer un nouveau ('Stop Starting, Start Finishing')."
+                },
+                {
+                    question: "Qu'est-ce qu'un 'Incrément' de produit en Scrum ?",
+                    options: ["Un rapport d'avancement du Sprint.", "La somme de tous les items du Product Backlog complétés durant un Sprint et les Sprints précédents.", "Une nouvelle version du Product Backlog.", "Le plan pour le prochain Sprint."],
+                    correctAnswer: "La somme de tous les items du Product Backlog complétés durant un Sprint et les Sprints précédents.",
+                    explanation: "L'Incrément est le résultat tangible d'un Sprint. Il doit être dans un état 'Fini', utilisable, et respecter la 'Definition of Done', qu'il soit livré ou non."
+                },
+                {
+                    question: "Le 'Sprint Goal' (Objectif de Sprint) est défini pendant quel événement Scrum ?",
+                    options: ["Sprint Review", "Daily Scrum", "Sprint Retrospective", "Sprint Planning"],
+                    correctAnswer: "Sprint Planning",
+                    explanation: "Pendant le Sprint Planning, l'équipe Scrum collabore pour définir un objectif qui explique pourquoi l'Incrément à construire est de valeur. Il fournit une direction et une flexibilité à l'équipe."
+                },
+                {
+                    question: "À qui appartient l'Incrément de produit une fois qu'il est créé ?",
+                    options: ["Au Product Owner", "Au Scrum Master", "À l'équipe de développement", "À l'ensemble de l'équipe Scrum"],
+                    correctAnswer: "À l'ensemble de l'équipe Scrum",
+                    explanation: "Bien que l'équipe de développement crée l'Incrément, c'est le résultat du travail de toute l'équipe Scrum (Product Owner, Scrum Master, Développeurs) qui en partage la responsabilité."
+                },
+                {
+                    question: "La technique d'estimation 'Planning Poker' est utilisée pour...",
+                    options: ["Jouer aux cartes pendant les pauses", "Estimer l'effort relatif des items du Product Backlog", "Décider de la priorité des tâches", "Élire le Scrum Master"],
+                    correctAnswer: "Estimer l'effort relatif des items du Product Backlog",
+                    explanation: "C'est une technique de gamification basée sur le consensus pour aider les équipes agiles à estimer l'effort nécessaire pour les User Stories. Elle favorise la discussion et la convergence."
+                },
+                {
+                    question: "Un 'Burndown Chart' de Sprint montre :",
+                    options: ["La quantité de travail ajoutée au backlog", "La quantité de travail restante par rapport au temps", "Le budget dépensé par l'équipe", "Le moral de l'équipe"],
+                    correctAnswer: "La quantité de travail restante par rapport au temps",
+                    explanation: "C'est un graphique qui représente la quantité de travail (en Story Points ou en heures) qui reste à faire dans le Sprint. Il aide à visualiser si l'équipe est en bonne voie pour atteindre son objectif."
+                },
+                {
+                    question: "Dans le contexte de Scrum, que signifie 'auto-organisée' pour l'équipe de développement ?",
+                    options: ["L'équipe n'a pas besoin de manager", "L'équipe choisit la meilleure façon d'accomplir son travail", "Chaque membre travaille de manière isolée", "L'équipe peut ignorer le Product Owner"],
+                    correctAnswer: "L'équipe choisit la meilleure façon d'accomplir son travail",
+                    explanation: "L'auto-organisation signifie que l'équipe a l'autonomie et la responsabilité de décider comment transformer les items du Product Backlog en un Incrément de valeur, sans être dirigée de l'extérieur."
+                },
+                {
+                    question: "Si une tâche prend plus de temps que prévu durant un Sprint, que doit faire l'équipe de développement ?",
+                    options: ["Travailler le week-end pour rattraper le retard", "Collaborer pour trouver une solution et, si nécessaire, en informer le Product Owner pour renégocier le périmètre", "Simplifier la 'Definition of Done'", "Demander au Scrum Master de résoudre le problème"],
+                    correctAnswer: "Collaborer pour trouver une solution et, si nécessaire, en informer le Product Owner pour renégocier le périmètre",
+                    explanation: "L'équipe est responsable de son travail. Elle doit d'abord tenter de résoudre le problème en interne. Si l'objectif du Sprint est menacé, elle doit travailler avec le Product Owner pour ajuster le Sprint Backlog."
+                },
+                {
+                    question: "Quelle est la principale différence entre le Product Backlog et le Sprint Backlog ?",
+                    options: ["Le Product Backlog est pour un Sprint, le Sprint Backlog est pour tout le produit", "Le Sprint Backlog est un sous-ensemble du Product Backlog choisi pour un Sprint", "Le Product Owner gère le Sprint Backlog, l'équipe gère le Product Backlog", "Il n'y a pas de différence"],
+                    correctAnswer: "Le Sprint Backlog est un sous-ensemble du Product Backlog choisi pour un Sprint",
+                    explanation: "Le Sprint Backlog contient les items du Product Backlog sélectionnés pour le Sprint, ainsi que le plan pour les livrer et atteindre l'objectif du Sprint."
+                },
+                {
+                    question: "Le 'grooming' du backlog (ou affinage) est une activité qui consiste à :",
+                    options: ["Nettoyer la base de code", "Ajouter des détails, des estimations et ordonnancer les items du Product Backlog", "Supprimer les bugs du backlog", "Archiver les anciens Sprints"],
+                    correctAnswer: "Ajouter des détails, des estimations et ordonnancer les items du Product Backlog",
+                    explanation: "C'est une activité continue où le Product Owner et l'équipe de développement collaborent pour s'assurer que le backlog est bien préparé pour les futurs Sprints. Cela inclut la clarification, l'estimation et la priorisation."
+                },
+                {
+                    question: "Qu'est-ce qu'une équipe 'cross-fonctionnelle' ?",
+                    options: ["Une équipe où chaque membre peut tout faire", "Une équipe possédant toutes les compétences nécessaires pour créer l'Incrément", "Une équipe composée de membres de différents départements", "Une équipe qui travaille sur plusieurs projets en même temps"],
+                    correctAnswer: "Une équipe possédant toutes les compétences nécessaires pour créer l'Incrément",
+                    explanation: "Une équipe cross-fonctionnelle n'a pas besoin de dépendre de personnes extérieures à l'équipe pour réaliser son travail (ex: design, développement, test, déploiement)."
+                },
+                {
+                    question: "Qui est responsable de la facilitation des événements Scrum, si nécessaire ou demandé ?",
+                    options: ["Le Product Owner", "Le Scrum Master", "Le chef de projet", "Le membre le plus senior de l'équipe"],
+                    correctAnswer: "Le Scrum Master",
+                    explanation: "L'une des fonctions clés du Scrum Master est d'agir comme facilitateur pour les événements Scrum, en s'assurant qu'ils ont lieu, qu'ils sont productifs et qu'ils respectent leur time-box."
+                },
+                {
+                    question: "Pendant la Daily Scrum, chaque développeur répond à trois questions. Laquelle de ces questions N'EST PAS standard ?",
+                    options: ["Qu'ai-je fait hier ?", "Qu'est-ce que je vais faire aujourd'hui ?", "Quels obstacles ai-je rencontrés ?", "Pourquoi ma tâche n'est-elle pas encore finie ?"],
+                    correctAnswer: "Pourquoi ma tâche n'est-elle pas encore finie ?",
+                    explanation: "La Daily Scrum est une réunion de planification et de synchronisation, pas une session de justification. L'accent est mis sur ce qui a été fait, ce qui sera fait et les obstacles pour atteindre l'objectif du Sprint."
+                },
+                {
+                    question: "Si le Product Owner est trop occupé, qui peut le remplacer pour interagir avec l'équipe ?",
+                    options: ["Le Scrum Master", "Un analyste d'affaires désigné", "Personne, sa participation est essentielle", "Le manager du Product Owner"],
+                    correctAnswer: "Personne, sa participation est essentielle",
+                    explanation: "Le rôle de Product Owner ne peut pas être délégué. Pour que Scrum fonctionne, le Product Owner doit être activement impliqué et disponible pour l'équipe de développement afin de clarifier les exigences et prendre des décisions."
+                },
+                {
+                    question: "Quelle est la meilleure façon de mesurer la progression d'un projet Agile ?",
+                    options: ["Le pourcentage de tâches terminées dans l'outil de gestion", "Le respect strict du plan initial", "La livraison régulière d'un incrément de produit fonctionnel et de valeur", "Le nombre d'heures travaillées par l'équipe"],
+                    correctAnswer: "La livraison régulière d'un incrément de produit fonctionnel et de valeur",
+                    explanation: "Le principe agile n°7 stipule : 'Un logiciel opérationnel est la principale mesure de progression'. La valeur livrée aux utilisateurs est le véritable indicateur de succès."
+                },
+                {
+                    question: "Quelle méthode Agile est plus axée sur la visualisation du flux de travail et la limitation du travail en cours (WIP) ?",
+                    options: ["Scrum", "Extreme Programming (XP)", "Kanban", "Crystal Clear"],
+                    correctAnswer: "Kanban",
+                    explanation: "Alors que Scrum est basé sur des itérations de durée fixe (Sprints), Kanban est un système de flux continu qui utilise un tableau visuel, des limites de WIP et la gestion du temps de cycle pour optimiser le processus."
+                },
+                {
+                    question: "Dans Extreme Programming (XP), que signifie 'pair programming' ?",
+                    options: ["Deux développeurs révisent le code l'un de l'autre à la fin de la journée", "Deux développeurs travaillent ensemble sur un seul poste de travail", "Chaque développeur travaille sur deux projets en même temps", "Les développeurs travaillent en binômes pour les tests uniquement"],
+                    correctAnswer: "Deux développeurs travaillent ensemble sur un seul poste de travail",
+                    explanation: "Le pair programming est une pratique fondamentale de XP où deux programmeurs collaborent. L'un ('driver') écrit le code tandis que l'autre ('navigator') observe, réfléchit et suggère des améliorations, améliorant ainsi la qualité du code."
+                },
+                {
+                    question: "En Scrum, qui doit assister à la Sprint Retrospective ?",
+                    options: ["Seulement l'équipe de développement et le Scrum Master", "Seulement le Scrum Master et le Product Owner", "L'ensemble de l'équipe Scrum (Product Owner, Scrum Master, Développeurs)", "L'équipe Scrum et les parties prenantes"],
+                    correctAnswer: "L'ensemble de l'équipe Scrum (Product Owner, Scrum Master, Développeurs)",
+                    explanation: "La rétrospective est un événement interne à l'équipe Scrum pour inspecter son propre processus. La présence de tous ses membres est cruciale pour une amélioration efficace."
+                },
+                {
+                    question: "Lequel de ces éléments N'EST PAS un artefact officiel de Scrum ?",
+                    options: ["Product Backlog", "Sprint Backlog", "Incrément", "Burndown Chart"],
+                    correctAnswer: "Burndown Chart",
+                    explanation: "Les trois artefacts officiels de Scrum sont le Product Backlog, le Sprint Backlog et l'Incrément. Le Burndown Chart est une pratique complémentaire très utile pour la transparence, mais n'est pas un artefact obligatoire selon le Guide Scrum."
+                }
+            ]
+        };
+
+        // DOM Elements
+        const questionCounterEl = document.getElementById('question-counter');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const explanationBoxEl = document.getElementById('explanation-box');
+        const explanationTitleEl = document.getElementById('explanation-title');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        
+        // Modal Elements
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const finalScoreCorrectEl = document.getElementById('final-score-correct');
+        const finalScoreTotalEl = document.getElementById('final-score-total');
+        const finalScorePercentageEl = document.getElementById('final-score-percentage');
+        const finalRecommendationsEl = document.getElementById('final-recommendations');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let questions = [];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            questions = shuffleArray([...quizData.questions]);
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            displayQuestion(currentQuestionIndex);
+            updateScoreDisplay();
+            resultsModal.hide();
+        }
+
+        function displayQuestion(index) {
+            // Hide explanation from previous question
+            explanationBoxEl.classList.add('d-none');
+            
+            const question = questions[index];
+            questionTextEl.textContent = question.question;
+            
+            // Clear previous options
+            optionsContainerEl.innerHTML = '';
+            
+            // Display options
+            question.options.forEach(optionText => {
+                const button = document.createElement('button');
+                button.textContent = optionText;
+                button.classList.add('btn', 'option-btn');
+                button.onclick = () => selectAnswer(button, optionText, index);
+                optionsContainerEl.appendChild(button);
+            });
+            
+            updateNavigation();
+            updateProgressBar();
+            
+            // If the user has already answered this question, show their answer
+            if (userAnswers[index] !== null) {
+                showAnswerFeedback(index);
+            }
+        }
+        
+        function selectAnswer(button, selectedAnswer, questionIndex) {
+            // Prevent re-answering
+            if (userAnswers[questionIndex] !== null) return;
+            
+            const question = questions[questionIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            
+            userAnswers[questionIndex] = {
+                selected: selectedAnswer,
+                correct: question.correctAnswer,
+                isCorrect: isCorrect
+            };
+            
+            if(isCorrect) {
+                score++;
+            }
+            updateScoreDisplay();
+            showAnswerFeedback(questionIndex);
+        }
+
+        function showAnswerFeedback(index) {
+            const userAnswer = userAnswers[index];
+            if (!userAnswer) return;
+
+            const question = questions[index];
+
+            // Disable all option buttons
+            const optionButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === userAnswer.correct) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === userAnswer.selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            // Show explanation
+            explanationTextEl.textContent = question.explanation;
+            if (userAnswer.isCorrect) {
+                explanationTitleEl.textContent = "Bravo, c'est la bonne réponse !";
+                explanationBoxEl.className = 'explanation-correct';
+            } else {
+                explanationTitleEl.textContent = "Explication :";
+                explanationBoxEl.className = 'explanation-incorrect';
+            }
+            explanationBoxEl.classList.remove('d-none');
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.classList.toggle('d-none', currentQuestionIndex === questions.length - 1);
+            finishBtn.classList.toggle('d-none', currentQuestionIndex !== questions.length - 1);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBarEl.style.width = `${progress}%`;
+            progressBarEl.setAttribute('aria-valuenow', progress);
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+        
+        function updateScoreDisplay() {
+            currentScoreEl.textContent = `Score: ${score}`;
+        }
+
+        function handleNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function handlePrev() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function showFinalResults() {
+            const percentage = (score / questions.length) * 100;
+            let scoreColor;
+            let recommendationsHtml;
+
+            if (percentage >= 80) {
+                scoreColor = 'var(--success-color)';
+                recommendationsHtml = '<h5><i class="fas fa-star text-warning"></i> Excellent !</h4><p>Vous avez une solide maîtrise des concepts Agiles et Scrum. Continuez à appliquer ces connaissances !</p>';
+            } else if (percentage >= 50) {
+                scoreColor = 'var(--scrum-orange)';
+                recommendationsHtml = '<h5><i class="fas fa-chart-line text-info"></i> Pas mal !</h4><p>Vous avez de bonnes bases, mais quelques points méritent d\'être approfondis. N\'hésitez pas à revoir les explications.</p>';
+            } else {
+                scoreColor = 'var(--danger-color)';
+                recommendationsHtml = '<h5><i class="fas fa-book-open text-secondary"></i> Encore un effort !</h4><p>C\'est un bon début. Nous vous encourageons à revoir les principes fondamentaux pour consolider vos connaissances.</p>';
+            }
+
+            finalScoreCorrectEl.textContent = score;
+            finalScoreTotalEl.textContent = questions.length;
+            finalScorePercentageEl.textContent = `${percentage.toFixed(0)}%`;
+            finalScorePercentageEl.style.color = scoreColor;
+            finalRecommendationsEl.innerHTML = recommendationsHtml;
+
+            resultsModal.show();
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', handleNext);
+        prevBtn.addEventListener('click', handlePrev);
+        finishBtn.addEventListener('click', showFinalResults);
+        restartQuizBtn.addEventListener('click', () => {
+            resultsModal.hide();
+            // A short delay to allow modal to close before restarting
+            setTimeout(startQuiz, 500);
+        });
+        
+        // Initial call
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    </script>
+</body>
+</html>
