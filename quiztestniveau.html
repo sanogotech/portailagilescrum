@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Niveau Agile & SCRUM</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts (Inter for modern look) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-dark: #2c3e50; /* Dark blue-grey */
+            --secondary-blue: #3498db; /* Bright blue */
+            --accent-orange: #ff7f2a; /* Scrum orange */
+            --success-green: #27ae60; /* Emerald green */
+            --danger-red: #e74c3c; /* Alizarin red */
+            --light-bg: #f4f7f6; /* Light grey background */
+            --card-bg: #ffffff; /* White card background */
+            --text-color: #34495e; /* Darker text */
+            --border-color: #ecf0f1; /* Light border */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for better scroll */
+            min-height: 100vh;
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            width: 100%;
+            margin: auto;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-header h1 {
+            color: var(--primary-dark);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-header p {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .progress-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background-color: var(--border-color);
+        }
+
+        .progress-bar {
+            background-color: var(--secondary-blue);
+            border-radius: 5px;
+            transition: width 0.4s ease-in-out;
+        }
+
+        #question-card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 2rem;
+            background-color: #fdfdfd;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        #question-text {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            color: var(--primary-dark);
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            background-color: var(--card-bg);
+            transition: all 0.2s ease;
+            color: var(--text-color);
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--accent-orange);
+            background-color: #fffaf5;
+            transform: translateY(-2px);
+        }
+        
+        .option-btn.selected {
+            background-color: #e0f2f7; /* Light blue */
+            border-color: var(--secondary-blue);
+            font-weight: 600;
+        }
+
+        .option-btn.correct {
+            background-color: #e9f7ef; /* Light green */
+            border-color: var(--success-green);
+            color: var(--success-green);
+            font-weight: 700;
+        }
+
+        .option-btn.incorrect {
+            background-color: #fdeded; /* Light red */
+            border-color: var(--danger-red);
+            color: var(--danger-red);
+            font-weight: 700;
+        }
+
+        #explanation-box {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        #explanation-box h5 {
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .explanation-correct {
+             background-color: #e9f7ef;
+             border-left: 5px solid var(--success-green);
+             color: var(--success-green);
+        }
+
+        .explanation-incorrect {
+            background-color: #fdeded;
+            border-left: 5px solid var(--danger-red);
+            color: var(--danger-red);
+        }
+        .explanation-text {
+            color: var(--text-color); /* Ensure explanation text is readable */
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: flex-end; /* Align next button to the right */
+            margin-top: 2rem;
+        }
+
+        .nav-btn {
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        /* Timer specific styles */
+        #timer-bar-container {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        #timer-bar {
+            height: 100%;
+            width: 100%;
+            background-color: var(--secondary-blue);
+            border-radius: 4px;
+            transition: width 1s linear; /* Smooth transition for 1-second decrements */
+        }
+        #timer-text {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--secondary-blue);
+            margin-bottom: 1rem;
+        }
+        #timer-text.warning {
+            color: var(--danger-red);
+        }
+
+        /* Modal styling */
+        .modal-header {
+            background-color: var(--primary-dark);
+            color: var(--card-bg);
+            border-bottom: none;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .modal-title-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--accent-orange);
+        }
+        
+        .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .final-score {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .score-text {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            color: var(--card-bg);
+            background-color: var(--secondary-blue); /* Default */
+        }
+
+        .level-novice { background-color: #7f8c8d; } /* Grey */
+        .level-debutant { background-color: #e67e22; } /* Carrot orange */
+        .level-intermediaire { background-color: #3498db; } /* Peter river blue */
+        .level-avance { background-color: #27ae60; } /* Emerald green */
+        .level-expert { background-color: #8e44ad; } /* Wisteria purple */
+
+        #final-recommendations h4 {
+            color: var(--primary-dark);
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        #final-recommendations ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        #final-recommendations ul li {
+            background-color: #f0f3f5;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 0.6rem;
+            border-left: 4px solid var(--secondary-blue);
+            font-size: 0.95rem;
+        }
+        #final-recommendations ul li i {
+            margin-right: 0.8rem;
+            color: var(--secondary-blue);
+        }
+
+        .modal-footer {
+            border-top: none;
+            background-color: var(--light-bg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1><i class="fas fa-flask" style="color:var(--accent-orange);"></i> Test de Niveau Agile & SCRUM</h1>
+                <p>Évaluez vos connaissances en 20 questions. Chaque question a une limite de temps de 75 secondes.</p>
+            </div>
+
+            <div class="progress-section">
+                <span id="question-counter">Question 1 / 20</span>
+                <span id="current-score">Score: 0</span>
+            </div>
+            <div class="progress" style="height: 10px;">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 5%;" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            <div id="timer-text">01:15</div>
+            <div id="timer-bar-container">
+                <div id="timer-bar"></div>
+            </div>
+
+            <div id="question-card" class="card">
+                <div class="card-body">
+                    <h2 id="question-text">Chargement de la question...</h2>
+                    <div id="options-container">
+                        <!-- Les boutons d'options seront insérés ici par JavaScript -->
+                    </div>
+                    <div id="explanation-box" class="d-none">
+                        <h5 id="explanation-title"></h5>
+                        <p id="explanation-text" class="explanation-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-navigation">
+                <!-- No previous button for a test -->
+                <button id="next-btn" class="btn btn-primary nav-btn" disabled>Suivant <i class="fas fa-arrow-right"></i></button>
+                <button id="finish-btn" class="btn btn-success nav-btn d-none">Terminer & Voir les Résultats</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for results -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel"><i class="fas fa-award modal-title-icon"></i>Vos Résultats du Test de Niveau</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-4">
+                    <h4 class="score-text">Votre score final est :</h4>
+                    <p class="final-score" id="final-score-percentage">0%</p>
+                    <p class="text-muted fs-5">
+                        <span id="final-score-correct">0</span> sur 
+                        <span id="final-score-total">0</span> bonnes réponses
+                    </p>
+                    <hr>
+                    <h4 class="mt-4">Votre Niveau :</h4>
+                    <span id="level-badge" class="level-badge"></span>
+                    <div id="final-recommendations" class="text-start mt-4"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="restart-quiz-btn"><i class="fas fa-redo"></i> Recommencer le test</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const quizData = {
+            questions: [
+                {
+                    question: "Quel est le but principal de la Daily Scrum ?",
+                    options: [
+                        "Démontrer le travail terminé au Product Owner.",
+                        "Inspecter la progression vers l'objectif de Sprint et adapter le Sprint Backlog.",
+                        "Assigner de nouvelles tâches aux membres de l'équipe.",
+                        "Résoudre tous les problèmes techniques rencontrés."
+                    ],
+                    correctAnswer: "Inspecter la progression vers l'objectif de Sprint et adapter le Sprint Backlog.",
+                    explanation: "La Daily Scrum est une réunion de 15 minutes pour l'équipe de développement afin de synchroniser les activités et de créer un plan pour les prochaines 24 heures, en s'assurant que l'objectif de Sprint est toujours atteignable."
+                },
+                {
+                    question: "Qui est responsable de la maximisation de la valeur du produit dans Scrum ?",
+                    options: [
+                        "Le Scrum Master",
+                        "L'équipe de développement",
+                        "Le Product Owner",
+                        "Les parties prenantes"
+                    ],
+                    correctAnswer: "Le Product Owner",
+                    explanation: "Le Product Owner est le seul responsable de la gestion du Product Backlog et de s'assurer qu'il représente au mieux les besoins des parties prenantes, maximisant ainsi la valeur du produit."
+                },
+                {
+                    question: "Quelle est la durée maximale recommandée pour un Sprint ?",
+                    options: [
+                        "Une semaine",
+                        "Deux semaines",
+                        "Un mois",
+                        "Trois mois"
+                    ],
+                    correctAnswer: "Un mois",
+                    explanation: "Un Sprint est une période de temps (time-box) d'un mois ou moins, pendant laquelle un incrément de produit 'Fini', utilisable et potentiellement publiable est créé."
+                },
+                {
+                    question: "Lequel de ces éléments n'est PAS un artefact Scrum officiel ?",
+                    options: [
+                        "Product Backlog",
+                        "Sprint Backlog",
+                        "Burndown Chart",
+                        "Incrément"
+                    ],
+                    correctAnswer: "Burndown Chart",
+                    explanation: "Les trois artefacts officiels de Scrum sont le Product Backlog, le Sprint Backlog et l'Incrément. Le Burndown Chart est un outil de suivi utile mais pas un artefact officiel."
+                },
+                {
+                    question: "Qu'est-ce que la 'Definition of Done' (DoD) ?",
+                    options: [
+                        "La date de fin du projet.",
+                        "Une liste de tâches à accomplir avant de commencer un Sprint.",
+                        "Une compréhension partagée de ce que signifie pour un travail d'être complet et de qualité.",
+                        "Le moment où le Product Owner accepte l'Incrément."
+                    ],
+                    correctAnswer: "Une compréhension partagée de ce que signifie pour un travail d'être complet et de qualité.",
+                    explanation: "La DoD est un ensemble de critères que chaque élément du Product Backlog doit satisfaire pour être considéré comme 'Fini' et potentiellement livrable. Elle assure la transparence et la qualité."
+                },
+                {
+                    question: "Quel est le rôle du Scrum Master ?",
+                    options: [
+                        "Diriger l'équipe de développement et assigner les tâches.",
+                        "Gérer le budget et les ressources du projet.",
+                        "Agir comme un 'servant-leader' et faciliter l'adoption de Scrum.",
+                        "Représenter les parties prenantes auprès de l'équipe."
+                    ],
+                    correctAnswer: "Agir comme un 'servant-leader' et faciliter l'adoption de Scrum.",
+                    explanation: "Le Scrum Master est responsable de la promotion et du soutien de Scrum. Il aide l'équipe, le Product Owner et l'organisation à comprendre et à appliquer les valeurs et les pratiques de Scrum."
+                },
+                {
+                    question: "Qui peut annuler un Sprint ?",
+                    options: [
+                        "Le Scrum Master",
+                        "L'équipe de développement",
+                        "Le Product Owner",
+                        "N'importe quel membre de l'équipe Scrum"
+                    ],
+                    correctAnswer: "Le Product Owner",
+                    explanation: "Seul le Product Owner a l'autorité d'annuler un Sprint, et ce, uniquement si l'objectif du Sprint devient obsolète. C'est un événement rare et coûteux."
+                },
+                {
+                    question: "L'objectif principal de la Sprint Retrospective est de :",
+                    options: [
+                        "Démontrer l'Incrément aux parties prenantes.",
+                        "Planifier le travail pour le prochain Sprint.",
+                        "Inspecter le Sprint passé et identifier des améliorations pour le prochain.",
+                        "Évaluer les performances individuelles des membres de l'équipe."
+                    ],
+                    correctAnswer: "Inspecter le Sprint passé et identifier des améliorations pour le prochain.",
+                    explanation: "La rétrospective est une opportunité pour l'équipe Scrum de s'inspecter elle-même et de créer un plan d'améliorations à mettre en œuvre lors du prochain Sprint. Elle se concentre sur le processus et les interactions."
+                },
+                {
+                    question: "Qu'est-ce qu'une équipe 'cross-fonctionnelle' dans Scrum ?",
+                    options: [
+                        "Une équipe où chaque membre peut effectuer toutes les tâches.",
+                        "Une équipe possédant toutes les compétences nécessaires pour créer un Incrément de produit.",
+                        "Une équipe composée de membres de différents départements de l'entreprise.",
+                        "Une équipe qui travaille sur plusieurs projets simultanément."
+                    ],
+                    correctAnswer: "Une équipe possédant toutes les compétences nécessaires pour créer un Incrément de produit.",
+                    explanation: "Une équipe cross-fonctionnelle est autonome et n'a pas besoin de dépendre de personnes extérieures pour réaliser son travail, de la conception au déploiement."
+                },
+                {
+                    question: "Quelle est la taille idéale pour une équipe de développement Scrum ?",
+                    options: [
+                        "Moins de 3 personnes",
+                        "3 à 9 personnes",
+                        "10 à 15 personnes",
+                        "Plus de 15 personnes"
+                    ],
+                    correctAnswer: "3 à 9 personnes",
+                    explanation: "Une équipe de développement Scrum doit être suffisamment petite pour rester agile et suffisamment grande pour livrer un Incrément significatif au cours d'un Sprint."
+                },
+                {
+                    question: "Quel événement Scrum a pour objectif d'inspecter l'Incrément et d'adapter le Product Backlog si nécessaire ?",
+                    options: [
+                        "Daily Scrum",
+                        "Sprint Planning",
+                        "Sprint Review",
+                        "Sprint Retrospective"
+                    ],
+                    correctAnswer: "Sprint Review",
+                    explanation: "La Sprint Review est une réunion de collaboration où l'équipe Scrum et les parties prenantes inspectent l'Incrément et discutent des adaptations futures du Product Backlog."
+                },
+                {
+                    question: "Qui est le principal responsable de l'ordonnancement des items dans le Product Backlog ?",
+                    options: [
+                        "Le Scrum Master",
+                        "L'équipe de développement",
+                        "Le Product Owner",
+                        "Les parties prenantes"
+                    ],
+                    correctAnswer: "Le Product Owner",
+                    explanation: "Le Product Owner est l'unique responsable de la gestion du Product Backlog, y compris l'ordonnancement des items pour maximiser la valeur."
+                },
+                {
+                    question: "Qu'est-ce qu'un 'User Story' ?",
+                    options: [
+                        "Un rapport de bug détaillé.",
+                        "Une description simple d'une fonctionnalité du point de vue de l'utilisateur.",
+                        "Un document technique pour les développeurs.",
+                        "Un contrat avec le client."
+                    ],
+                    correctAnswer: "Une description simple d'une fonctionnalité du point de vue de l'utilisateur.",
+                    explanation: "Une User Story est une brève description d'une fonctionnalité du système du point de vue de l'utilisateur final, souvent sous la forme 'En tant que [rôle], je veux [action] afin de [bénéfice]'."
+                },
+                {
+                    question: "Quel principe Agile met l'accent sur la 'simplicité' ?",
+                    options: [
+                        "La plus grande efficacité est atteinte avec le moins de travail possible.",
+                        "L'art de maximiser la quantité de travail non fait est essentiel.",
+                        "Les tests doivent être simples et rapides.",
+                        "Les équipes doivent être petites et simples à gérer."
+                    ],
+                    correctAnswer: "L'art de maximiser la quantité de travail non fait est essentiel.",
+                    explanation: "Le principe Agile n°10 stipule : 'La simplicité – l'art de maximiser la quantité de travail non fait – est essentielle.' Il s'agit de se concentrer sur l'essentiel et d'éviter le gaspillage."
+                },
+                {
+                    question: "Dans le cadre de Kanban, que signifie l'acronyme 'WIP' ?",
+                    options: [
+                        "Work In Progress (Travail en cours)",
+                        "Work Item Prioritization (Priorisation des éléments de travail)",
+                        "Workflow Improvement Plan (Plan d'amélioration du flux de travail)",
+                        "Web Interface Protocol (Protocole d'interface web)"
+                    ],
+                    correctAnswer: "Work In Progress (Travail en cours)",
+                    explanation: "Les limites de WIP sont un concept clé de Kanban, visant à limiter le nombre de tâches en cours pour améliorer le flux et la concentration de l'équipe."
+                },
+                {
+                    question: "Quelle est la principale mesure de progression dans un projet Agile ?",
+                    options: [
+                        "Le nombre de lignes de code écrites.",
+                        "Le respect strict du plan initial.",
+                        "La livraison régulière d'un logiciel opérationnel et de valeur.",
+                        "Le nombre d'heures travaillées par l'équipe."
+                    ],
+                    correctAnswer: "La livraison régulière d'un logiciel opérationnel et de valeur.",
+                    explanation: "Le principe Agile n°7 déclare : 'Un logiciel opérationnel est la principale mesure de progression'. La valeur livrée aux utilisateurs est le véritable indicateur de succès."
+                },
+                {
+                    question: "Qui est responsable de la création de l'Incrément de produit à chaque Sprint ?",
+                    options: [
+                        "Le Product Owner",
+                        "Le Scrum Master",
+                        "L'équipe de développement",
+                        "Les parties prenantes"
+                    ],
+                    correctAnswer: "L'équipe de développement",
+                    explanation: "L'équipe de développement est responsable de la conception, de la construction et du test de l'Incrément de produit à chaque Sprint."
+                },
+                {
+                    question: "Que se passe-t-il si le temps imparti pour une question s'écoule ?",
+                    options: [
+                        "Le quiz s'arrête.",
+                        "La question est automatiquement marquée comme correcte.",
+                        "La question est automatiquement marquée comme incorrecte et le quiz passe à la suivante.",
+                        "Vous avez 15 secondes supplémentaires pour répondre."
+                    ],
+                    correctAnswer: "La question est automatiquement marquée comme incorrecte et le quiz passe à la suivante.",
+                    explanation: "Dans ce test de niveau, le temps est un facteur. Si le temps s'écoule, la question est considérée comme non répondue et le quiz avance."
+                },
+                {
+                    question: "Quel est l'objectif du 'Sprint Planning' ?",
+                    options: [
+                        "Démontrer le travail du Sprint précédent.",
+                        "Inspecter et adapter le processus de l'équipe.",
+                        "Définir l'objectif du Sprint et planifier le travail à réaliser.",
+                        "Faire un rapport d'avancement au management."
+                    ],
+                    correctAnswer: "Définir l'objectif du Sprint et planifier le travail à réaliser.",
+                    explanation: "Le Sprint Planning est l'événement où l'équipe Scrum définit l'objectif du Sprint et sélectionne les éléments du Product Backlog à inclure dans le Sprint Backlog."
+                },
+                {
+                    question: "Lequel de ces rôles n'est PAS un rôle officiel dans Scrum ?",
+                    options: [
+                        "Product Owner",
+                        "Scrum Master",
+                        "Chef de projet",
+                        "Équipe de développement"
+                    ],
+                    correctAnswer: "Chef de projet",
+                    explanation: "Scrum est un cadre léger avec seulement trois rôles : Product Owner, Scrum Master et Équipe de développement. Le rôle traditionnel de 'Chef de projet' n'existe pas dans Scrum."
+                }
+            ]
+        };
+
+        // DOM Elements
+        const questionCounterEl = document.getElementById('question-counter');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        const explanationBoxEl = document.getElementById('explanation-box');
+        const explanationTitleEl = document.getElementById('explanation-title');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const timerTextEl = document.getElementById('timer-text');
+        const timerBarEl = document.getElementById('timer-bar');
+        
+        // Modal Elements
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const finalScoreCorrectEl = document.getElementById('final-score-correct');
+        const finalScoreTotalEl = document.getElementById('final-score-total');
+        const finalScorePercentageEl = document.getElementById('final-score-percentage');
+        const levelBadgeEl = document.getElementById('level-badge');
+        const finalRecommendationsEl = document.getElementById('final-recommendations');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = []; // Stores { selected: "...", correct: "...", isCorrect: true/false }
+        let questions = []; // Shuffled questions
+        let timerInterval;
+        const TIME_PER_QUESTION = 75; // seconds
+        let timeLeft = TIME_PER_QUESTION;
+        let answeredCurrentQuestion = false; // To prevent multiple selections/timer issues
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startQuiz() {
+            questions = shuffleArray([...quizData.questions]);
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            resultsModal.hide();
+            displayQuestion(currentQuestionIndex);
+            updateScoreDisplay();
+        }
+
+        function displayQuestion(index) {
+            // Reset state for new question
+            answeredCurrentQuestion = false;
+            explanationBoxEl.classList.add('d-none');
+            nextBtn.disabled = true; // Disable next until answered or time runs out
+            timerTextEl.classList.remove('warning');
+
+            if (index >= questions.length) {
+                showFinalResults();
+                return;
+            }
+
+            const question = questions[index];
+            questionTextEl.textContent = question.question;
+            
+            optionsContainerEl.innerHTML = ''; // Clear previous options
+            
+            // MODIFICATION: Add A, B, C, D prefixes to options
+            question.options.forEach((optionText, optionIndex) => {
+                const button = document.createElement('button');
+                const prefix = String.fromCharCode(65 + optionIndex); // Gets A, B, C, etc.
+                button.textContent = `${prefix}. ${optionText}`;
+                button.classList.add('btn', 'option-btn');
+                button.onclick = () => selectAnswer(button, optionText, index);
+                optionsContainerEl.appendChild(button);
+            });
+            
+            updateNavigation();
+            updateProgressBar();
+            startTimer();
+        }
+        
+        function selectAnswer(button, selectedAnswer, questionIndex) {
+            if (answeredCurrentQuestion) return; // Prevent multiple selections
+            answeredCurrentQuestion = true;
+            clearInterval(timerInterval); // Stop the timer
+
+            const question = questions[questionIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            
+            userAnswers[questionIndex] = {
+                selected: selectedAnswer,
+                correct: question.correctAnswer,
+                isCorrect: isCorrect,
+                timeTaken: TIME_PER_QUESTION - timeLeft // Record time taken
+            };
+            
+            if(isCorrect) {
+                score++;
+            }
+            updateScoreDisplay();
+            showAnswerFeedback(questionIndex);
+            nextBtn.disabled = false; // Enable next button
+            
+            // If this is the last question, show finish button
+            if (currentQuestionIndex === questions.length - 1) {
+                nextBtn.classList.add('d-none');
+                finishBtn.classList.remove('d-none');
+            }
+        }
+
+        function showAnswerFeedback(index) {
+            const userAnswer = userAnswers[index];
+            if (!userAnswer) return; // Should not happen if called after selectAnswer or timer runs out
+
+            const question = questions[index];
+
+            // Disable all option buttons and highlight selection
+            const optionButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                // The text content now includes the "A. " prefix, so we need to check if the correct/selected answer is a substring
+                if (btn.textContent.includes(userAnswer.correct)) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent.includes(userAnswer.selected) && !userAnswer.isCorrect) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            // Show explanation
+            explanationTextEl.textContent = question.explanation;
+            if (userAnswer.isCorrect) {
+                explanationTitleEl.textContent = "Correct !";
+                explanationBoxEl.className = 'explanation-correct';
+            } else {
+                explanationTitleEl.textContent = "Incorrect. Explication :";
+                explanationBoxEl.className = 'explanation-incorrect';
+            }
+            explanationBoxEl.classList.remove('d-none');
+        }
+
+        function startTimer() {
+            timeLeft = TIME_PER_QUESTION;
+            updateTimerDisplay();
+            timerBarEl.style.transition = `width ${TIME_PER_QUESTION}s linear`; // Smooth transition for full duration
+            timerBarEl.style.width = '0%'; // Start from 100% and go to 0%
+
+            // Reset transition for next question to ensure it starts from 100%
+            setTimeout(() => {
+                timerBarEl.style.transition = 'none';
+                timerBarEl.style.width = '100%';
+                setTimeout(() => {
+                    timerBarEl.style.transition = `width ${TIME_PER_QUESTION}s linear`;
+                    timerBarEl.style.width = '0%';
+                }, 50); // Small delay to apply reset before starting transition
+            }, 0);
+
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 10) { // Warning for last 10 seconds
+                    timerTextEl.classList.add('warning');
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerTextEl.classList.remove('warning');
+                    // Automatically mark as incorrect and move to next
+                    if (!answeredCurrentQuestion) {
+                        userAnswers[currentQuestionIndex] = {
+                            selected: null, // No answer selected
+                            correct: questions[currentQuestionIndex].correctAnswer,
+                            isCorrect: false,
+                            timeTaken: TIME_PER_QUESTION // Full time taken
+                        };
+                        showAnswerFeedback(currentQuestionIndex);
+                        updateScoreDisplay(); // Score won't change as it's incorrect
+                        nextBtn.disabled = false; // Enable next button
+                        
+                        // If this is the last question, show finish button
+                        if (currentQuestionIndex === questions.length - 1) {
+                            nextBtn.classList.add('d-none');
+                            finishBtn.classList.remove('d-none');
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerTextEl.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            // Timer bar width is handled by CSS transition
+        }
+
+        function updateNavigation() {
+            // No previous button for this test type
+            // nextBtn and finishBtn visibility handled by selectAnswer/timer logic
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBarEl.style.width = `${progress}%`;
+            progressBarEl.setAttribute('aria-valuenow', progress);
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+        
+        function updateScoreDisplay() {
+            currentScoreEl.textContent = `Score: ${score}`;
+        }
+
+        function handleNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            } else {
+                showFinalResults();
+            }
+        }
+
+        function determineLevelAndRecommendations(percentage) {
+            let level = "";
+            let levelClass = "";
+            let recommendations = "";
+
+            if (percentage >= 90) {
+                level = "Expert Agile & SCRUM";
+                levelClass = "level-expert";
+                recommendations = `
+                    <h4><i class="fas fa-star-half-alt"></i> Félicitations, Expert(e) !</h4>
+                    <p>Votre maîtrise des concepts Agiles et Scrum est exceptionnelle. Vous êtes prêt(e) à guider les équipes et à résoudre des défis complexes.</p>
+                    <h5><i class="fas fa-route"></i> Feuille de route :</h5>
+                    <ul>
+                        <li><i class="fas fa-lightbulb"></i> Explorez des cadres Agiles avancés (SAFe, LeSS, Nexus).</li>
+                        <li><i class="fas fa-chalkboard-teacher"></i> Envisagez des certifications de niveau supérieur (CSM, CSPO, SAFe Agilist).</li>
+                        <li><i class="fas fa-users-cog"></i> Participez à des communautés de pratique et partagez votre expertise.</li>
+                        <li><i class="fas fa-book"></i> Approfondissez des sujets spécifiques comme le DevOps, le Lean ou la gestion de portefeuille Agile.</li>
+                    </ul>
+                `;
+            } else if (percentage >= 70) {
+                level = "Avancé(e) en Agile & SCRUM";
+                levelClass = "level-avance";
+                recommendations = `
+                    <h4><i class="fas fa-check-circle"></i> Très bien, niveau Avancé !</h4>
+                    <p>Vous avez une excellente compréhension des principes Agiles et des pratiques Scrum. Vous pouvez contribuer activement et efficacement.</p>
+                    <h5><i class="fas fa-route"></i> Feuille de route :</h5>
+                    <ul>
+                        <li><i class="fas fa-cogs"></i> Mettez en pratique vos connaissances dans des projets réels.</li>
+                        <li><i class="fas fa-certificate"></i> Obtenez des certifications clés (PSM I, PSPO I) pour valider vos compétences.</li>
+                        <li><i class="fas fa-comments"></i> Participez activement aux événements Scrum et proposez des améliorations.</li>
+                        <li><i class="fas fa-search-plus"></i> Étudiez des cas d'utilisation complexes et des défis d'implémentation Agile.</li>
+                    </ul>
+                `;
+            } else if (percentage >= 50) {
+                level = "Intermédiaire en Agile & SCRUM";
+                levelClass = "level-intermediaire";
+                recommendations = `
+                    <h4><i class="fas fa-info-circle"></i> Bon début, niveau Intermédiaire !</h4>
+                    <p>Vous avez acquis les bases solides de l'Agilité et de Scrum. C'est le moment de consolider et d'appliquer vos connaissances.</p>
+                    <h5><i class="fas fa-route"></i> Feuille de route :</h5>
+                    <ul>
+                        <li><i class="fas fa-redo-alt"></i> Revoyez les concepts clés des rôles, événements et artefacts Scrum.</li>
+                        <li><i class="fas fa-book-reader"></i> Lisez le Guide Scrum officiel et d'autres ressources fiables.</li>
+                        <li><i class="fas fa-users"></i> Cherchez des opportunités de travailler dans un environnement Agile.</li>
+                        <li><i class="fas fa-question-circle"></i> N'hésitez pas à poser des questions et à participer aux discussions d'équipe.</li>
+                    </ul>
+                `;
+            } else if (percentage >= 25) {
+                level = "Débutant(e) en Agile & SCRUM";
+                levelClass = "level-debutant";
+                recommendations = `
+                    <h4><i class="fas fa-seedling"></i> En croissance, niveau Débutant !</h4>
+                    <p>Vous avez commencé votre parcours dans l'Agilité. Les concepts sont nouveaux, mais avec de la persévérance, vous progresserez rapidement.</p>
+                    <h5><i class="fas fa-route"></i> Feuille de route :</h5>
+                    <ul>
+                        <li><i class="fas fa-graduation-cap"></i> Concentrez-vous sur les fondamentaux : Manifeste Agile, piliers et valeurs de Scrum.</li>
+                        <li><i class="fas fa-video"></i> Suivez des tutoriels vidéo et des cours en ligne introductifs.</li>
+                        <li><i class="fas fa-sticky-note"></i> Créez des fiches de révision pour les termes clés.</li>
+                        <li><i class="fas fa-lightbulb"></i> Essayez de visualiser comment les concepts s'appliquent dans des situations concrètes.</li>
+                    </ul>
+                `;
+            } else {
+                level = "Novice en Agile & SCRUM";
+                levelClass = "level-novice";
+                recommendations = `
+                    <h4><i class="fas fa-exclamation-triangle"></i> Courage, niveau Novice !</h4>
+                    <p>C'est un excellent point de départ pour apprendre. Les méthodes Agiles peuvent sembler complexes au début, mais elles sont très logiques.</p>
+                    <h5><i class="fas fa-route"></i> Feuille de route :</h5>
+                    <ul>
+                        <li><i class="fas fa-book-open"></i> Reprenez les bases et avancez pas à pas.</li>
+                        <li><i class="fas fa-globe"></i> Explorez des introductions simples à l'Agilité et à Scrum.</li>
+                        <li><i class="fas fa-question"></i> N'hésitez pas à chercher des définitions pour chaque terme inconnu.</li>
+                        <li><i class="fas fa-users-class"></i> Envisagez de suivre une formation introductive avec un formateur.</li>
+                    </ul>
+                `;
+            }
+
+            return { level, levelClass, recommendations };
+        }
+
+        function showFinalResults() {
+            clearInterval(timerInterval); // Ensure timer is stopped
+            nextBtn.classList.add('d-none');
+            finishBtn.classList.add('d-none'); // Hide finish button too
+
+            const percentage = (score / questions.length) * 100;
+            const { level, levelClass, recommendations } = determineLevelAndRecommendations(percentage);
+
+            finalScoreCorrectEl.textContent = score;
+            finalScoreTotalEl.textContent = questions.length;
+            finalScorePercentageEl.textContent = `${percentage.toFixed(0)}%`;
+            finalScorePercentageEl.style.color = getScoreColor(percentage); // Set color based on score
+            
+            levelBadgeEl.textContent = level;
+            levelBadgeEl.className = `level-badge ${levelClass}`; // Apply level specific class
+            finalRecommendationsEl.innerHTML = recommendations;
+
+            resultsModal.show();
+        }
+
+        function getScoreColor(percentage) {
+            if (percentage >= 90) return 'var(--success-green)';
+            if (percentage >= 70) return 'var(--secondary-blue)';
+            if (percentage >= 50) return 'var(--accent-orange)';
+            if (percentage >= 25) return '#e67e22'; /* Carrot orange */
+            return 'var(--danger-red)';
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', handleNext);
+        finishBtn.addEventListener('click', showFinalResults);
+        restartQuizBtn.addEventListener('click', () => {
+            resultsModal.hide();
+            setTimeout(startQuiz, 500); // Small delay for modal to close
+        });
+        
+        // Initial call
+        document.addEventListener('DOMContentLoaded', startQuiz);
+    </script>
+</body>
+</html>

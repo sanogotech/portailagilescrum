@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test de Niveau Agile & Scrum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #eef6fb;
+      padding: 30px;
+    }
+    .quiz-container {
+      max-width: 960px;
+      margin: auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .question-card {
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #fefefe;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+    .answer-option {
+      margin-bottom: 10px;
+      padding: 12px 18px;
+      border: 1px solid #d0d9e2;
+      border-radius: 6px;
+      background-color: #f9fbfd;
+      cursor: pointer;
+    }
+    .answer-option:hover { background-color: #e7f3ff; }
+    .correct { background-color: #d4edda; border-color: #28a745; }
+    .incorrect { background-color: #f8d7da; border-color: #dc3545; }
+    .timer {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #dc3545;
+    }
+    .result-section {
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2 class="text-center mb-4">🧠 Test de Niveau Agile & Scrum</h2>
+    <p class="text-muted text-center mb-4">Répondez aux 20 questions. Vous avez <strong>1 minute 15</strong> par question. À la fin, recevez votre niveau et une feuille de route personnalisée.</p>
+    <div class="text-end mb-3">
+      <span class="timer">⏱ Temps restant : <span id="timer">1:15</span></span>
+    </div>
+    <div id="quiz-area"></div>
+  </div>
+
+<script>
+const questions = [
+  {
+    question: "Qu’est-ce que le Manifeste Agile met en avant ?",
+    options: ["A. "Les outils plus que les individus", "B. La documentation avant le logiciel", "C. Les interactions humaines avant les processus", "D. Le respect strict du plan""],
+    answer: 2
+  },
+  {
+    question: "Qui est responsable de maximiser la valeur métier du produit ?",
+    options: ["A. "Scrum Master", "B. Product Owner", "C. Développeurs", "D. Sponsor""],
+    answer: 1
+  },
+  {
+    question: "Quelle est la durée maximale d’un Sprint recommandé ?",
+    options: ["A. "1 jour", "B. 2 semaines", "C. 1 mois", "D. 3 mois""],
+    answer: 2
+  },
+  {
+    question: "Quel est l’objectif du Daily Scrum ?",
+    options: ["A. "Partager les tâches avec le client", "B. Planifier les vacances", "C. Synchroniser l'équipe quotidiennement", "D. Écrire des user stories""],
+    answer: 2
+  },
+  {
+    question: "Quelle artefact contient la liste des fonctionnalités à réaliser ?",
+    options: ["A. "Sprint Backlog", "B. Definition of Done", "C. Product Backlog", "D. Sprint Goal""],
+    answer: 2
+  },
+  {
+    question: "Qui décide de la durée du Sprint ?",
+    options: ["A. "Chef de projet", "B. Scrum Master", "C. Équipe Scrum", "D. Direction générale""],
+    answer: 2
+  },
+  {
+    question: "Quelle est la réunion qui permet l'amélioration continue ?",
+    options: ["A. "Daily Scrum", "B. Sprint Review", "C. Sprint Planning", "D. Sprint Rétrospective""],
+    answer: 3
+  },
+  {
+    question: "Que signifie 'Done' dans Scrum ?",
+    options: ["A. "Tâche commencée", "B. Fonctionnalité testée et livrée", "C. Fonctionnelle mais non testée", "D. Tâche planifiée""],
+    answer: 1
+  },
+  {
+    question: "Que mesure le graphique burndown ?",
+    options: ["A. "La performance individuelle", "B. La qualité du produit", "C. Le travail restant", "D. Le nombre de bugs""],
+    answer: 2
+  },
+  {
+    question: "Quand le backlog produit est-il finalisé ?",
+    options: ["A. "Avant le premier sprint", "B. Jamais", "C. À la fin du projet", "D. Au sprint 0""],
+    answer: 1
+  }
+
+  {
+    question: "Quelle affirmation est vraie ?",
+    options: ["A. "Le Scrum Master donne des ordres", "B. Le PO est responsable de la qualité technique", "C. Scrum est un cadre, pas une méthode", "D. Un Sprint dure toujours 2 semaines""],
+    answer: 2
+  },
+
+  {
+    question: "Que signifie MVP ?",
+    options: ["A. "Méthode de Valeur Produit", "B. Minimum Viable Product", "C. Module Visualisé en Production", "D. Modèle de Validation Prioritaire""],
+    answer: 1
+  },
+
+  {
+    question: "La vélocité mesure quoi ?",
+    options: ["A. "Le temps de développement total", "B. Le nombre de membres de l’équipe", "C. La quantité de travail réalisée par Sprint", "D. Les tests automatisés""],
+    answer: 2
+  },
+
+  {
+    question: "Quelle est la première chose à faire lors d’un projet agile ?",
+    options: ["A. "Écrire un cahier des charges", "B. Définir le budget", "C. Identifier les utilisateurs et leurs besoins", "D. Planifier les livraisons""],
+    answer: 2
+  },
+
+  {
+    question: "Quel est le rôle du Product Owner dans la planification ?",
+    options: ["A. "Superviser les tests", "B. Planifier le Sprint", "C. Prioriser les éléments du Product Backlog", "D. Former l’équipe""],
+    answer: 2
+  },
+
+  {
+    question: "Qui est responsable du Sprint Goal ?",
+    options: ["A. "Product Owner", "B. Scrum Master", "C. Équipe Scrum", "D. Sponsor""],
+    answer: 2
+  },
+
+  {
+    question: "Combien de rôles y a-t-il dans Scrum ?",
+    options: ["A. "2", "B. 3", "C. 4", "D. 5""],
+    answer: 1
+  },
+
+  {
+    question: "Que fait l’équipe de développement pendant le Sprint ?",
+    options: ["A. "Elle rédige le backlog produit", "B. Elle organise les revues", "C. Elle développe les éléments du Sprint Backlog", "D. Elle impose la Definition of Done""],
+    answer: 2
+  },
+
+  {
+    question: "Quelle pratique n’est pas typiquement agile ?",
+    options: ["A. "Documentation continue", "B. Cycle en V rigide", "C. Livraison fréquente", "D. Amélioration continue""],
+    answer: 1
+  },
+
+  {
+    question: "Quel est le livrable principal à la fin d’un Sprint ?",
+    options: ["A. "Un plan de release", "B. Une liste de tâches", "C. Un incrément de produit utilisable", "D. Un rapport de bug""],
+    answer: 2
+  },
+];
+
+let current = 0;
+let score = 0;
+let timer;
+let timeLeft = 75;
+
+function startTimer() {
+  clearInterval(timer);
+  timeLeft = 75;
+  document.getElementById('timer').innerText = "1:15";
+  timer = setInterval(() => {
+    timeLeft--;
+    const min = Math.floor(timeLeft / 60);
+    const sec = timeLeft % 60;
+    document.getElementById('timer').innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
+    if (timeLeft <= 0) {
+      clearInterval(timer);
+      nextQuestion();
+    }
+  }, 1000);
+}
+
+function showQuestion() {
+  const q = questions[current];
+  let html = `<div class="question-card"><h5>Q${current + 1}. ${q.question}</h5>`;
+  q.options.forEach((opt, i) => {
+    html += `<div class="answer-option" onclick="checkAnswer(this, ${i})">${opt}</div>`;
+  });
+  html += `</div>`;
+  document.getElementById("quiz-area").innerHTML = html;
+  startTimer();
+}
+
+function checkAnswer(el, selected) {
+  clearInterval(timer);
+  const correct = questions[current].answer;
+  const opts = document.querySelectorAll('.answer-option');
+  opts.forEach((o, idx) => {
+    o.classList.remove("correct", "incorrect");
+    if (idx === correct) o.classList.add("correct");
+    else if (idx === selected) o.classList.add("incorrect");
+    o.onclick = null;
+  });
+  if (selected === correct) score++;
+  setTimeout(nextQuestion, 1500);
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) showQuestion();
+  else showResult();
+}
+
+function showResult() {
+  let level = "";
+  let roadmap = "<ul>";
+  if (score >= 18) {
+    level = "🔝 Expert Agile";
+    roadmap += "<li>Contribuer à des transformations à l’échelle</li><li>Former les équipes Scrum</li><li>Adopter des frameworks comme SAFe ou LeSS</li>";
+  } else if (score >= 15) {
+    level = "💡 Confirmé";
+    roadmap += "<li>Approfondir les techniques Scrum</li><li>Développer les soft skills d’un Product Owner</li><li>Initier des ateliers d’amélioration continue</li>";
+  } else if (score >= 10) {
+    level = "🚀 Intermédiaire";
+    roadmap += "<li>Maîtriser les rôles et artefacts Scrum</li><li>Comprendre le cycle de vie Agile</li><li>Pratiquer avec des projets simulés</li>";
+  } else if (score >= 5) {
+    level = "📘 Débutant";
+    roadmap += "<li>Lire le Scrum Guide</li><li>Découvrir les rôles agiles</li><li>Participer à des projets tutorés</li>";
+  } else {
+    level = "🌱 Novice";
+    roadmap += "<li>Se former aux bases de l'agilité</li><li>Visionner des vidéos explicatives</li><li>Lire le Manifeste Agile</li>";
+  }
+  roadmap += "</ul>";
+
+  document.getElementById("quiz-area").innerHTML = `
+    <div class="result-section">
+      <h3>Résultat</h3>
+      <p>Votre score : <strong>${score} / ${questions.length}</strong></p>
+      <h4 class="mt-3">${level}</h4>
+      <div class="text-start mt-4">
+        <h5>🎯 Feuille de route recommandée :</h5>
+        ${roadmap}
+      </div>
+    </div>
+  `;
+}
+
+window.onload = showQuestion;
+</script>
+</body>
+</html>

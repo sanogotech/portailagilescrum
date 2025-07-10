@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Agile & Scrum - Mode Apprentissage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles inspired by quizRevision.html */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f9ff;
+            color: #2c3e50;
+            padding: 30px;
+        }
+        .quiz-container {
+            max-width: 960px;
+            margin: auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .question-card {
+            margin-bottom: 30px;
+            border-radius: 10px;
+            padding: 25px;
+            background-color: #fdfdfd;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .question-card h5 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .answer-option {
+            margin-bottom: 12px;
+            padding: 12px 18px;
+            border: 1px solid #d0d9e2;
+            border-radius: 8px;
+            background-color: #f9fbfd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .answer-option:hover {
+            background-color: #e9f5ff;
+        }
+        .correct {
+            background-color: #d4edda !important;
+            border-color: #28a745 !important;
+        }
+        .incorrect {
+            background-color: #f8d7da !important;
+            border-color: #dc3545 !important;
+        }
+        .rationale {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f1f5f8;
+            border-left: 5px solid #007bff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2 class="quiz-header">Quiz Agile & Scrum - 25 Questions</h2>
+        <p class="text-muted text-center">Mode apprentissage avec explications détaillées pour chaque réponse</p>
+        <div id="quiz-questions">
+        </div>
+    </div>
+
+<script>
+const questions = [
+  {
+    question: "Quelle est la principale valeur du Manifeste Agile ?",
+    options: [
+      "Respect strict des processus et outils",
+      "Interaction avec les individus plutôt que les processus",
+      "Documentation exhaustive",
+      "Respect rigide du plan initial"
+    ],
+    answer: 1,
+    explanation: "Le Manifeste Agile met l'accent sur les individus et leurs interactions plus que sur les processus et les outils."
+  },
+  {
+    question: "Quel est le rôle principal du Scrum Master ?",
+    options: [
+      "Gérer l'équipe de développement",
+      "Imposer la méthode agile à toute l'entreprise",
+      "Supprimer les obstacles et faciliter le processus Scrum",
+      "Déterminer les priorités produit"
+    ],
+    answer: 2,
+    explanation: "Le Scrum Master est un facilitateur qui supprime les obstacles et s’assure que Scrum est bien compris et utilisé."
+  },
+  {
+    question: "Combien de temps dure typiquement un Sprint en Scrum ?",
+    options: [
+      "1 jour",
+      "1 à 4 semaines",
+      "3 à 6 mois",
+      "Jusqu'à livraison complète du projet"
+    ],
+    answer: 1,
+    explanation: "Un Sprint dure généralement de 1 à 4 semaines, toujours de durée fixe pour assurer la régularité."
+  },
+  {
+    question: "Quel artefact Scrum contient la liste des fonctionnalités à développer ?",
+    options: [
+      "Increment",
+      "Sprint Backlog",
+      "Product Backlog",
+      "Definition of Done"
+    ],
+    answer: 2,
+    explanation: "Le Product Backlog est une liste priorisée des fonctionnalités désirées pour le produit."
+  },
+  {
+    question: "Quelle réunion Scrum a lieu chaque jour ?",
+    options: [
+      "Sprint Review",
+      "Sprint Planning",
+      "Daily Scrum",
+      "Sprint Retrospective"
+    ],
+    answer: 2,
+    explanation: "Le Daily Scrum est une réunion quotidienne de 15 minutes où l’équipe synchronise son travail."
+  },
+  {
+    question: "Qui est responsable de maximiser la valeur du produit résultant du travail de l'équipe de développement ?",
+    options: [
+      "Le Scrum Master",
+      "L'équipe de développement",
+      "Le Product Owner",
+      "Le Chef de projet"
+    ],
+    answer: 2,
+    explanation: "Le Product Owner est responsable de maximiser la valeur du produit."
+  },
+  {
+    question: "Qu'est-ce que la 'Definition of Done' (DoD) en Scrum ?",
+    options: [
+      "La liste des tâches restantes dans le Sprint",
+      "Un document décrivant toutes les fonctionnalités du produit",
+      "Un accord clair sur ce qui doit être accompli pour qu'un incrément soit considéré comme terminé",
+      "Le plan de test final du produit"
+    ],
+    answer: 2,
+    explanation: "La Definition of Done est un accord formel décrivant la qualité et le travail nécessaire pour qu'un incrément soit considéré comme terminé."
+  },
+  {
+    question: "Quand le Sprint Review a-t-il lieu ?",
+    options: [
+      "Au début de chaque Sprint",
+      "Pendant le Sprint, si l'équipe rencontre des problèmes",
+      "À la fin de chaque Sprint, pour inspecter l'incrément et adapter le Product Backlog",
+      "Uniquement à la fin du projet"
+    ],
+    answer: 2,
+    explanation: "Le Sprint Review a lieu à la fin du Sprint pour inspecter l'incrément et adapter le Product Backlog si nécessaire."
+  },
+  {
+    question: "Quel est l'objectif principal de la Sprint Retrospective ?",
+    options: [
+      "Réviser le Product Backlog",
+      "Planifier le prochain Sprint",
+      "Inspecter la façon dont le dernier Sprint s'est déroulé et identifier les améliorations",
+      "Démontrer l'incrément de produit aux parties prenantes"
+    ],
+    answer: 2,
+    explanation: "La Sprint Retrospective permet à l'équipe Scrum d'inspecter son travail et de créer un plan d'améliorations pour le prochain Sprint."
+  },
+  {
+    question: "Un 'Increment' en Scrum est :",
+    options: [
+      "Une nouvelle fonctionnalité ajoutée au Product Backlog",
+      "La somme de tous les éléments du Product Backlog complétés pendant un Sprint et les Sprints précédents, et vérifiée par la Definition of Done",
+      "Le temps qu'il faut pour terminer un Sprint",
+      "Un rapport de progression pour les parties prenantes"
+    ],
+    answer: 1,
+    explanation: "Un Increment est la somme de tous les éléments du Product Backlog complétés pendant un Sprint et les Sprints précédents, et vérifiée par la Definition of Done. Il doit être utilisable."
+  },
+  {
+    question: "Qu'est-ce qu'une User Story ?",
+    options: [
+      "Un document technique détaillé pour le développement",
+      "Une description informelle et générale d'une fonctionnalité logicielle écrite du point de vue de l'utilisateur final",
+      "Un rapport de bug",
+      "Un diagramme de flux de travail"
+    ],
+    answer: 1,
+    explanation: "Une User Story est une description courte et simple d'une fonctionnalité vue par l'utilisateur."
+  },
+  {
+    question: "Qui est responsable de la gestion du Product Backlog ?",
+    options: [
+      "Le Scrum Master",
+      "L'équipe de développement",
+      "Le Product Owner",
+      "Toute l'équipe Scrum"
+    ],
+    answer: 2,
+    explanation: "Le Product Owner est le seul responsable de la gestion du Product Backlog."
+  },
+  {
+    question: "Quel est le but du Sprint Planning ?",
+    options: [
+      "Inspecter le Product Backlog et adapter si nécessaire",
+      "Définir le travail à réaliser pendant le Sprint et l'objectif du Sprint",
+      "Présenter l'incrément de produit aux parties prenantes",
+      "Discuter des obstacles rencontrés par l'équipe de développement"
+    ],
+    answer: 1,
+    explanation: "Le Sprint Planning est une réunion où l'équipe Scrum définit le travail à réaliser et l'objectif du Sprint."
+  },
+  {
+    question: "Quel est le rôle de l'auto-organisation dans Scrum ?",
+    options: [
+      "Le Scrum Master distribue les tâches à l'équipe",
+      "Le Product Owner décide comment les tâches sont réalisées",
+      "L'équipe de développement gère et organise son propre travail pour atteindre l'objectif du Sprint",
+      "La direction de l'entreprise définit les responsabilités de chacun"
+    ],
+    answer: 2,
+    explanation: "L'équipe de développement est auto-organisée, ce qui signifie qu'elle décide collectivement comment aborder le travail pour atteindre l'objectif du Sprint."
+  },
+  {
+    question: "Quelle est la durée maximale recommandée pour un Daily Scrum ?",
+    options: [
+      "30 minutes",
+      "1 heure",
+      "15 minutes",
+      "2 heures"
+    ],
+    answer: 2,
+    explanation: "Le Daily Scrum est un événement de 15 minutes, à durée fixe, pour l'équipe de développement."
+  },
+  {
+    question: "Quel est le principe d'Agile qui prône 'Logiciels opérationnels plus que documentation exhaustive' ?",
+    options: [
+      "Individus et interactions plus que processus et outils",
+      "Collaboration avec les clients plus que négociation de contrats",
+      "Réponse au changement plus que suivi d'un plan",
+      "Logiciels opérationnels plus que documentation exhaustive"
+    ],
+    answer: 3,
+    explanation: "C'est l'un des quatre principes fondateurs du Manifeste Agile, soulignant l'importance d'un produit fonctionnel."
+  },
+  {
+    question: "Qu'est-ce qu'un Burndown Chart ?",
+    options: [
+      "Un graphique montrant le coût total du projet",
+      "Un outil pour suivre les heures travaillées par chaque membre de l'équipe",
+      "Un graphique qui montre le travail restant à faire par rapport au temps dans un Sprint",
+      "Un diagramme des dépendances entre les tâches"
+    ],
+    answer: 2,
+    explanation: "Un Burndown Chart est un graphique visuel qui suit la quantité de travail restant dans un Sprint par rapport au temps."
+  },
+  {
+    question: "Qui participe au Daily Scrum ?",
+    options: [
+      "Product Owner, Scrum Master et Équipe de développement",
+      "Seulement l'équipe de développement",
+      "Product Owner et Scrum Master",
+      "Scrum Master et les parties prenantes"
+    ],
+    answer: 1,
+    explanation: "Le Daily Scrum est principalement pour l'équipe de développement, mais le Product Owner et le Scrum Master y participent également."
+  },
+  {
+    question: "Qu'est-ce que le 'Time-boxing' en Scrum ?",
+    options: [
+      "Allouer un temps illimité pour chaque tâche",
+      "Fixer une durée maximale et fixe pour tous les événements Scrum",
+      "Estimer le temps nécessaire pour compléter toutes les fonctionnalités d'un projet",
+      "Un outil de gestion du temps personnel"
+    ],
+    answer: 1,
+    explanation: "Le Time-boxing signifie que tous les événements Scrum (Sprint, Daily Scrum, etc.) ont une durée maximale et fixe."
+  },
+  {
+    question: "Quel est l'objectif du Product Goal ?",
+    options: [
+      "Décrire la vision du projet à court terme",
+      "Un objectif futur pour le produit, qui peut servir de cible pour l'équipe Scrum",
+      "La somme de tous les Sprints réalisés",
+      "Le nombre de bugs à corriger dans un Sprint"
+    ],
+    answer: 1,
+    explanation: "Le Product Goal est un objectif futur pour le produit, il fournit une cible que l'équipe Scrum peut planifier. C'est l'objectif de haut niveau pour le Product Backlog."
+  },
+  {
+    question: "Pourquoi est-il important d'avoir une 'Definition of Done' ?",
+    options: [
+      "Pour mesurer la performance individuelle des développeurs",
+      "Pour s'assurer que toutes les exigences légales sont respectées",
+      "Pour créer une compréhension commune de ce que signifie 'terminé' et assurer la qualité",
+      "Pour déterminer le prix final du produit"
+    ],
+    answer: 2,
+    explanation: "La Definition of Done assure la transparence et la qualité en fournissant une compréhension commune de ce qui signifie qu'un travail est terminé."
+  },
+  {
+    question: "Qui est responsable de la qualité de l'incrément ?",
+    options: [
+      "Le Product Owner",
+      "Le Scrum Master",
+      "L'équipe de développement",
+      "Le responsable qualité externe"
+    ],
+    answer: 2,
+    explanation: "L'équipe de développement est responsable de la qualité de l'incrément, s'assurant qu'il répond à la Definition of Done."
+  },
+  {
+    question: "Qu'est-ce que le principe d'empirisme en Scrum ?",
+    options: [
+      "Prendre des décisions basées sur la planification à long terme",
+      "Prendre des décisions basées sur l'expérience, l'observation et l'expérimentation",
+      "Se fier uniquement aux estimations initiales",
+      "Ignorer les retours d'expérience"
+    ],
+    answer: 1,
+    explanation: "L'empirisme signifie que la connaissance vient de l'expérience et que les décisions sont prises sur la base de ce qui est connu."
+  },
+  {
+    question: "Quel est le rôle du Scrum Master en ce qui concerne les parties prenantes externes ?",
+    options: [
+      "Il gère leurs attentes et s'assure qu'elles comprennent Scrum",
+      "Il negocie les contrats avec elles",
+      "Il leur impose les décisions de l'équipe",
+      "Il n'interagit jamais avec elles"
+    ],
+    answer: 0,
+    explanation: "Le Scrum Master sert l'organisation en aidant les parties prenantes à comprendre et à adopter Scrum, et en gérant leurs attentes."
+  },
+  {
+    question: "Quel est l'objectif principal du Sprint Backlog ?",
+    options: [
+      "Il contient toutes les fonctionnalités futures du produit",
+      "Il décrit l'ensemble des éléments du Product Backlog sélectionnés pour le Sprint, ainsi que le plan pour livrer l'Increment et atteindre l'objectif du Sprint",
+      "Il liste les problèmes et les obstacles rencontrés",
+      "Il documente les exigences non fonctionnelles du projet"
+    ],
+    answer: 1,
+    explanation: "Le Sprint Backlog est l'ensemble des éléments du Product Backlog sélectionnés pour le Sprint, et le plan pour livrer l'Increment et atteindre l'objectif du Sprint."
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  const q = questions[current];
+  const container = document.getElementById("quiz-questions");
+  const optionLetters = ['A', 'B', 'C', 'D']; // For adding A, B, C, D prefixes
+
+  container.innerHTML = `
+    <div class="question-card">
+      <h5>Q${current + 1}. ${q.question}</h5>
+      ${q.options.map((opt, idx) => `
+        <div class="answer-option" onclick="selectAnswer(${idx})" id="option${idx}">
+          <input type="radio" name="option" value="${idx}"> ${optionLetters[idx]}. ${opt}
+        </div>
+      `).join('')}
+      <div class="rationale mt-3" id="explanation" style="display:none;"></div>
+      <div class="mt-4 text-end">
+        <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn" style="display:none;">Suivant</button>
+      </div>
+    </div>
+  `;
+}
+
+function selectAnswer(selected) {
+  const q = questions[current];
+  const explanationDiv = document.getElementById("explanation");
+  const nextBtn = document.getElementById("nextBtn");
+  const options = document.querySelectorAll(".answer-option");
+
+  options.forEach((opt, idx) => {
+    opt.classList.remove("correct", "incorrect");
+    if (idx === q.answer) opt.classList.add("correct");
+    else if (idx === selected) opt.classList.add("incorrect");
+    opt.onclick = null; // Disable further clicks after selection
+  });
+
+  if (selected === q.answer) score++;
+  explanationDiv.innerText = q.explanation;
+  explanationDiv.style.display = "block";
+  nextBtn.style.display = "inline-block";
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) loadQuestion();
+  else showResult();
+}
+
+function showResult() {
+  document.getElementById("quiz-questions").innerHTML = `
+    <div class="text-center">
+      <h3>Quiz terminé !</h3>
+      <p class="lead">Votre score : <strong>${score} / ${questions.length}</strong></p>
+      <button class="btn btn-primary" onclick="restartQuiz()">Recommencer</button>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  loadQuestion();
+}
+
+window.onload = loadQuestion;
+</script>
+
+</body>
+</html>
