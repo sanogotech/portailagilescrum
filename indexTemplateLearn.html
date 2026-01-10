@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgileScrum Pro - Portail d'apprentissage</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #1a5276;
+      --secondary-color: #28b463;
+      --accent-color: #f39c12;
+      --light-bg: #f8f9fa;
+      --dark-bg: #2c3e50;
+      --gradient-start: #1a5276;
+      --gradient-end: #28b463;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 5rem 0;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,128L48,138.7C96,149,192,171,288,170.7C384,171,480,149,576,138.7C672,128,768,128,864,144C960,160,1056,192,1152,192C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: center bottom;
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      font-weight: 600;
+      padding: 1rem 1.5rem;
+    }
+
+    .module-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border: none;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background-color: var(--accent-color);
+      color: white;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+    }
+
+    .btn-accent:hover {
+      background-color: #e67e22;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+
+    .feature-box {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .process-step {
+      position: relative;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .process-step::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .step-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      margin-right: 15px;
+      font-weight: bold;
+    }
+
+    .testimonial-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: """;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 4rem;
+      color: rgba(0,0,0,0.05);
+      font-family: Georgia, serif;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+
+    .stats-box {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .stats-label {
+      font-size: 1rem;
+      color: #666;
+    }
+
+    .tab-content {
+      padding: 2rem 0;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: #666;
+      font-weight: 500;
+      padding: 0.8rem 1.5rem;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--primary-color);
+      background-color: transparent;
+    }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Animation pour les éléments */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Délai d'animation pour chaque élément */
+    .animate-delay-1 { animation-delay: 0.1s; }
+    .animate-delay-2 { animation-delay: 0.2s; }
+    .animate-delay-3 { animation-delay: 0.3s; }
+    .animate-delay-4 { animation-delay: 0.4s; }
+    .animate-delay-5 { animation-delay: 0.5s; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 3rem 0;
+      }
+
+      .module-icon {
+        font-size: 2rem;
+      }
+
+      .section-title::after {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-kanban me-2"></i>AgileScrum Pro
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#accueil">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#methodes">Méthodes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#scrum">Scrum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#apprentissage">Apprentissage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#outils">Outils</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#communaute">Communauté</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-accent ms-2" href="#essai">Essai Gratuit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="accueil" class="hero-section">
+    <div class="container text-center position-relative">
+      <h1 class="display-4 fw-bold mb-4 animate-fadeInUp">Maîtrisez l'Agilité et Scrum avec Expertise</h1>
+      <p class="lead mb-4 animate-fadeInUp animate-delay-1">Formation complète, outils pratiques et communauté active pour exceller dans la gestion de projets agiles</p>
+      <div class="d-flex justify-content-center gap-3 animate-fadeInUp animate-delay-2">
+        <a href="#apprentissage" class="btn btn-light btn-lg px-4 py-2">Commencer maintenant</a>
+        <a href="#methodes" class="btn btn-outline-light btn-lg px-4 py-2">Découvrir les méthodes</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container mb-5">
+    <section id="methodes" class="mb-5">
+      <h2 class="section-title">Méthodes Agiles Expliquées</h2>
+      
+      <div class="row g-4 mb-5">
+        <div class="col-md-4">
+          <div class="feature-box animate-fadeInUp">
+            <i class="bi bi-kanban feature-icon"></i>
+            <h4>Scrum</h4>
+            <p>Cadre de travail itératif avec des rôles, événements et artefacts définis pour une livraison efficace.</p>
+            <a href="#" class="btn btn-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-box animate-fadeInUp animate-delay-1">
+            <i class="bi bi-columns-gap feature-icon"></i>
+            <h4>Kanban</h4>
+            <p>Visualisez votre flux de travail et améliorez continuellement votre processus de développement.</p>
+            <a href="#" class="btn btn-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-box animate-fadeInUp animate-delay-2">
+            <i class="bi bi-lightning-charge feature-icon"></i>
+            <h4>XP</h4>
+            <p>Pratiques d'ingénierie extrême pour des logiciels de haute qualité et une adaptabilité maximale.</p>
+            <a href="#" class="btn btn-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h3>Pourquoi choisir les méthodes agiles ?</h3>
+          <p class="mb-4">Les méthodes agiles transforment la façon dont les équipes travaillent, en privilégiant la collaboration, l'adaptabilité et la livraison de valeur.</p>
+          
+          <div class="process-step mb-3">
+            <h5><span class="step-number">1</span> Flexibilité et adaptation</h5>
+            <p>Répondez rapidement aux changements de besoins et de marché sans compromettre le projet.</p>
+          </div>
+          
+          <div class="process-step mb-3">
+            <h5><span class="step-number">2</span> Livraison de valeur continue</h5>
+            <p>Livrez des fonctionnalités prioritaires plus rapidement et obtenez des retours précoces.</p>
+          </div>
+          
+          <div class="process-step">
+            <h5><span class="step-number">3</span> Collaboration renforcée</h5>
+            <p>Impliquez toutes les parties prenantes et favorisez une communication transparente.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="mb-0">Chiffres clés de l'agilité</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-6 mb-4">
+                  <div class="stats-number">74%</div>
+                  <div class="stats-label">des organisations utilisent l'agilité</div>
+                </div>
+                <div class="col-6 mb-4">
+                  <div class="stats-number">60%</div>
+                  <div class="stats-label">d'augmentation de la productivité</div>
+                </div>
+                <div class="col-6">
+                  <div class="stats-number">45%</div>
+                  <div class="stats-label">d'amélioration de la qualité</div>
+                </div>
+                <div class="col-6">
+                  <div class="stats-number">38%</div>
+                  <div class="stats-label">de réduction des délais</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="scrum" class="mb-5">
+      <h2 class="section-title">Découvrez Scrum en Détail</h2>
+      
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <p class="lead">Scrum est le cadre agile le plus populaire, utilisé par des équipes du monde entier pour livrer des produits complexes de manière itérative et incrémentale.</p>
+        </div>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-people me-2"></i>
+              <h5 class="mb-0">Rôles Scrum</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                  <div class="bg-primary text-white rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-person-workspace fs-4"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Product Owner</p>
+                  <p class="small">Maximise la valeur du produit</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="bg-success text-white rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-kanban fs-4"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Scrum Master</p>
+                  <p class="small">Facilite le processus</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="bg-warning text-dark rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <i class="bi bi-people-fill fs-4"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Équipe Dev</p>
+                  <p class="small">Livrent les incréments</p>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary w-100 mt-3">Découvrir les rôles</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-calendar-event me-2"></i>
+              <h5 class="mb-0">Événements Scrum</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Planning
+                  <span class="badge bg-primary rounded-pill">8h max</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Daily Scrum
+                  <span class="badge bg-primary rounded-pill">15 min</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Review
+                  <span class="badge bg-primary rounded-pill">4h max</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Retrospective
+                  <span class="badge bg-primary rounded-pill">3h max</span>
+                </li>
+              </ul>
+              <a href="#" class="btn btn-primary w-100 mt-3">Voir le calendrier</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apprentissage" class="mb-5">
+      <h2 class="section-title">Parcours d'Apprentissage</h2>
+      
+      <div class="row g-4 mb-5">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Débutant</h5>
+              <p class="text-muted mb-0">Découverte</p>
+            </div>
+            <div class="card-body text-center">
+              <h3 class="text-primary">Gratuit</h3>
+              <ul class="list-unstyled my-4">
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Introduction à l'agilité</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Principes fondamentaux</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Valeurs du manifeste</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Quiz d'évaluation</li>
+              </ul>
+              <a href="#" class="btn btn-outline-primary w-100">Commencer</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100 border-primary">
+            <div class="card-header text-center bg-primary text-white">
+              <h5 class="mb-0">Intermédiaire</h5>
+              <p class="mb-0">Pratique</p>
+            </div>
+            <div class="card-body text-center">
+              <h3 class="text-primary">29€<small class="text-muted">/mois</small></h3>
+              <ul class="list-unstyled my-4">
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Tout le contenu Débutant</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Scrum en profondeur</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Simulations interactives</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Cas pratiques réels</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Certificat de complétion</li>
+              </ul>
+              <a href="#" class="btn btn-primary w-100">S'abonner</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Avancé</h5>
+              <p class="text-muted mb-0">Expertise</p>
+            </div>
+            <div class="card-body text-center">
+              <h3 class="text-primary">49€<small class="text-muted">/mois</small></h3>
+              <ul class="list-unstyled my-4">
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Tout le contenu Intermédiaire</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Agilité à l'échelle</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Coaching d'équipe</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Préparation certification</li>
+                <li class="mb-2"><i class="bi bi-check text-success me-2"></i>Accès à la communauté</li>
+              </ul>
+              <a href="#" class="btn btn-outline-primary w-100">S'abonner</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-8 mx-auto text-center">
+          <h3>Témoignages</h3>
+          <p class="mb-4">Découvrez ce que nos apprenants disent de leur expérience</p>
+          
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="testimonial-card">
+                <p>"Ce portail a transformé ma façon de gérer les projets. Les simulations interactives m'ont permis de pratiquer Scrum dans un environnement sans risque."</p>
+                <div class="d-flex align-items-center mt-3">
+                  <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Avatar" class="testimonial-avatar">
+                  <div>
+                    <h6 class="mb-0">Sophie Martin</h6>
+                    <p class="text-muted mb-0">Chef de projet</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="testimonial-card">
+                <p>"La progression étape par étape et les cas pratiques m'ont aidé à obtenir ma certification Scrum Master en seulement 2 mois. Je recommande vivement !"</p>
+                <div class="d-flex align-items-center mt-3">
+                  <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Avatar" class="testimonial-avatar">
+                  <div>
+                    <h6 class="mb-0">Thomas Leroy</h6>
+                    <p class="text-muted mb-0">Développeur</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="outils" class="mb-5">
+      <h2 class="section-title">Outils Recommandés</h2>
+      
+      <ul class="nav nav-tabs justify-content-center mb-4" id="outilsTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="gestion-tab" data-bs-toggle="tab" data-bs-target="#gestion" type="button" role="tab">Gestion de projet</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="collaboration-tab" data-bs-toggle="tab" data-bs-target="#collaboration" type="button" role="tab">Collaboration</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="developpement-tab" data-bs-toggle="tab" data-bs-target="#developpement" type="button" role="tab">Développement</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="outilsTabContent">
+        <div class="tab-pane fade show active" id="gestion" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-kanban fs-1 text-primary mb-3"></i>
+                  <h5>Jira</h5>
+                  <p>L'outil de référence pour la gestion de projets Scrum et Kanban.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-columns-gap fs-1 text-primary mb-3"></i>
+                  <h5>Trello</h5>
+                  <p>Tableaux visuels simples et efficaces pour les petites équipes.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-microsoft fs-1 text-primary mb-3"></i>
+                  <h5>Azure DevOps</h5>
+                  <p>Suite complète pour le développement et la gestion de projets.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="collaboration" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-slack fs-1 text-primary mb-3"></i>
+                  <h5>Slack</h5>
+                  <p>Plateforme de communication pour les équipes collaboratives.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-microsoft fs-1 text-primary mb-3"></i>
+                  <h5>Teams</h5>
+                  <p>Solution Microsoft pour la collaboration et les réunions en ligne.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-palette fs-1 text-primary mb-3"></i>
+                  <h5>Miro</h5>
+                  <p>Tableau blanc en ligne pour les ateliers et la collaboration visuelle.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="developpement" role="tabpanel">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-git fs-1 text-primary mb-3"></i>
+                  <h5>GitHub</h5>
+                  <p>Plateforme de développement collaboratif et de gestion de versions.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-code-slash fs-1 text-primary mb-3"></i>
+                  <h5>VS Code</h5>
+                  <p>Éditeur de code léger et puissant avec de nombreuses extensions.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-gear fs-1 text-primary mb-3"></i>
+                  <h5>Jenkins</h5>
+                  <p>Serveur d'automatisation pour l'intégration et la livraison continues.</p>
+                  <a href="#" class="btn btn-outline-primary">Visiter le site</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="communaute" class="mb-5">
+      <h2 class="section-title">Rejoignez Notre Communauté</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Événements à venir</h5>
+            </div>
+            <div class="card-body">
+              <div class="d-flex mb-3">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">15</div>
+                  <div class="small">OCT</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Webinar: Scrum pour les débutants</h6>
+                  <p class="text-muted mb-0">14h00 - 15h30 (CET)</p>
+                </div>
+              </div>
+              
+              <div class="d-flex mb-3">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">22</div>
+                  <div class="small">OCT</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Atelier: Estimation agile</h6>
+                  <p class="text-muted mb-0">10h00 - 12h00 (CET)</p>
+                </div>
+              </div>
+              
+              <div class="d-flex">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">05</div>
+                  <div class="small">NOV</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Conférence: Agilité à l'échelle</h6>
+                  <p class="text-muted mb-0">09h00 - 17h00 (CET)</p>
+                </div>
+              </div>
+              
+              <a href="#" class="btn btn-primary w-100 mt-4">Voir tous les événements</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Forum de discussion</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Comment gérer les changements en cours de sprint?</h6>
+                <p class="text-muted small mb-1">12 réponses • Dernier message il y a 2 heures</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Quels KPIs suivre pour une équipe Scrum?</h6>
+                <p class="text-muted small mb-1">24 réponses • Dernier message il y a 5 heures</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Expériences avec les sprints de 1 semaine vs 2 semaines</h6>
+                <p class="text-muted small mb-1">18 réponses • Dernier message il y a 1 jour</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Outils gratuits pour les petites équipes agiles</h6>
+                <p class="text-muted small mb-1">31 réponses • Dernier message il y a 2 jours</p>
+              </div>
+              
+              <a href="#" class="btn btn-primary w-100 mt-2">Accéder au forum</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5 class="mb-3">AgileScrum Pro</h5>
+          <p>Votre portail complet pour maîtriser les méthodologies agiles et Scrum. Formation, outils et communauté pour exceller dans la gestion de projets.</p>
+          <div class="social-icons mt-4">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="col-md-2 mb-4 mb-md-0">
+          <h5 class="mb-3">Navigation</h5>
+          <div class="footer-links">
+            <p><a href="#accueil">Accueil</a></p>
+            <p><a href="#methodes">Méthodes</a></p>
+            <p><a href="#scrum">Scrum</a></p>
+            <p><a href="#apprentissage">Apprentissage</a></p>
+            <p><a href="#outils">Outils</a></p>
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-4 mb-md-0">
+          <h5 class="mb-3">Ressources</h5>
+          <div class="footer-links">
+            <p><a href="#">Blog</a></p>
+            <p><a href="#">Glossaire</a></p>
+            <p><a href="#">Modèles à télécharger</a></p>
+            <p><a href="#">FAQ</a></p>
+            <p><a href="#">Certifications</a></p>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <h5 class="mb-3">Contact</h5>
+          <div class="footer-links">
+            <p><i class="bi bi-envelope me-2"></i> contact@agilescrumpro.fr</p>
+            <p><i class="bi bi-telephone me-2"></i> +33 1 23 45 67 89</p>
+            <p><i class="bi bi-geo-alt me-2"></i> 123 Avenue de l'Agilité, 75001 Paris</p>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="mb-0">© 2023 AgileScrum Pro. Tous droits réservés.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="footer-links">
+            <a href="#" class="me-3">Mentions légales</a>
+            <a href="#" class="me-3">Politique de confidentialité</a>
+            <a href="#">Conditions d'utilisation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Animation au défilement
+    document.addEventListener('DOMContentLoaded', function() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeInUp');
+          }
+        });
+      }, observerOptions);
+
+      const elementsToAnimate = document.querySelectorAll('.feature-box, .card, .process-step, .testimonial-card');
+      elementsToAnimate.forEach(function(element) {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>

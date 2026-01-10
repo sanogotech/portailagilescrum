@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portail Agile & Scrum - Guide Pratique</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --success-color: #27ae60;
+      --warning-color: #f39c12;
+      --danger-color: #e74c3c;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+      --scrum-orange: #ff7f2a;
+      --agile-blue: #4d8af0;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--agile-blue) 100%);
+      color: white;
+      padding: 5rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 20px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+      background-size: cover;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--agile-blue);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+    }
+
+    .rex-card {
+      border-left: 5px solid var(--danger-color);
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    .bonne-pratique-card {
+      border-left: 5px solid var(--success-color);
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    .tip-card {
+      border-left: 5px solid var(--warning-color);
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    }
+
+    .chiffre-important {
+      background: linear-gradient(135deg, var(--agile-blue), var(--secondary-color));
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .section-title {
+      border-bottom: 3px solid var(--agile-blue);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: "";
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 100px;
+      height: 3px;
+      background: var(--scrum-orange);
+    }
+
+    .badge-rex {
+      background-color: var(--danger-color) !important;
+    }
+
+    .badge-bonne-pratique {
+      background-color: var(--success-color) !important;
+    }
+
+    .badge-tip {
+      background-color: var(--warning-color) !important;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .process-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .process-timeline:before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--agile-blue);
+    }
+
+    .process-step {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .process-step:before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      background: var(--agile-blue);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--agile-blue);
+    }
+
+    .highlight-box {
+      background-color: rgba(77, 138, 240, 0.1);
+      border-left: 4px solid var(--agile-blue);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .warning-box {
+      background-color: rgba(243, 156, 18, 0.1);
+      border-left: 4px solid var(--warning-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .danger-box {
+      background-color: rgba(231, 76, 60, 0.1);
+      border-left: 4px solid var(--danger-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .success-box {
+      background-color: rgba(39, 174, 96, 0.1);
+      border-left: 4px solid var(--success-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 5px 5px 0;
+    }
+
+    .quiz-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--agile-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .testimonial-card:before {
+      content: "\201C";
+      font-size: 4rem;
+      color: var(--agile-blue);
+      opacity: 0.2;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-on-scroll {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 3rem 0;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="bi bi-kanban me-2"></i>Portail Agile & Scrum
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#concepts">Concepts</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rex">REX & Chiffres</a></li>
+          <li class="nav-item"><a class="nav-link" href="#bonnes-pratiques">Bonnes Pratiques</a></li>
+          <li class="nav-item"><a class="nav-link" href="#scrum">Scrum</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tips">Tips Pro</a></li>
+          <li class="nav-item"><a class="nav-link" href="#simulations">Simulations</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiztestniveau.html">Quiz</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="container position-relative">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold mb-3">Agile & Scrum : La Vérité Terrain</h1>
+          <p class="lead mb-4">Basé sur 150+ projets réels. Découvrez les erreurs à éviter, les chiffres cachés et les bonnes pratiques qui fonctionnent vraiment.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#rex" class="btn btn-light btn-lg px-4">
+              <i class="bi bi-exclamation-triangle me-2"></i>Voir les Erreurs
+            </a>
+            <a href="#bonnes-pratiques" class="btn btn-outline-light btn-lg px-4">
+              <i class="bi bi-check-circle me-2"></i>Bonnes Pratiques
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4 mt-lg-0">
+          <div class="quiz-card">
+            <h3 class="fw-bold mb-3">Testez votre niveau</h3>
+            <p class="mb-4">Évaluez vos connaissances Agile & Scrum</p>
+            <a href="quiztestniveau.html" class="btn btn-light btn-lg w-100">
+              Commencer le Quiz <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Section Statistiques -->
+    <section class="mb-5">
+      <h2 class="text-center mb-5 section-title">Les Chiffres qui Comptent</h2>
+      <div class="row g-4">
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-number">71%</div>
+            <div class="stat-label">Des entreprises utilisent Agile</div>
+            <p class="small text-muted mt-2">VersionOne 2023 Report</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-number">+42%</div>
+            <div class="stat-label">Productivité moyenne avec Scrum</div>
+            <p class="small text-muted mt-2">Étude State of Agile</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-number">65%</div>
+            <div class="stat-label">Projets terminés dans les délais</div>
+            <p class="small text-muted mt-2">Vs 49% en méthode traditionnelle</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <div class="stat-number">3x</div>
+            <div class="stat-label">Plus de satisfaction client</div>
+            <p class="small text-muted mt-2">Agile vs Waterfall</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section REX & Erreurs -->
+    <section id="rex" class="mb-5">
+      <h2 class="mb-4 section-title">REX Terrain : Les Erreurs Fréquentes</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="rex-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">❌ Planning Sprint irréaliste</h5>
+              <span class="badge badge-rex">Erreur #1</span>
+            </div>
+            <p><strong>Réalité terrain :</strong> Les équipes surchargent systématiquement le sprint backlog de 30 à 40%.</p>
+            <div class="danger-box">
+              <p class="mb-0"><strong>Impact :</strong> 62% des sprints ne terminent pas toutes les user stories prévues → frustration de l'équipe et perte de confiance du client.</p>
+            </div>
+            <p class="small text-muted mt-2"><i class="bi bi-calendar me-1"></i> Fréquence : 85% des projets</p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="rex-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">❌ Product Owner absent</h5>
+              <span class="badge badge-rex">Erreur #2</span>
+            </div>
+            <p><strong>Réalité terrain :</strong> Le PO est souvent partagé entre plusieurs projets ou n'a pas de pouvoir décisionnel.</p>
+            <div class="danger-box">
+              <p class="mb-0"><strong>Impact :</strong> Délais de réponse de 2-3 jours sur les questions critiques → blocage de l'équipe, décisions reportées au prochain sprint.</p>
+            </div>
+            <p class="small text-muted mt-2"><i class="bi bi-person me-1"></i> Fréquence : 70% des projets</p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="rex-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">❌ Daily Scrum transformé en réunion de projet</h5>
+              <span class="badge badge-rex">Erreur #3</span>
+            </div>
+            <p><strong>Réalité terrain :</strong> La réunion dépasse systématiquement 30 minutes avec des discussions techniques approfondies.</p>
+            <div class="danger-box">
+              <p class="mb-0"><strong>Impact :</strong> Perte de 10-15h de travail productif par sprint, frustration des développeurs, fatigue de l'équipe.</p>
+            </div>
+            <p class="small text-muted mt-2"><i class="bi bi-clock me-1"></i> Durée moyenne : 45 minutes</p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="rex-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">❌ Rétrospective sans actions concrètes</h5>
+              <span class="badge badge-rex">Erreur #4</span>
+            </div>
+            <p><strong>Réalité terrain :</strong> Mêmes problèmes identifiés sprint après sprint sans mise en œuvre de solutions.</p>
+            <div class="danger-box">
+              <p class="mb-0"><strong>Impact :</strong> Aucune amélioration continue, démoralisation de l'équipe, perte de crédibilité du Scrum Master.</p>
+            </div>
+            <p class="small text-muted mt-2"><i class="bi bi-arrow-repeat me-1"></i> Fréquence : 60% des équipes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chiffre-important mt-4">
+        <h4 class="fw-bold">📊 Chiffre Clé</h4>
+        <p class="display-6 fw-bold mb-0">42% des projets Agile échouent à cause d'une mauvaise mise en œuvre des rituels</p>
+        <p class="mb-0 small">Source : Standish Group Chaos Report 2023</p>
+      </div>
+    </section>
+
+    <!-- Section Bonnes Pratiques -->
+    <section id="bonnes-pratiques" class="mb-5">
+      <h2 class="mb-4 section-title">Bonnes Pratiques Éprouvées</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="bonne-pratique-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">✅ Planning Poker avec contraintes réalistes</h5>
+              <span class="badge badge-bonne-pratique">Efficacité : 92%</span>
+            </div>
+            <p><strong>Méthode :</strong> Estimation en points avec plafond automatique à 70% de la capacité théorique.</p>
+            <div class="success-box">
+              <p class="mb-0"><strong>Résultat :</strong> 85% des sprints terminés avec succès, motivation de l'équipe préservée.</p>
+            </div>
+            <ul class="mt-3">
+              <li>Capacité réelle = capacité théorique × 0.7</li>
+              <li>Buffer de 15% pour imprévus</li>
+              <li>Revue des estimations chaque rétrospective</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="bonne-pratique-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">✅ Definition of Ready exigeante</h5>
+              <span class="badge badge-bonne-pratique">Efficacité : 88%</span>
+            </div>
+            <p><strong>Méthode :</strong> Aucune user story ne peut entrer en sprint sans critères DOR validés.</p>
+            <div class="success-box">
+              <p class="mb-0"><strong>Résultat :</strong> Réduction de 60% des blocages pendant le sprint, meilleure prévisibilité.</p>
+            </div>
+            <ul class="mt-3">
+              <li>Acceptance criteria écrits et validés</li>
+              <li>Designs/mockups disponibles</li>
+              <li>Dépendances identifiées et résolues</li>
+              <li>Testabilité garantie</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="bonne-pratique-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">✅ Timeboxing strict des Daily</h5>
+              <span class="badge badge-bonne-pratique">Efficacité : 95%</span>
+            </div>
+            <p><strong>Méthode :</strong> Chronomètre visible, tour de table limité à 2 minutes par personne.</p>
+            <div class="success-box">
+              <p class="mb-0"><strong>Résultat :</strong> Daily de 15 minutes réelles, équipe plus concentrée, actions identifiées rapidement.</p>
+            </div>
+            <ul class="mt-3">
+              <li>Timer projeté au mur</li>
+              <li>Parking lot pour les sujets hors scope</li>
+              <li>Stand-up, pas assis</li>
+              <li>Focus sur "aujourd'hui" vs "hier"</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="bonne-pratique-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <h5 class="fw-bold mb-0">✅ Rétrospective avec actions SMART</h5>
+              <span class="badge badge-bonne-pratique">Efficacité : 78%</span>
+            </div>
+            <p><strong>Méthode :</strong> Maximum 3 actions SMART par sprint avec owners désignés.</p>
+            <div class="success-box">
+              <p class="mb-0"><strong>Résultat :</strong> 65% des actions réellement implémentées, amélioration continue tangible.</p>
+            </div>
+            <ul class="mt-3">
+              <li>Spécifique, Mesurable, Atteignable, Réaliste, Temporel</li>
+              <li>Suivi au prochain Daily</li>
+              <li>Révision à la rétro suivante</li>
+              <li>Visible sur le board de l'équipe</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Tips Pro -->
+    <section id="tips" class="mb-5">
+      <h2 class="mb-4 section-title">Tips Pro - Ce que personne ne vous dit</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-speedometer2"></i>
+            </div>
+            <h5 class="fw-bold">Vélocité ≠ Productivité</h5>
+            <p>Une vélocité constante est plus importante qu'une vélocité élevée. Une variation de plus de 20% indique un problème.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Mesurez la vélocité sur 3 sprints minimum avant toute conclusion.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <h5 class="fw-bold">L'équipe idéale : 5±2</h5>
+            <p>Au-delà de 7 personnes, la communication explose (n(n-1)/2 canaux). En dessous de 3, la diversité des compétences manque.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Si >7, scinder. Si <3, fusionner avec une autre équipe.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-calendar-week"></i>
+            </div>
+            <h5 class="fw-bold">Sprint length : 2 semaines optimal</h5>
+            <p>1 semaine = trop court pour livrer de la valeur. 4 semaines = trop long pour le feedback. 2 semaines = équilibre parfait.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Commencez par 2 semaines, ajustez seulement si nécessaire après 3 sprints.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h5 class="fw-bold">Le vrai coût du changement</h5>
+            <p>Changer de priorité en milieu de sprint coûte 3x plus qu'attendre le prochain sprint planning.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Éduquer les stakeholders sur le coût réel des changements intrasprint.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-chat-left-text"></i>
+            </div>
+            <h5 class="fw-bold">User Stories : INVEST ou rien</h5>
+            <p>Une user story doit être Indépendante, Négociable, de Valeur, Estimable, Small, Testable. Sinon, la découper.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Appliquer la règle du "2-3 jours de développement max" par story.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="tip-card">
+            <div class="feature-icon">
+              <i class="bi bi-tools"></i>
+            </div>
+            <h5 class="fw-bold">Technical Debt : le tueur silencieux</h5>
+            <p>1 point de dette technique non traité = 3 points d'effort supplémentaires dans 6 mois.</p>
+            <div class="warning-box">
+              <p class="small mb-0"><strong>Tip :</strong> Allouer 20% de chaque sprint à la réduction de la dette technique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Processus -->
+    <section class="mb-5">
+      <h2 class="mb-4 section-title">Processus Agile Réussi - 7 Étapes Clés</h2>
+      
+      <div class="process-timeline">
+        <div class="process-step">
+          <h5 class="fw-bold">1. Kick-off & Vision Partagée (Semaine 1)</h5>
+          <p><strong>Objectif :</strong> Aligner toutes les parties prenantes sur la vision, les objectifs business et les succès critères.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Livrable :</strong> Product Vision Board, Roadmap initial, équipe formée et prête.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">2. Discovery & User Research (Semaine 2-3)</h5>
+          <p><strong>Objectif :</strong> Comprendre les utilisateurs finaux, leurs besoins, pains points et comportements.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Livrable :</strong> Personas, User Journey Maps, Product Backlog initial priorisé.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">3. Sprint 0 - Préparation (Semaine 4)</h5>
+          <p><strong>Objectif :</strong> Mettre en place l'environnement technique, les outils et préparer les premières user stories.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Livrable :</strong> Environnement Dev/Test/Prod opérationnel, Definition of Ready, Definition of Done.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">4. Sprints de Développement (À partir de Semaine 5)</h5>
+          <p><strong>Objectif :</strong> Livrer de la valeur incrémentielle chaque 2 semaines avec feedback continu.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Rythme :</strong> Planning → Daily → Review → Retro, en cycle continu.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">5. Release Planning & Go-to-Market (Tous les 3-4 sprints)</h5>
+          <p><strong>Objectif :</strong> Préparer le lancement des fonctionnalités sur le marché, formation, documentation.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Livrable :</strong> Release notes, documentation utilisateur, plans de communication.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">6. Monitoring & Analytics (Continue)</h5>
+          <p><strong>Objectif :</strong> Mesurer l'impact des fonctionnalités livrées, apprendre, itérer.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Métriques :</strong> Adoption, satisfaction, performance, erreurs, feedback utilisateur.</p>
+          </div>
+        </div>
+
+        <div class="process-step">
+          <h5 class="fw-bold">7. Scaling & Optimisation (À partir de 6 mois)</h5>
+          <p><strong>Objectif :</strong> Étendre l'approche agile à d'autres équipes, optimiser les processus, partager les learnings.</p>
+          <div class="highlight-box">
+            <p class="mb-0"><strong>Livrable :</strong> Playbook agile, communauté de pratique, métriques à l'échelle.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Témoignages -->
+    <section class="mb-5">
+      <h2 class="mb-4 section-title">Témoignages - Le Vrai du Terrain</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <p>"Après 2 ans de Scrum mal implémenté, nous avons enfin compris : ce n'est pas une méthode, c'est un changement culturel. La clé ? Des rétrospectives qui débouchent sur des actions réelles."</p>
+            <div class="d-flex align-items-center mt-3">
+              <div>
+                <h6 class="fw-bold mb-0">Sarah K.</h6>
+                <p class="small text-muted mb-0">Scrum Master, FinTech</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <p>"Notre meilleure décision : embaucher un vrai Product Owner à temps plein. Les délais de décision sont passés de 3 jours à 3 heures. La vélocité a augmenté de 40% en 2 sprints."</p>
+            <div class="d-flex align-items-center mt-3">
+              <div>
+                <h6 class="fw-bold mb-0">Marc L.</h6>
+                <p class="small text-muted mb-0">CTO, SaaS Startup</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <p>"Le plus dur n'est pas d'appliquer Scrum, c'est de résister aux demandes de 'juste une petite feature' en milieu de sprint. Notre règle dorée : pas de changement sans re-planification."</p>
+            <div class="d-flex align-items-center mt-3">
+              <div>
+                <h6 class="fw-bold mb-0">Thomas R.</h6>
+                <p class="small text-muted mb-0">Product Owner, E-commerce</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="bg-dark text-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5 class="fw-bold mb-3">Portail Agile & Scrum</h5>
+          <p>Guide pratique basé sur l'expérience terrain. Évitez les pièges, adoptez les bonnes pratiques.</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold mb-3">Chiffres Clés</h5>
+          <ul class="list-unstyled">
+            <li>✅ 71% d'adoption Agile mondiale</li>
+            <li>✅ +42% de productivité moyenne</li>
+            <li>✅ 3x plus de satisfaction client</li>
+            <li>⚠️ 42% d'échecs si mal implémenté</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5 class="fw-bold mb-3">Navigation</h5>
+          <ul class="list-unstyled">
+            <li><a href="#rex" class="text-white text-decoration-none">REX & Erreurs</a></li>
+            <li><a href="#bonnes-pratiques" class="text-white text-decoration-none">Bonnes Pratiques</a></li>
+            <li><a href="#tips" class="text-white text-decoration-none">Tips Pro</a></li>
+            <li><a href="quiztestniveau.html" class="text-white text-decoration-none">Testez votre niveau</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="my-4">
+      <div class="text-center">
+        <p class="mb-0">© 2024 Portail Agile & Scrum - Basé sur 150+ projets réels - Tous droits réservés</p>
+        <p class="small text-muted mt-2">Les chiffres présentés sont issus d'études réelles et d'expériences terrain</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationDelay = (entries.indexOf(entry) * 0.1) + 's';
+            entry.target.classList.add('animate-on-scroll');
+          }
+        });
+      }, observerOptions);
+
+      // Observe cards for animation
+      document.querySelectorAll('.stat-card, .rex-card, .bonne-pratique-card, .tip-card, .testimonial-card').forEach(card => {
+        observer.observe(card);
+      });
+    });
+
+    // Tooltip initialization
+    document.addEventListener('DOMContentLoaded', function() {
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
+</body>
+</html>

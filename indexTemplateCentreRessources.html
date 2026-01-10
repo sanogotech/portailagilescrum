@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgileHub - Centre de ressources Agile & Scrum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-color: #ecf0f1;
+      --dark-color: #2c3e50;
+      --success-color: #27ae60;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1rem 0;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--dark-color);
+      margin: 0 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+      color: var(--secondary-color);
+    }
+
+    .nav-link.active {
+      color: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+      color: white;
+      padding: 5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+      background-size: cover;
+      background-position: center bottom;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Cards */
+    .card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: white;
+      border-bottom: 1px solid #eee;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      height: 100%;
+      border-radius: 12px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+    }
+
+    /* Section Styling */
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .section-title::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--secondary-color);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      color: #666;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background-color: var(--secondary-color);
+      border: none;
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-primary {
+      color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      border-radius: 6px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--secondary-color);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Process Steps */
+    .process-steps {
+      position: relative;
+    }
+
+    .process-step {
+      position: relative;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--secondary-color);
+      color: white;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-right: 15px;
+    }
+
+    /* Testimonials */
+    .testimonial-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: """;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 4rem;
+      color: rgba(0,0,0,0.05);
+      font-family: Georgia, serif;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+    }
+
+    /* Stats */
+    .stats-container {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #34495e 100%);
+      color: white;
+      padding: 4rem 0;
+      border-radius: 12px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    /* Tabs */
+    .nav-tabs {
+      border-bottom: 2px solid #eee;
+      justify-content: center;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #666;
+      font-weight: 500;
+      padding: 0.8rem 1.5rem;
+      margin: 0 0.5rem;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: var(--secondary-color);
+      background-color: transparent;
+      border-bottom: 3px solid var(--secondary-color);
+    }
+
+    .tab-content {
+      padding: 2rem 0;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-links h5 {
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255,255,255,0.1);
+      color: white;
+      border-radius: 50%;
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+
+    .social-icons a:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fadeIn {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 3rem 0;
+      }
+      
+      .section-title::after {
+        width: 40px;
+      }
+      
+      .nav-tabs .nav-link {
+        padding: 0.6rem 1rem;
+        margin: 0 0.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-kanban-fill me-2"></i>AgileHub
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#accueil">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#methodes">Méthodes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#scrum">Scrum</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#communaute">Communauté</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-primary ms-2 text-white" href="#essai">Essai Gratuit</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1 class="display-4 fw-bold mb-4">Maîtrisez l'Agilité avec Confiance</h1>
+          <p class="lead mb-4">Notre plateforme complète vous guide pas à pas dans l'apprentissage et la mise en œuvre des méthodologies Agile et Scrum pour des projets réussis.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#methodes" class="btn btn-light btn-lg px-4">Découvrir les méthodes</a>
+            <a href="#ressources" class="btn btn-outline-light btn-lg px-4">Explorer les ressources</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <div class="feature-card mt-5 mt-lg-0 mx-auto" style="max-width: 400px;">
+            <i class="bi bi-graph-up-arrow feature-icon"></i>
+            <h4>+87% de satisfaction</h4>
+            <p>Parmi nos utilisateurs ayant adopté l'agilité grâce à notre formation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container my-5">
+    <!-- Méthodes Agiles -->
+    <section id="methodes" class="my-5">
+      <h2 class="section-title">Méthodes Agiles</h2>
+      <p class="section-subtitle">Découvrez les différentes approches agiles et choisissez celle qui convient le mieux à votre organisation.</p>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card animate-fadeIn">
+            <i class="bi bi-kanban feature-icon"></i>
+            <h4>Scrum</h4>
+            <p>Cadre itératif avec des rôles, événements et artefacts définis pour une livraison efficace de produits complexes.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card animate-fadeIn">
+            <i class="bi bi-columns-gap feature-icon"></i>
+            <h4>Kanban</h4>
+            <p>Méthode visuelle pour gérer le flux de travail et améliorer continuellement les processus de développement.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card animate-fadeIn">
+            <i class="bi bi-lightning-charge feature-icon"></i>
+            <h4>Extreme Programming</h4>
+            <p>Approche axée sur l'ingénierie logicielle avec des pratiques comme le développement piloté par les tests.</p>
+            <a href="#" class="btn btn-outline-primary mt-3">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pourquoi l'Agilité -->
+    <section class="my-5 py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="mb-4">Pourquoi adopter l'Agilité ?</h2>
+          <p class="mb-4">Les méthodes agiles transforment la façon dont les équipes travaillent ensemble pour livrer de la valeur aux clients.</p>
+          
+          <div class="process-step">
+            <h5><span class="step-number">1</span> Adaptation au changement</h5>
+            <p>Répondez rapidement aux évolutions du marché et aux retours clients sans compromettre le projet.</p>
+          </div>
+          
+          <div class="process-step">
+            <h5><span class="step-number">2</span> Livraison de valeur continue</h5>
+            <p>Livrez des fonctionnalités prioritaires plus rapidement et obtenez des retours précoces pour améliorer le produit.</p>
+          </div>
+          
+          <div class="process-step">
+            <h5><span class="step-number">3</span> Transparence et collaboration</h5>
+            <p>Impliquez toutes les parties prenantes et favorisez une communication ouverte et régulière.</p>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="stats-container p-4">
+            <div class="row text-center">
+              <div class="col-6 mb-4">
+                <div class="stat-number">74%</div>
+                <div class="stat-label">des organisations utilisent l'agilité</div>
+              </div>
+              <div class="col-6 mb-4">
+                <div class="stat-number">60%</div>
+                <div class="stat-label">d'augmentation de la productivité</div>
+              </div>
+              <div class="col-6">
+                <div class="stat-number">45%</div>
+                <div class="stat-label">d'amélioration de la qualité</div>
+              </div>
+              <div class="col-6">
+                <div class="stat-number">38%</div>
+                <div class="stat-label">de réduction des délais</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scrum en détail -->
+    <section id="scrum" class="my-5">
+      <h2 class="section-title">Scrum en Détail</h2>
+      <p class="section-subtitle">Découvrez le cadre Scrum, ses rôles, événements, artefacts et bonnes pratiques.</p>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-people me-2"></i>
+              <h5 class="mb-0">Rôles Scrum</h5>
+            </div>
+            <div class="card-body">
+              <div class="row text-center">
+                <div class="col-md-4 mb-3">
+                  <div class="bg-primary text-white rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-person-workspace fs-5"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Product Owner</p>
+                  <p class="small">Maximise la valeur du produit</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="bg-success text-white rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-kanban fs-5"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Scrum Master</p>
+                  <p class="small">Facilite le processus</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <div class="bg-warning text-dark rounded-circle mx-auto d-flex align-items-center justify-content-center" style="width: 70px; height: 70px;">
+                    <i class="bi bi-people-fill fs-5"></i>
+                  </div>
+                  <p class="fw-bold mt-2">Équipe Dev</p>
+                  <p class="small">Livrent les incréments</p>
+                </div>
+              </div>
+              <a href="#" class="btn btn-primary w-100 mt-3">Découvrir les rôles</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header d-flex align-items-center">
+              <i class="bi bi-calendar-event me-2"></i>
+              <h5 class="mb-0">Événements Scrum</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Planning
+                  <span class="badge bg-primary rounded-pill">8h max</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Daily Scrum
+                  <span class="badge bg-primary rounded-pill">15 min</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Review
+                  <span class="badge bg-primary rounded-pill">4h max</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Sprint Retrospective
+                  <span class="badge bg-primary rounded-pill">3h max</span>
+                </li>
+              </ul>
+              <a href="#" class="btn btn-primary w-100 mt-3">Voir le calendrier</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ressources -->
+    <section id="ressources" class="my-5">
+      <h2 class="section-title">Ressources d'Apprentissage</h2>
+      <p class="section-subtitle">Accédez à notre collection complète de ressources pour maîtriser l'Agilité et Scrum.</p>
+      
+      <ul class="nav nav-tabs" id="ressourcesTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="formations-tab" data-bs-toggle="tab" data-bs-target="#formations" type="button" role="tab">Formations</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="outils-tab" data-bs-toggle="tab" data-bs-target="#outils" type="button" role="tab">Outils</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="modeles-tab" data-bs-toggle="tab" data-bs-target="#modeles" type="button" role="tab">Modèles</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="ressourcesTabContent">
+        <div class="tab-pane fade show active" id="formations" role="tabpanel">
+          <div class="row g-4 mt-3">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-play-circle fs-1 text-primary mb-3"></i>
+                  <h5>Cours Vidéo</h5>
+                  <p>Plus de 50 heures de contenu vidéo structuré pour apprendre à votre rythme.</p>
+                  <a href="#" class="btn btn-outline-primary">Accéder</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-journal-text fs-1 text-primary mb-3"></i>
+                  <h5>Guides Complets</h5>
+                  <p>Documentation détaillée et guides pratiques pour chaque méthodologie.</p>
+                  <a href="#" class="btn btn-outline-primary">Accéder</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-puzzle fs-1 text-primary mb-3"></i>
+                  <h5>Exercices Pratiques</h5>
+                  <p>Mises en situation et exercices pour appliquer vos connaissances.</p>
+                  <a href="#" class="btn btn-outline-primary">Accéder</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="outils" role="tabpanel">
+          <div class="row g-4 mt-3">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-kanban fs-1 text-primary mb-3"></i>
+                  <h5>Tableaux Scrum</h5>
+                  <p>Modèles de tableaux Scrum prêts à l'emploi pour Jira, Trello et Azure DevOps.</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-graph-up fs-1 text-primary mb-3"></i>
+                  <h5>Métriques</h5>
+                  <p>Tableaux de bord et modèles de suivi des métriques agiles (velocity, burndown, etc.).</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-calendar-check fs-1 text-primary mb-3"></i>
+                  <h5>Planning</h5>
+                  <p>Outils de planification de sprint et modèles de user stories.</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="modeles" role="tabpanel">
+          <div class="row g-4 mt-3">
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-file-earmark-text fs-1 text-primary mb-3"></i>
+                  <h5>Documentation</h5>
+                  <p>Modèles de documentation agile (chartes, définition of done, etc.).</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-clipboard-check fs-1 text-primary mb-3"></i>
+                  <h5>Checklists</h5>
+                  <p>Checklists pour chaque événement Scrum et étape du processus.</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="bi bi-card-checklist fs-1 text-primary mb-3"></i>
+                  <h5>User Stories</h5>
+                  <p>Modèles et exemples de user stories bien formulées.</p>
+                  <a href="#" class="btn btn-outline-primary">Télécharger</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="my-5">
+      <h2 class="section-title">Ils nous font confiance</h2>
+      <p class="section-subtitle">Découvrez les retours d'expérience de nos utilisateurs.</p>
+      
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="testimonial-card">
+            <p>"Cette plateforme a complètement transformé notre façon de travailler. En seulement 3 mois, nous avons réduit nos délais de livraison de 40% tout en améliorant la satisfaction client."</p>
+            <div class="d-flex align-items-center mt-3">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Avatar" class="testimonial-avatar">
+              <div>
+                <h6 class="mb-0">Marie Dubois</h6>
+                <p class="text-muted mb-0">Directrice de Projet, TechSolutions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="testimonial-card">
+            <p>"Les simulations interactives m'ont permis de pratiquer Scrum dans un environnement sans risque. J'ai pu appliquer immédiatement ces apprentissages dans mon équipe avec des résultats concrets."</p>
+            <div class="d-flex align-items-center mt-3">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" class="testimonial-avatar">
+              <div>
+                <h6 class="mb-0">Thomas Martin</h6>
+                <p class="text-muted mb-0">Scrum Master, InnovateCo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Communauté -->
+    <section id="communaute" class="my-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Événements à venir</h5>
+            </div>
+            <div class="card-body">
+              <div class="d-flex mb-3">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">15</div>
+                  <div class="small">OCT</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Webinar: Introduction à Scrum</h6>
+                  <p class="text-muted mb-0">14h00 - 15h30 (CET) • En ligne</p>
+                </div>
+              </div>
+              
+              <div class="d-flex mb-3">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">22</div>
+                  <div class="small">OCT</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Atelier: Estimation agile</h6>
+                  <p class="text-muted mb-0">10h00 - 12h00 (CET) • Paris</p>
+                </div>
+              </div>
+              
+              <div class="d-flex">
+                <div class="bg-primary text-white rounded text-center p-2 me-3" style="min-width: 60px;">
+                  <div class="fw-bold">05</div>
+                  <div class="small">NOV</div>
+                </div>
+                <div>
+                  <h6 class="mb-1">Conférence: Agilité à l'échelle</h6>
+                  <p class="text-muted mb-0">09h00 - 17h00 (CET) • Lyon</p>
+                </div>
+              </div>
+              
+              <a href="#" class="btn btn-primary w-100 mt-4">Voir tous les événements</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header text-center">
+              <h5 class="mb-0">Forum Communautaire</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Comment gérer les changements en cours de sprint?</h6>
+                <p class="text-muted small mb-1">12 réponses • Dernier message il y a 2 heures</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Quels KPIs suivre pour une équipe Scrum?</h6>
+                <p class="text-muted small mb-1">24 réponses • Dernier message il y a 5 heures</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Expériences avec les sprints de 1 semaine vs 2 semaines</h6>
+                <p class="text-muted small mb-1">18 réponses • Dernier message il y a 1 jour</p>
+              </div>
+              
+              <div class="mb-3">
+                <h6><i class="bi bi-chat-dots text-primary me-2"></i>Outils gratuits pour les petites équipes agiles</h6>
+                <p class="text-muted small mb-1">31 réponses • Dernier message il y a 2 jours</p>
+              </div>
+              
+              <a href="#" class="btn btn-primary w-100 mt-2">Rejoindre la discussion</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="mb-3"><i class="bi bi-kanban-fill me-2"></i>AgileHub</h5>
+          <p class="mb-4">Votre centre de ressources complet pour maîtriser les méthodologies Agile et Scrum. Formation, outils et communauté pour exceller dans la gestion de projets.</p>
+          <div class="social-icons">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Navigation</h5>
+            <a href="#accueil">Accueil</a>
+            <a href="#methodes">Méthodes</a>
+            <a href="#scrum">Scrum</a>
+            <a href="#ressources">Ressources</a>
+            <a href="#communaute">Communauté</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <div class="footer-links">
+            <h5>Ressources</h5>
+            <a href="#">Blog</a>
+            <a href="#">Glossaire</a>
+            <a href="#">Modèles à télécharger</a>
+            <a href="#">FAQ</a>
+            <a href="#">Certifications</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-3">
+          <div class="footer-links">
+            <h5>Contact</h5>
+            <p><i class="bi bi-envelope me-2"></i> contact@agilehub.fr</p>
+            <p><i class="bi bi-telephone me-2"></i> +33 1 23 45 67 89</p>
+            <p><i class="bi bi-geo-alt me-2"></i> 123 Avenue de l'Agilité, 75001 Paris</p>
+          </div>
+        </div>
+      </div>
+      
+      <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+      
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <p class="mb-0">© 2023 AgileHub. Tous droits réservés.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="footer-links d-inline">
+            <a href="#" class="me-3">Mentions légales</a>
+            <a href="#" class="me-3">Confidentialité</a>
+            <a href="#">Conditions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Animation au défilement
+    document.addEventListener('DOMContentLoaded', function() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fadeIn');
+          }
+        });
+      }, observerOptions);
+
+      const elementsToAnimate = document.querySelectorAll('.feature-card, .card, .process-step, .testimonial-card');
+      elementsToAnimate.forEach(function(element) {
+        observer.observe(element);
+      });
+    });
+  </script>
+</body>
+</html>
