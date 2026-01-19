@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>État de l'Art & Bonnes Pratiques Agile & Scrum</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+      --light-bg: #f8f9fa;
+      --dark-bg: #343a40;
+      --scrum-orange: #ff7f2a;
+      --agile-blue: #4d8af0;
+      --expert-purple: #9b59b6;
+      --success-green: #2ecc71;
+      --trend-teal: #1abc9c;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--primary-color);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: white;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--expert-purple) 100%);
+      color: white;
+      padding: 5rem 0;
+      margin-bottom: 3rem;
+      border-radius: 0 0 30px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+      padding: 1.2rem 1.5rem;
+    }
+
+    .module-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-expert {
+      background-color: var(--expert-purple);
+      color: white;
+      border: none;
+    }
+
+    .btn-expert:hover {
+      background-color: #8e44ad;
+      color: white;
+    }
+
+    .btn-trend {
+      background-color: var(--trend-teal);
+      color: white;
+      border: none;
+    }
+
+    .btn-trend:hover {
+      background-color: #16a085;
+      color: white;
+    }
+
+    .badge-expert {
+      background-color: var(--expert-purple);
+    }
+
+    .badge-trend {
+      background-color: var(--trend-teal);
+    }
+
+    .badge-success {
+      background-color: var(--success-green);
+    }
+
+    .expert-section {
+      border-left: 5px solid var(--expert-purple);
+      padding-left: 20px;
+      margin: 2rem 0;
+      background-color: rgba(155, 89, 182, 0.05);
+      padding: 1.5rem;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .trend-section {
+      border-left: 5px solid var(--trend-teal);
+      padding-left: 20px;
+      margin: 2rem 0;
+      background-color: rgba(26, 188, 156, 0.05);
+      padding: 1.5rem;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .best-practice {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-top: 4px solid var(--success-green);
+    }
+
+    .maturity-model {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .maturity-level {
+      padding: 1.5rem;
+      border-radius: 10px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .maturity-level:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.1), transparent);
+    }
+
+    .maturity-level-1 { background-color: #e74c3c; }
+    .maturity-level-2 { background-color: #e67e22; }
+    .maturity-level-3 { background-color: #f1c40f; }
+    .maturity-level-4 { background-color: #2ecc71; }
+    .maturity-level-5 { background-color: #3498db; }
+
+    .comparison-table {
+      width: 100%;
+      margin: 2rem 0;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .metric-card {
+      text-align: center;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      margin-bottom: 1.5rem;
+      height: 100%;
+    }
+
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 1rem 0;
+    }
+
+    .metric-label {
+      font-size: 0.9rem;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: var(--agile-blue);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      text-align: right;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      border: 4px solid var(--agile-blue);
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+
+    .timeline-item:nth-child(odd)::after {
+      right: -17px;
+    }
+
+    .timeline-item:nth-child(even)::after {
+      left: -17px;
+    }
+
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .framework-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-top: 4px solid;
+      height: 100%;
+    }
+
+    .framework-scrum { border-color: var(--scrum-orange); }
+    .framework-kanban { border-color: #3498db; }
+    .framework-safe { border-color: #9b59b6; }
+    .framework-less { border-color: #2ecc71; }
+    .framework-nexus { border-color: #e74c3c; }
+    .framework-xp { border-color: #f1c40f; }
+
+    footer {
+      background-color: var(--dark-bg);
+      color: white;
+      padding: 3rem 0;
+      margin-top: 4rem;
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--expert-purple);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .back-to-top.show {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      .hero-section {
+        padding: 3rem 0;
+      }
+      
+      .timeline::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+      
+      .timeline-item::after {
+        left: 18px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-content {
+        text-align: left;
+      }
+      
+      .framework-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animation pour les cartes */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-card {
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    /* Délai d'animation pour chaque carte */
+    .animate-card:nth-child(1) { animation-delay: 0.1s; }
+    .animate-card:nth-child(2) { animation-delay: 0.2s; }
+    .animate-card:nth-child(3) { animation-delay: 0.3s; }
+    .animate-card:nth-child(4) { animation-delay: 0.4s; }
+    .animate-card:nth-child(5) { animation-delay: 0.5s; }
+    .animate-card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+  <!-- Bouton retour en haut -->
+  <a href="#" class="back-to-top" id="backToTop">
+    <i class="bi bi-arrow-up"></i>
+  </a>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <i class="bi bi-star-fill me-2"></i>État de l'Art Agile & Scrum
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#etat-art">État de l'art</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#bonnes-pratiques">Bonnes pratiques</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#frameworks">Frameworks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#metriques">Métriques avancées</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tendances">Tendances 2024</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ressources">Ressources expertes</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Section Hero -->
+  <section class="hero-section">
+    <div class="container text-center position-relative">
+      <h1 class="display-4 fw-bold mb-3">État de l'Art & Bonnes Pratiques Agile & Scrum</h1>
+      <p class="lead mb-4">Découvrez les dernières évolutions, pratiques avancées et tendances des méthodologies agiles pour optimiser vos processus et maximiser la valeur livrée.</p>
+      <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="#etat-art" class="btn btn-light btn-lg px-4">Explorer l'état de l'art</a>
+        <a href="#bonnes-pratiques" class="btn btn-outline-light btn-lg px-4">Découvrir les bonnes pratiques</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenu principal -->
+  <div class="container mb-5">
+    <!-- État de l'art -->
+    <section id="etat-art" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">État de l'Art Agile & Scrum 2024</h2>
+      
+      <div class="expert-section">
+        <h3 class="mb-4"><i class="bi bi-graph-up-arrow me-2"></i>Évolutions récentes des méthodologies agiles</h3>
+        <p>Le paysage agile a considérablement évolué depuis la publication du manifeste en 2001. Aujourd'hui, l'accent est mis sur :</p>
+        
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="best-practice">
+              <h5><i class="bi bi-check-circle-fill text-success me-2"></i>Agilité à l'échelle</h5>
+              <p>Les organisations adoptent des frameworks comme SAFe, LeSS et Nexus pour appliquer les principes agiles à plusieurs équipes et à l'échelle de l'entreprise.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="best-practice">
+              <h5><i class="bi bi-check-circle-fill text-success me-2"></i>DevOps & Continuous Everything</h5>
+              <p>Intégration continue, livraison continue et déploiement continu sont devenus des standards pour les équipes agiles matures.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="best-practice">
+              <h5><i class="bi bi-check-circle-fill text-success me-2"></i>Data-Driven Agility</h5>
+              <p>Utilisation de métriques avancées et d'analytics pour prendre des décisions éclairées et mesurer l'impact réel des initiatives agiles.</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="best-practice">
+              <h5><i class="bi bi-check-circle-fill text-success me-2"></i>Remote & Hybrid Agile</h5>
+              <p>Adaptation des pratiques agiles aux environnements de travail distants et hybrides avec des outils de collaboration avancés.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Timeline des évolutions -->
+      <h3 class="mt-5 mb-4">Évolution des pratiques agiles</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h5>2001 - Manifeste Agile</h5>
+            <p>Publication du manifeste agile avec 4 valeurs et 12 principes fondateurs.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h5>2010 - Adoption généralisée</h5>
+            <p>Scrum devient la méthodologie agile la plus utilisée dans le monde.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h5>2015 - Agilité à l'échelle</h5>
+            <p>Émergence des frameworks à grande échelle comme SAFe et LeSS.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h5>2020 - Agile Remote</h5>
+            <p>Adaptation des pratiques agiles au travail à distance suite à la pandémie.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <h5>2024 - Agile 2.0</h5>
+            <p>Intégration de l'IA, du DevOps et d'une approche plus holistique de l'agilité organisationnelle.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bonnes pratiques -->
+    <section id="bonnes-pratiques" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">Bonnes Pratiques Avancées</h2>
+      
+      <!-- Modèle de maturité -->
+      <h3 class="mb-4">Modèle de maturité agile</h3>
+      <div class="maturity-model">
+        <div class="maturity-level maturity-level-1">
+          <h5>Niveau 1 : Débutant</h5>
+          <p>Implémentation basique de Scrum, équipe en formation, peu de métriques.</p>
+        </div>
+        <div class="maturity-level maturity-level-2">
+          <h5>Niveau 2 : Intermédiaire</h5>
+          <p>Rituels Scrum bien établis, backlog priorisé, premières métriques de velocity.</p>
+        </div>
+        <div class="maturity-level maturity-level-3">
+          <h5>Niveau 3 : Avancé</h5>
+          <p>Auto-organisation de l'équipe, amélioration continue, métriques avancées.</p>
+        </div>
+        <div class="maturity-level maturity-level-4">
+          <h5>Niveau 4 : Expert</h5>
+          <p>Agilité à l'échelle, intégration DevOps, optimisation du flux de valeur.</p>
+        </div>
+        <div class="maturity-level maturity-level-5">
+          <h5>Niveau 5 : Innovateur</h5>
+          <p>Expérimentation de nouvelles pratiques, contribution à la communauté agile, adaptation contextuelle.</p>
+        </div>
+      </div>
+      
+      <!-- Tableau comparatif des pratiques -->
+      <h3 class="mt-5 mb-4">Pratiques recommandées par niveau de maturité</h3>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Pratique</th>
+            <th>Niveau débutant</th>
+            <th>Niveau intermédiaire</th>
+            <th>Niveau avancé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Estimation</strong></td>
+            <td>Planning Poker basique</td>
+            <td>Story points avec référence</td>
+            <td>Estimation à trois niveaux (optimiste/pessimiste/réaliste)</td>
+          </tr>
+          <tr>
+            <td><strong>Rétrospectives</strong></td>
+            <td>Discussion libre</td>
+            <td>Format structuré (Start/Stop/Continue)</td>
+            <td>Expérimentation de différents formats (Sailboat, 4L, etc.)</td>
+          </tr>
+          <tr>
+            <td><strong>Métriques</strong></td>
+            <td>Velocity simple</td>
+            <td>Burndown chart, lead time</td>
+            <td>CFD, DORA metrics, predictability</td>
+          </tr>
+          <tr>
+            <td><strong>Definition of Done</strong></td>
+            <td>Liste simple de critères</td>
+            <td>DoD partagée par l'équipe</td>
+            <td>DoD à plusieurs niveaux (story, sprint, release)</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- Liste des anti-patterns -->
+      <div class="expert-section mt-5">
+        <h4><i class="bi bi-exclamation-triangle-fill me-2"></i>Anti-patterns à éviter</h4>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Scrum Master qui agit comme chef de projet</div>
+              </li>
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Sprints qui ne livrent pas de valeur déployable</div>
+              </li>
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Daily Scrum qui devient un rapport de statut au manager</div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Product Backlog géré par le développement et non le PO</div>
+              </li>
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Équipes trop grandes (plus de 9 personnes)</div>
+              </li>
+              <li class="list-group-item d-flex">
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>
+                <div>Ignorer les feedbacks des rétrospectives</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frameworks -->
+    <section id="frameworks" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">Frameworks Agile Évolués</h2>
+      
+      <div class="framework-grid">
+        <div class="framework-card framework-scrum animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">Scrum</h4>
+            <span class="badge bg-primary">Standard</span>
+          </div>
+          <p class="text-muted">Cadre de travail léger pour la gestion de projets complexes.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Projets avec des exigences changeantes</li>
+            <li><strong>Échelle :</strong> Équipe unique (5-9 personnes)</li>
+            <li><strong>Avantage :</strong> Simplicité et adoption large</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge bg-secondary">Sprints</span>
+            <span class="badge bg-secondary">Product Owner</span>
+            <span class="badge bg-secondary">Scrum Master</span>
+          </div>
+        </div>
+        
+        <div class="framework-card framework-kanban animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">Kanban</h4>
+            <span class="badge bg-info">Flux</span>
+          </div>
+          <p class="text-muted">Système de gestion visuelle du flux de travail.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Travail de support et maintenance</li>
+            <li><strong>Échelle :</strong> Toute taille d'équipe</li>
+            <li><strong>Avantage :</strong> Flexibilité et visualisation</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge bg-info">WIP Limits</span>
+            <span class="badge bg-info">Visual Board</span>
+            <span class="badge bg-info">Flow Metrics</span>
+          </div>
+        </div>
+        
+        <div class="framework-card framework-safe animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">SAFe</h4>
+            <span class="badge badge-expert">Échelle</span>
+          </div>
+          <p class="text-muted">Scaled Agile Framework pour les grandes organisations.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Grandes entreprises (> 500 personnes)</li>
+            <li><strong>Échelle :</strong> Entreprise entière</li>
+            <li><strong>Avantage :</strong> Structure complète pour l'agilité à l'échelle</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge badge-expert">Trains</span>
+            <span class="badge badge-expert">PI Planning</span>
+            <span class="badge badge-expert">Value Streams</span>
+          </div>
+        </div>
+        
+        <div class="framework-card framework-less animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">LeSS</h4>
+            <span class="badge badge-success">Minimaliste</span>
+          </div>
+          <p class="text-muted">Large Scale Scrum - Scrum appliqué à plusieurs équipes.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Organisations souhaitant garder la simplicité de Scrum</li>
+            <li><strong>Échelle :</strong> 2-8 équipes</li>
+            <li><strong>Avantage :</strong> Minimaliste, proche de Scrum pur</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge badge-success">Multi-team</span>
+            <span class="badge badge-success">Feature Teams</span>
+            <span class="badge badge-success">Single Backlog</span>
+          </div>
+        </div>
+        
+        <div class="framework-card framework-nexus animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">Nexus</h4>
+            <span class="badge bg-warning text-dark">Scrum.org</span>
+          </div>
+          <p class="text-muted">Framework pour développer et maintenir des produits à grande échelle.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Projets nécessitant 3-9 équipes Scrum</li>
+            <li><strong>Échelle :</strong> 3-9 équipes</li>
+            <li><strong>Avantage :</strong> Minimaliste, extension naturelle de Scrum</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge bg-warning text-dark">Integration Team</span>
+            <span class="badge bg-warning text-dark">Nexus Sprint</span>
+            <span class="badge bg-warning text-dark">Refinement</span>
+          </div>
+        </div>
+        
+        <div class="framework-card framework-xp animate-card">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h4 class="mb-0">XP (Extreme Programming)</h4>
+            <span class="badge bg-danger">Technique</span>
+          </div>
+          <p class="text-muted">Méthodologie axée sur les pratiques d'ingénierie logicielle.</p>
+          <ul class="mt-3">
+            <li><strong>Pour :</strong> Développement logiciel avec qualité élevée</li>
+            <li><strong>Échelle :</strong> Équipe unique</li>
+            <li><strong>Avantage :</strong> Focus sur la qualité technique</li>
+          </ul>
+          <div class="mt-3">
+            <span class="badge bg-danger">Pair Programming</span>
+            <span class="badge bg-danger">TDD</span>
+            <span class="badge bg-danger">CI/CD</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Guide de sélection -->
+      <div class="trend-section mt-5">
+        <h4><i class="bi bi-question-circle-fill me-2"></i>Comment choisir le bon framework ?</h4>
+        <p>Le choix dépend de plusieurs facteurs :</p>
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <div class="metric-card">
+              <div class="metric-label">Taille de l'organisation</div>
+              <div class="metric-value">→</div>
+              <p>Petites équipes : Scrum/Kanban<br>Grandes organisations : SAFe/LeSS</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="metric-card">
+              <div class="metric-label">Type de travail</div>
+              <div class="metric-value">→</div>
+              <p>Projet : Scrum<br>Support : Kanban<br>Développement : XP</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="metric-card">
+              <div class="metric-label">Niveau de maturité</div>
+              <div class="metric-value">→</div>
+              <p>Débutant : Scrum<br>Intermédiaire : Scrum + Kanban<br>Avancé : SAFe/LeSS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Métriques avancées -->
+    <section id="metriques" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">Métriques Avancées & Analytics</h2>
+      
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <p class="text-center mb-5">Les équipes agiles matures vont au-delà de la simple vélocité pour mesurer leur performance et leur impact.</p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4">
+          <div class="metric-card">
+            <div class="module-icon text-center">
+              <i class="bi bi-speedometer2"></i>
+            </div>
+            <h5 class="text-center">DORA Metrics</h5>
+            <p class="text-center">Mesures de performance DevOps</p>
+            <ul class="mt-3">
+              <li><strong>Deployment Frequency :</strong> Fréquence des déploiements</li>
+              <li><strong>Lead Time for Changes :</strong> Temps entre commit et déploiement</li>
+              <li><strong>Change Failure Rate :</strong> Pourcentage de déploiements échoués</li>
+              <li><strong>Time to Restore :</strong> Temps moyen de récupération</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="metric-card">
+            <div class="module-icon text-center">
+              <i class="bi bi-bar-chart-line"></i>
+            </div>
+            <h5 class="text-center">Flow Metrics</h5>
+            <p class="text-center">Mesures du flux de valeur</p>
+            <ul class="mt-3">
+              <li><strong>Cycle Time :</strong> Temps entre début et fin d'une tâche</li>
+              <li><strong>Throughput :</strong> Nombre d'items livrés par unité de temps</li>
+              <li><strong>Work in Progress (WIP) :</strong> Nombre d'items en cours</li>
+              <li><strong>Work Item Age :</strong> Âge des items en cours</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="metric-card">
+            <div class="module-icon text-center">
+              <i class="bi bi-pie-chart"></i>
+            </div>
+            <h5 class="text-center">Predictability Metrics</h5>
+            <p class="text-center">Mesures de prédictibilité</p>
+            <ul class="mt-3">
+              <li><strong>Velocity Trend :</strong> Tendance de la vélocité</li>
+              <li><strong>Sprint Goal Success Rate :</strong> Pourcentage d'objectifs atteints</li>
+              <li><strong>Forecast Accuracy :</strong> Précision des prévisions</li>
+              <li><strong>Scope Change :</strong> Changement de périmètre durant le sprint</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tableau de bord exemple -->
+      <div class="expert-section mt-5">
+        <h4><i class="bi bi-dashboard me-2"></i>Tableau de bord agile recommandé</h4>
+        <p>Un tableau de bord efficace combine plusieurs types de métriques :</p>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <h6>Métriques d'efficacité</h6>
+            <ul>
+              <li>Velocity (moyenne sur 3 sprints)</li>
+              <li>Burndown chart du sprint</li>
+              <li>Throughput hebdomadaire</li>
+              <li>Cycle time (moyenne et 85e percentile)</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Métriques de qualité</h6>
+            <ul>
+              <li>Definition of Done compliance</li>
+              <li>Bug count & resolution time</li>
+              <li>Test coverage</li>
+              <li>Technical debt ratio</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Métriques de valeur</h6>
+            <ul>
+              <li>Business value delivered per sprint</li>
+              <li>User satisfaction score</li>
+              <li>Feature usage metrics</li>
+              <li>Return on investment (ROI)</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h6>Métriques d'équipe</h6>
+            <ul>
+              <li>Team happiness index</li>
+              <li>Retrospective action completion rate</li>
+              <li>Cross-functionality index</li>
+              <li>Learning hours per sprint</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tendances 2024 -->
+    <section id="tendances" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">Tendances Agile 2024</h2>
+      
+      <div class="trend-section">
+        <h3 class="mb-4"><i class="bi bi-lightning-charge-fill me-2"></i>Nouvelles tendances émergentes</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-header d-flex align-items-center" style="background-color: var(--trend-teal);">
+                <i class="bi bi-robot me-2"></i>
+                <h5 class="mb-0">IA & Agile</h5>
+              </div>
+              <div class="card-body">
+                <p>L'intelligence artificielle transforme les pratiques agiles :</p>
+                <ul>
+                  <li>Automatisation des tâches répétitives</li>
+                  <li>Prédiction des risques et des délais</li>
+                  <li>Génération automatique de user stories et de tests</li>
+                  <li>Analyse des sentiments lors des rétrospectives</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="card h-100">
+              <div class="card-header d-flex align-items-center" style="background-color: var(--expert-purple);">
+                <i class="bi bi-globe-americas me-2"></i>
+                <h5 class="mb-0">Remote-First Agile</h5>
+              </div>
+              <div class="card-body">
+                <p>L'agilité s'adapte aux environnements distants :</p>
+                <ul>
+                  <li>Outils de collaboration asynchrone</li>
+                  <li>Rituels adaptés au décalage horaire</li>
+                  <li>Digital twin des salles de réunion physiques</li>
+                  <li>Mesure de l'engagement dans les équipes distantes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mt-4">
+            <div class="card h-100">
+              <div class="card-header d-flex align-items-center" style="background-color: #3498db;">
+                <i class="bi bi-shuffle me-2"></i>
+                <h5 class="mb-0">Hybrid Frameworks</h5>
+              </div>
+              <div class="card-body">
+                <p>Combinaison des meilleures pratiques :</p>
+                <ul>
+                  <li>Scrumban (Scrum + Kanban)</li>
+                  <li>Lean Startup + Agile</li>
+                  <li>Design Thinking intégré dans les sprints</li>
+                  <li>DevOps + Agile (DevSecOps, AIOps)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6 mt-4">
+            <div class="card h-100">
+              <div class="card-header d-flex align-items-center" style="background-color: #e67e22;">
+                <i class="bi bi-heart-fill me-2"></i>
+                <h5 class="mb-0">Wellbeing & Sustainability</h5>
+              </div>
+              <div class="card-body">
+                <p>Focus sur la durabilité et le bien-être :</p>
+                <ul>
+                  <li>Sustainable pace intégré dans les métriques</li>
+                  <li>Mental health checks dans les rétrospectives</li>
+                  <li>Éco-conception dans les critères d'acceptation</li>
+                  <li>Mesure de l'impact carbone des features</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Technologies émergentes -->
+      <div class="expert-section mt-5">
+        <h4><i class="bi bi-tools me-2"></i>Outils émergents pour l'agilité avancée</h4>
+        <div class="row mt-3">
+          <div class="col-md-4">
+            <h6>IA & Analytics</h6>
+            <ul>
+              <li>Jira Assistant (AI)</li>
+              <li>LinearB (Dev analytics)</li>
+              <li>Pluralsight Flow</li>
+              <li>Code Climate Velocity</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Remote Collaboration</h6>
+            <ul>
+              <li>Miro (tableaux virtuels)</li>
+              <li>Gather.town (espaces virtuels)</li>
+              <li>Butter (facilitation à distance)</li>
+              <li>Parabol (rétrospectives async)</li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Value Stream Management</h6>
+            <ul>
+              <li>ValueStream by Harness</li>
+              <li>Digital.ai (ex CollabNet)</li>
+              <li>Tasktop Viz</li>
+              <li>ConnectALL</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ressources expertes -->
+    <section id="ressources" class="mb-5 pt-4">
+      <h2 class="text-center mb-5">Ressources pour Experts</h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-book me-2"></i>Livres avancés</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Accelerate</h6>
+                    <small class="text-muted">Nicole Forsgren, Jez Humble, Gene Kim</small>
+                  </div>
+                  <span class="badge badge-trend">DevOps</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Agile IT Organization Design</h6>
+                    <small class="text-muted">Sriram Narayan</small>
+                  </div>
+                  <span class="badge badge-expert">Organisation</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Actionable Agile Metrics</h6>
+                    <small class="text-muted">Daniel S. Vacanti</small>
+                  </div>
+                  <span class="badge bg-info">Métriques</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Sooner Safer Happier</h6>
+                    <small class="text-muted">Jonathan Smart</small>
+                  </div>
+                  <span class="badge badge-success">Valeur</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Project to Product</h6>
+                    <small class="text-muted">Mik Kersten</small>
+                  </div>
+                  <span class="badge bg-warning text-dark">Transformation</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card h-100">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-mortarboard me-2"></i>Formations avancées</h5>
+            </div>
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Certified Agile Leadership (CAL)</h6>
+                    <small class="text-muted">Scrum Alliance</small>
+                  </div>
+                  <span class="badge badge-expert">Leadership</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>SAFe Program Consultant (SPC)</h6>
+                    <small class="text-muted">Scaled Agile</small>
+                  </div>
+                  <span class="badge badge-expert">Échelle</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Professional Scrum Trainer (PST)</h6>
+                    <small class="text-muted">Scrum.org</small>
+                  </div>
+                  <span class="badge bg-primary">Formation</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>Kanban Management Professional (KMP)</h6>
+                    <small class="text-muted">Kanban University</small>
+                  </div>
+                  <span class="badge bg-info">Kanban</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <h6>DevOps Leader (DOL)</h6>
+                    <small class="text-muted">DevOps Institute</small>
+                  </div>
+                  <span class="badge badge-trend">DevOps</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Communautés & Événements -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>Communautés & Événements Experts</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <h6>Conférences internationales</h6>
+              <ul>
+                <li>Agile 2024 (Washington DC)</li>
+                <li>Scrum Day Europe</li>
+                <li>Lean Digital Summit</li>
+                <li>DevOps Enterprise Summit</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>Communautés en ligne</h6>
+              <ul>
+                <li>Agile Alliance Community</li>
+                <li>Scrum.org Community</li>
+                <li>Lean Agile Community Slack</li>
+                <li>Enterprise Agile Community</li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6>Recherche & Think Tanks</h6>
+              <ul>
+                <li>Agile Research Network</li>
+                <li>State of Agile Reports</li>
+                <li>DORA Research Program</li>
+                <li>MIT Sloan Agile Initiative</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>État de l'Art Agile & Scrum</h5>
+          <p>Portail éducatif sur les pratiques avancées, tendances et bonnes pratiques des méthodologies agiles.</p>
+          <p>Mis à jour régulièrement avec les dernières évolutions du domaine.</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Liens rapides</h5>
+          <ul class="list-unstyled">
+            <li><a href="#etat-art" class="text-light">État de l'art</a></li>
+            <li><a href="#bonnes-pratiques" class="text-light">Bonnes pratiques</a></li>
+            <li><a href="#frameworks" class="text-light">Frameworks</a></li>
+            <li><a href="#tendances" class="text-light">Tendances 2024</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Ressources</h5>
+          <ul class="list-unstyled">
+            <li><a href="index.html" class="text-light">Portail Agile & Scrum</a></li>
+            <li><a href="quiztestniveau.html" class="text-light">Quiz de niveau</a></li>
+            <li><a href="#" class="text-light">Glossaire agile</a></li>
+            <li><a href="#" class="text-light">Outils recommandés</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+      <div class="text-center">
+        <p class="mb-0">© 2024 État de l'Art Agile & Scrum - Tous droits réservés</p>
+        <p class="mb-0">Dernière mise à jour : Avril 2024</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Back to top button
+    const backToTopButton = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Animation des cartes au défilement
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+    
+    // Observer les cartes avec animation
+    document.querySelectorAll('.animate-card').forEach(card => {
+      observer.observe(card);
+    });
+    
+    // Navigation active
+    const sections = document.querySelectorAll('section[id]');
+    
+    window.addEventListener('scroll', () => {
+      const scrollY = window.pageYOffset;
+      
+      sections.forEach(section => {
+        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 100;
+        const sectionId = section.getAttribute('id');
+        
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          document.querySelector(`.navbar-nav a[href="#${sectionId}"]`).classList.add('active');
+        } else {
+          document.querySelector(`.navbar-nav a[href="#${sectionId}"]`).classList.remove('active');
+        }
+      });
+    });
+    
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Activer la première section
+      document.querySelector('.navbar-nav a[href="#etat-art"]').classList.add('active');
+      
+      // Démarrer les animations des cartes visibles au chargement
+      document.querySelectorAll('.animate-card').forEach((card, index) => {
+        card.style.animationDelay = `${(index + 1) * 0.1}s`;
+      });
+    });
+  </script>
+</body>
+</html>
