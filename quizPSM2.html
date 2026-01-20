@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Scrum Master II (PSM II) - Certification Preparation Quiz</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --scrum-color: #0093D7;
+            --agile-color: #00B050;
+            --leadership-color: #FF6B35;
+            --coaching-color: #6A4C93;
+            --advanced-color: #FFA500;
+            --theory-color: #20B2AA;
+            --light-bg: #f8fafc;
+            --dark-bg: #0f172a;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0093D7 0%, #00B050 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding-top: 1rem;
+            background-attachment: fixed;
+        }
+
+        .quiz-container {
+            max-width: 1100px;
+            margin: auto;
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            margin-top: -1rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .quiz-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .quiz-header h1 {
+            font-weight: 800;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #0093D7 0%, #00B050 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .quiz-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .certification-badge {
+            background: linear-gradient(135deg, var(--advanced-color) 0%, var(--scrum-color) 100%);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Progress & Score */
+        .progress-container {
+            margin-bottom: 2rem;
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        #question-counter {
+            font-weight: 600;
+            color: var(--scrum-color);
+            font-size: 1.1rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        #current-score {
+            font-weight: 600;
+            color: var(--agile-color);
+            font-size: 1.1rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 10px;
+            background-color: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            border-radius: 10px;
+            background: linear-gradient(90deg, var(--advanced-color) 0%, var(--scrum-color) 100%);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(0, 147, 215, 0.3);
+        }
+
+        /* Question Card */
+        #question-card {
+            border: none;
+            border-radius: 15px;
+            padding: 2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--scrum-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #question-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(0, 147, 215, 0.1) 0%, transparent 70%);
+        }
+        
+        #question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        .thematic-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border: 2px solid;
+        }
+
+        .badge-scrum {
+            background-color: rgba(0, 147, 215, 0.1);
+            border-color: var(--scrum-color);
+            color: var(--scrum-color);
+        }
+
+        .badge-agile {
+            background-color: rgba(0, 176, 80, 0.1);
+            border-color: var(--agile-color);
+            color: var(--agile-color);
+        }
+
+        .badge-leadership {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-color: var(--leadership-color);
+            color: var(--leadership-color);
+        }
+
+        .badge-coaching {
+            background-color: rgba(106, 76, 147, 0.1);
+            border-color: var(--coaching-color);
+            color: var(--coaching-color);
+        }
+
+        .badge-advanced {
+            background-color: rgba(255, 165, 0, 0.1);
+            border-color: var(--advanced-color);
+            color: var(--advanced-color);
+        }
+
+        .badge-theory {
+            background-color: rgba(32, 178, 170, 0.1);
+            border-color: var(--theory-color);
+            color: var(--theory-color);
+        }
+
+        /* Options */
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background-color: white;
+            transition: all 0.3s ease;
+            font-family: 'Roboto Mono', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn:hover:not([disabled]) {
+            border-color: var(--scrum-color);
+            background-color: #eff6ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 147, 215, 0.15);
+        }
+        
+        .option-btn.correct {
+            background-color: #f0fdf4;
+            border-color: var(--agile-color);
+            color: #065f46;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(0, 176, 80, 0.2);
+        }
+
+        .option-btn.incorrect {
+            background-color: #fef2f2;
+            border-color: #ef4444;
+            color: #7f1d1d;
+            font-weight: 600;
+        }
+
+        /* Explanation Box */
+        #explanation-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            animation: fadeIn 0.5s ease;
+            border-left: 4px solid;
+        }
+        
+        #explanation-box h5 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .explanation-correct {
+            background-color: #f0fdf4;
+            border-left-color: var(--agile-color);
+        }
+
+        .explanation-incorrect {
+            background-color: #fef2f2;
+            border-left-color: #ef4444;
+        }
+
+        /* Tip Box */
+        .tip-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            border-left: 4px solid var(--scrum-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+        
+        .tip-box h6 {
+            color: var(--scrum-color);
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-scrum {
+            background: linear-gradient(135deg, var(--scrum-color) 0%, var(--agile-color) 100%);
+            color: white;
+            border: none;
+        }
+
+        /* Thematic Cards */
+        .theme-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--scrum-color);
+        }
+        
+        .theme-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--scrum-color) 0%, var(--agile-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Modal Results */
+        .modal-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
+            color: white;
+            border-radius: 0;
+        }
+
+        .modal-title-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+        
+        .final-score {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, var(--advanced-color) 0%, var(--scrum-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .score-text {
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .skill-meter {
+            background: var(--light-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 147, 215, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 147, 215, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 147, 215, 0); }
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(0, 147, 215, 0.3);
+        }
+
+        /* Scrum elements */
+        .scrum-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ctext x='10' y='20' font-family='monospace' font-size='12' fill='rgba(0, 147, 215, 0.05)'%3Escrum%3C/text%3E%3Ctext x='40' y='40' font-family='monospace' font-size='12' fill='rgba(0, 147, 215, 0.05)'%3Eagile%3C/text%3E%3Ctext x='70' y='60' font-family='monospace' font-size='12' fill='rgba(0, 147, 215, 0.05)'%3Eteam%3C/text%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .scrum-badge {
+            background: linear-gradient(135deg, var(--advanced-color) 0%, var(--scrum-color) 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .case-study {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 4px solid var(--scrum-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* French Helper */
+        .french-helper {
+            background: linear-gradient(135deg, #FFF3CD 0%, #FFEAA7 100%);
+            border-left: 4px solid #FFC107;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .french-helper h6 {
+            color: #856404;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .quiz-container {
+                padding: 1rem;
+            }
+            
+            .quiz-header {
+                padding: 2rem 1rem;
+            }
+            
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            #question-card {
+                padding: 1.5rem;
+            }
+            
+            .quiz-navigation {
+                flex-direction: column;
+            }
+            
+            .nav-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scrum-background"></div>
+    
+    <div class="container py-4">
+        <div class="quiz-container">
+            <div class="quiz-header">
+                <h1><i class="fas fa-scroll"></i> Professional Scrum Master II (PSM II) <i class="fas fa-certificate"></i></h1>
+                <p>Advanced Scrum Mastery Certification Preparation - 120 Questions with Detailed Explanations</p>
+                <div class="certification-badge">
+                    Target: PSM II Certification | Advanced Level | 120 Questions
+                </div>
+            </div>
+            
+            <!-- Configuration Panel -->
+            <div id="settings-panel" class="settings-panel">
+                <h4 class="text-center mb-4"><i class="fas fa-cogs"></i> PSM II Quiz Configuration</h4>
+                
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <label for="question-count" class="form-label">Number of questions:</label>
+                        <select id="question-count" class="form-select">
+                            <option value="30">30 questions (Quick Test)</option>
+                            <option value="60">60 questions (Standard Practice)</option>
+                            <option value="90">90 questions (Comprehensive Review)</option>
+                            <option value="120" selected>120 questions (Full PSM II Simulation)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button id="start-quiz-btn" class="btn btn-scrum w-100 pulse-animation">
+                            <i class="fas fa-rocket"></i> Start PSM II Quiz
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <h5><i class="fas fa-filter"></i> PSM II Knowledge Areas</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-scrum" checked>
+                                <label class="form-check-label" for="domain-scrum">
+                                    <i class="fas fa-users text-primary me-2"></i>Scrum Team & Roles
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-facilitation" checked>
+                                <label class="form-check-label" for="domain-facilitation">
+                                    <i class="fas fa-chalkboard-teacher text-success me-2"></i>Facilitation
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-coaching" checked>
+                                <label class="form-check-label" for="domain-coaching">
+                                    <i class="fas fa-hands-helping text-purple me-2"></i>Coaching & Mentoring
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-values" checked>
+                                <label class="form-check-label" for="domain-values">
+                                    <i class="fas fa-heart text-danger me-2"></i>Scrum Values
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-stakeholders" checked>
+                                <label class="form-check-label" for="domain-stakeholders">
+                                    <i class="fas fa-handshake text-warning me-2"></i>Stakeholders & Clients
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-events" checked>
+                                <label class="form-check-label" for="domain-events">
+                                    <i class="fas fa-calendar-alt text-info me-2"></i>Scrum Events
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="domain-artifacts" checked>
+                                <label class="form-check-label" for="domain-artifacts">
+                                    <i class="fas fa-box-open text-indigo me-2"></i>Scrum Artifacts
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thématiques -->
+                <div class="mt-4">
+                    <h5><i class="fas fa-brain"></i> 13 Advanced Knowledge Areas for PSM II</h5>
+                    <div class="row mt-3">
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-users"></i></div>
+                                <h6>Scrum Team</h6>
+                                <p class="small mb-2">Self-managing teams, roles, responsibilities, team dynamics</p>
+                                <div>
+                                    <span class="scrum-badge">Team</span>
+                                    <span class="scrum-badge">Self-managing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                                <h6>Facilitation</h6>
+                                <p class="small mb-2">Meeting facilitation, decision making, conflict resolution</p>
+                                <div>
+                                    <span class="scrum-badge">Meetings</span>
+                                    <span class="scrum-badge">Facilitation</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-hands-helping"></i></div>
+                                <h6>Coaching & Mentoring</h6>
+                                <p class="small mb-2">Professional coaching, mentoring, team development</p>
+                                <div>
+                                    <span class="scrum-badge">Coaching</span>
+                                    <span class="scrum-badge">Mentoring</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-heart"></i></div>
+                                <h6>Scrum Values</h6>
+                                <p class="small mb-2">Courage, Focus, Commitment, Respect, Openness</p>
+                                <div>
+                                    <span class="scrum-badge">Values</span>
+                                    <span class="scrum-badge">Courage</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-handshake"></i></div>
+                                <h6>Stakeholders & Clients</h6>
+                                <p class="small mb-2">Stakeholder management, expectation alignment, value delivery</p>
+                                <div>
+                                    <span class="scrum-badge">Stakeholders</span>
+                                    <span class="scrum-badge">Clients</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="theme-card">
+                                <div class="theme-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <h6>Scrum Events</h6>
+                                <p class="small mb-2">Sprint Planning, Daily Scrum, Sprint Review, Sprint Retrospective</p>
+                                <div>
+                                    <span class="scrum-badge">Sprint</span>
+                                    <span class="scrum-badge">Events</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- French Helper Section -->
+                <div class="french-helper mt-4">
+                    <h6><i class="fas fa-language"></i> For French Speakers / Pour les francophones</h6>
+                    <p class="mb-0">
+                        <strong>This quiz is in English</strong> as the PSM II exam is in English. However, detailed explanations will help you understand the concepts.
+                        <br><strong>Ce quiz est en anglais</strong> car l'examen PSM II est en anglais. Cependant, les explications détaillées vous aideront à comprendre les concepts.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quiz Content -->
+            <div id="quiz-content" class="d-none">
+                <div class="progress-container">
+                     <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span id="question-counter">Question 1 / 120</span>
+                        <span id="current-score">Score: 0</span>
+                     </div>
+                    <div class="progress">
+                        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0.83%;" aria-valuenow="0.83" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <div id="question-card" class="card">
+                    <div class="card-body">
+                        <div class="thematic-badge badge-scrum" id="thematic-badge">Scrum Team</div>
+                        <h2 id="question-text">Loading question...</h2>
+                        <div id="options-container">
+                            <!-- Options will be inserted here -->
+                        </div>
+                        <div id="explanation-box" class="d-none">
+                            <h5 id="explanation-title"></h5>
+                            <p id="explanation-text"></p>
+                            <div id="french-explanation" class="french-helper d-none">
+                                <h6><i class="fas fa-language"></i> Explication en français</h6>
+                                <p id="french-text"></p>
+                            </div>
+                            <div id="tip-box" class="tip-box d-none">
+                                <h6><i class="fas fa-lightbulb"></i> PSM II Exam Tip</h6>
+                                <p id="tip-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-navigation">
+                    <button id="prev-btn" class="btn btn-outline-secondary nav-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-btn" class="btn btn-scrum nav-btn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="finish-btn" class="btn btn-success nav-btn d-none">
+                        <i class="fas fa-trophy"></i> Finish & See Results
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Résultats -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel">
+                        <i class="fas fa-chart-line modal-title-icon"></i>PSM II Quiz Results
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4">
+                        <h4 class="score-text">Your readiness for PSM II Certification:</h4>
+                        <p class="final-score" id="final-score-percentage">0%</p>
+                        <p class="text-muted fs-5">
+                            <span id="final-score-correct">0</span> correct answers out of 
+                            <span id="final-score-total">0</span> questions
+                        </p>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="skill-meter">
+                                <h6><i class="fas fa-cogs"></i> Scrum Theory & Framework</h6>
+                                <div class="progress mt-2" style="height: 20px;">
+                                    <div id="theory-skills" class="progress-bar bg-primary" style="width: 0%;"></div>
+                                </div>
+                                <p id="theory-skills-text" class="mt-2 small">Evaluating...</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-meter">
+                                <h6><i class="fas fa-user-tie"></i> Advanced Scrum Mastery</h6>
+                                <div class="progress mt-2" style="height: 20px;">
+                                    <div id="advanced-skills" class="progress-bar bg-success" style="width: 0%;"></div>
+                                </div>
+                                <p id="advanced-skills-text" class="mt-2 small">Evaluating...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div id="final-recommendations">
+                        <!-- Recommendations will be inserted here -->
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="fas fa-road"></i> Roadmap to PSM II Certification</h5>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="alert alert-primary">
+                                    <h6><i class="fas fa-graduation-cap"></i> Immediate Actions (1-2 weeks)</h6>
+                                    <p id="short-term" class="small mb-0">Loading...</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-success">
+                                    <h6><i class="fas fa-rocket"></i> Preparation Plan (2-4 weeks)</h6>
+                                    <p id="long-term" class="small mb-0">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times"></i> Close
+                    </button>
+                    <button type="button" class="btn btn-scrum" id="restart-quiz-btn">
+                        <i class="fas fa-redo"></i> Restart Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // PSM II Questions - 120 questions across 13 knowledge areas
+        const quizData = {
+            questions: [
+                // ============ KNOWLEDGE AREA 1: SCRUM TEAM (10 questions) ============
+                {
+                    thematic: "Scrum Team",
+                    question: "In a self-managing Scrum Team, who is responsible for how the work is done?",
+                    options: [
+                        "The Development Team decides how to turn Product Backlog items into Increments",
+                        "The Scrum Master decides the technical approach",
+                        "The Product Owner provides detailed work instructions",
+                        "Management defines the development process"
+                    ],
+                    correctAnswer: "The Development Team decides how to turn Product Backlog items into Increments",
+                    explanation: "Self-managing teams choose how best to accomplish their work, rather than being directed by others outside the team. This is a core principle of Scrum.",
+                    frenchExplanation: "Dans une équipe Scrum auto-gérée, l'Équipe de Développement décide comment transformer les éléments du Product Backlog en Incréments. C'est un principe fondamental de Scrum.",
+                    tip: "Remember: Self-managing ≠ Self-organizing. Self-managing teams decide WHO does WHAT, WHEN, and HOW."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "What is the optimal size for a Scrum Team according to the Scrum Guide?",
+                    options: [
+                        "Typically 10 or fewer people",
+                        "Between 5-9 people",
+                        "No more than 7 people",
+                        "3-9 people"
+                    ],
+                    correctAnswer: "Typically 10 or fewer people",
+                    explanation: "The Scrum Guide states: 'The Scrum Team is small enough to remain nimble and large enough to complete significant work within a Sprint, typically 10 or fewer people.'",
+                    frenchExplanation: "Le Guide Scrum indique : 'L'Équipe Scrum est suffisamment petite pour rester agile et suffisamment grande pour terminer un travail significatif pendant un Sprint, typiquement 10 personnes ou moins.'",
+                    tip: "Smaller teams communicate better and are more productive. If teams grow larger, they should consider reorganizing into multiple cohesive Scrum Teams."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "Who is accountable for the Scrum Team's effectiveness?",
+                    options: [
+                        "The entire Scrum Team",
+                        "The Scrum Master",
+                        "The Product Owner",
+                        "The Development Team"
+                    ],
+                    correctAnswer: "The entire Scrum Team",
+                    explanation: "While the Scrum Master coaches the team on Scrum practices, the entire Scrum Team is collectively accountable for creating a valuable, useful Increment every Sprint.",
+                    frenchExplanation: "Bien que le Scrum Master coache l'équipe sur les pratiques Scrum, l'ensemble de l'Équipe Scrum est collectivement responsable de créer un Incrément utile et de valeur à chaque Sprint.",
+                    tip: "PSM II focuses on the Scrum Master's role in enabling team effectiveness, but accountability is shared."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "What happens if the Development Team doesn't have all the skills needed to complete a Product Backlog item?",
+                    options: [
+                        "The Development Team learns or collaborates with others to gain missing skills",
+                        "The Scrum Master hires specialists to complete the work",
+                        "The item is removed from the Product Backlog",
+                        "Management assigns additional resources to the team"
+                    ],
+                    correctAnswer: "The Development Team learns or collaborates with others to gain missing skills",
+                    explanation: "Development Teams are cross-functional, meaning they have all the skills needed to create a product Increment. If skills are missing, they develop them.",
+                    frenchExplanation: "Les Équipes de Développement sont pluridisciplinaires, ce qui signifie qu'elles possèdent toutes les compétences nécessaires pour créer un Incrément de produit. Si des compétences manquent, elles les développent.",
+                    tip: "Cross-functionality reduces dependencies and waiting time, increasing the flow of value."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "Can the Scrum Master also be a Development Team member?",
+                    options: [
+                        "Yes, but only if the team is very small (3 people or fewer)",
+                        "No, the Scrum Master should not also be a Developer",
+                        "Yes, as long as it doesn't create a conflict of interest",
+                        "No, these are separate full-time roles"
+                    ],
+                    correctAnswer: "No, the Scrum Master should not also be a Developer",
+                    explanation: "The Scrum Guide is clear: 'The Scrum Master is accountable for the Scrum Team's effectiveness. They do this by enabling the Scrum Team to improve its practices, within the Scrum framework. The Scrum Master is a true leader who serves the Scrum Team and the larger organization.' Combining this with Development Team membership typically creates conflicts.",
+                    frenchExplanation: "Le Guide Scrum est clair : ces rôles sont distincts. Combiner les deux crée généralement des conflits d'intérêts.",
+                    tip: "For PSM II, understand that serving as both often leads to role confusion and reduced effectiveness in both capacities."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "What should the Development Team do if they realize they have committed to too much work in Sprint Planning?",
+                    options: [
+                        "Collaborate with the Product Owner to remove the least valuable items",
+                        "Work overtime to complete everything",
+                        "Ask the Scrum Master to extend the Sprint",
+                        "Request additional team members from management"
+                    ],
+                    correctAnswer: "Collaborate with the Product Owner to remove the least valuable items",
+                    explanation: "The Development Team should immediately inform the Product Owner and work together to remove lower-value items, ensuring the Sprint Goal can still be met.",
+                    frenchExplanation: "L'Équipe de Développement doit immédiatement informer le Product Owner et travailler ensemble pour retirer les éléments de moindre valeur, garantissant que l'Objectif du Sprint peut toujours être atteint.",
+                    tip: "Transparency and collaboration are key Scrum values in this situation."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "How does a Scrum Team handle a team member who is not performing adequately?",
+                    options: [
+                        "The team addresses performance issues collectively, with the Scrum Master facilitating",
+                        "The Scrum Master reports the issue to management for disciplinary action",
+                        "The Product Owner removes the team member from the team",
+                        "The team excludes the member from important decisions"
+                    ],
+                    correctAnswer: "The team addresses performance issues collectively, with the Scrum Master facilitating",
+                    explanation: "As a self-managing team, Scrum Teams should address performance issues internally first, with the Scrum Master coaching the team on constructive feedback and conflict resolution.",
+                    frenchExplanation: "En tant qu'équipe auto-gérée, les Équipes Scrum doivent d'abord traiter les problèmes de performance en interne, avec le Scrum Master qui coache l'équipe sur le feedback constructif et la résolution de conflits.",
+                    tip: "PSM II emphasizes the Scrum Master's role in coaching teams through difficult conversations."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "What is the primary responsibility of the Development Team during Sprint Planning?",
+                    options: [
+                        "Forecasting the work they can complete in the Sprint",
+                        "Accepting all work assigned by the Product Owner",
+                        "Creating detailed specifications for each task",
+                        "Estimating the entire Product Backlog"
+                    ],
+                    correctAnswer: "Forecasting the work they can complete in the Sprint",
+                    explanation: "During Sprint Planning, the Development Team forecasts what it can accomplish in the upcoming Sprint based on their capacity and past performance.",
+                    frenchExplanation: "Pendant la Planification du Sprint, l'Équipe de Développement prévoit ce qu'elle peut accomplir dans le prochain Sprint en fonction de sa capacité et de ses performances passées.",
+                    tip: "Forecast ≠ Commitment. Teams forecast based on what they believe is possible."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "When can the composition of a Development Team change?",
+                    options: [
+                        "Between Sprints, to minimize disruption",
+                        "At any time, as needed by the organization",
+                        "Only at the beginning of a new project",
+                        "Never, stability is essential for team performance"
+                    ],
+                    correctAnswer: "Between Sprints, to minimize disruption",
+                    explanation: "While team stability is valuable, changes can be made between Sprints to minimize disruption to the Sprint in progress.",
+                    frenchExplanation: "Bien que la stabilité de l'équipe soit précieuse, des changements peuvent être effectués entre les Sprints pour minimiser les perturbations du Sprint en cours.",
+                    tip: "Frequent changes to team composition reduce productivity due to the 'forming-storming-norming-performing' cycle restarting."
+                },
+                {
+                    thematic: "Scrum Team",
+                    question: "What does 'T-shaped skills' mean in a Scrum Team context?",
+                    options: [
+                        "Team members have deep expertise in one area plus broad knowledge in others",
+                        "Team members specialize exclusively in one technical area",
+                        "The team has exactly the right mix of specialists",
+                        "Team skills are mapped in a T-shaped chart"
+                    ],
+                    correctAnswer: "Team members have deep expertise in one area plus broad knowledge in others",
+                    explanation: "T-shaped skills help teams be more cross-functional. The vertical bar represents deep expertise, while the horizontal bar represents broad understanding across disciplines.",
+                    frenchExplanation: "Les compétences en T aident les équipes à être plus pluridisciplinaires. La barre verticale représente une expertise approfondie, tandis que la barre horizontale représente une compréhension large à travers les disciplines.",
+                    tip: "T-shaped skills reduce bottlenecks and increase team resilience."
+
+                // ============ KNOWLEDGE AREA 2: FACILITATION (10 questions) ============
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "During a Sprint Retrospective, the team seems hesitant to speak openly about problems. What should the Scrum Master do?",
+                    options: [
+                        "Use anonymous feedback techniques to create psychological safety",
+                        "Cancel the retrospective and try again next Sprint",
+                        "Document the observed issues and present them to management",
+                        "Ask the Product Owner to lead the discussion instead"
+                    ],
+                    correctAnswer: "Use anonymous feedback techniques to create psychological safety",
+                    explanation: "The Scrum Master should employ facilitation techniques that build psychological safety, such as anonymous voting, 'safety checks', or written feedback, to encourage openness.",
+                    frenchExplanation: "Le Scrum Master doit utiliser des techniques de facilitation qui créent une sécurité psychologique, comme le vote anonyme, les 'vérifications de sécurité' ou le feedback écrit, pour encourager l'ouverture.",
+                    tip: "Psychological safety is a prerequisite for effective retrospectives and continuous improvement."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "In Sprint Planning, the team is stuck debating two different technical approaches. How should the Scrum Master facilitate?",
+                    options: [
+                        "Guide the team through a structured decision-making process like pros/cons or decision matrices",
+                        "Make the decision for the team to save time",
+                        "Ask the most senior developer to decide",
+                        "Postpone the decision until after the Sprint begins"
+                    ],
+                    correctAnswer: "Guide the team through a structured decision-making process like pros/cons or decision matrices",
+                    explanation: "The Scrum Master should facilitate structured decision-making processes that help teams reach consensus while respecting timeboxes.",
+                    frenchExplanation: "Le Scrum Master doit faciliter des processus de prise de décision structurés qui aident les équipes à atteindre un consensus tout en respectant les timeboxes.",
+                    tip: "Effective facilitation provides structure without imposing solutions."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "What is the Scrum Master's primary facilitation responsibility during the Daily Scrum?",
+                    options: [
+                        "Ensure the meeting happens and stays within the 15-minute timebox",
+                        "Take detailed notes of impediments reported",
+                        "Lead the discussion and ask each team member for updates",
+                        "Assign tasks to team members based on their reports"
+                    ],
+                    correctAnswer: "Ensure the meeting happens and stays within the 15-minute timebox",
+                    explanation: "The Scrum Master's role is to ensure the Daily Scrum occurs and respects its timebox. The Development Team owns the content and format of their Daily Scrum.",
+                    frenchExplanation: "Le rôle du Scrum Master est de s'assurer que le Daily Scrum a lieu et respecte son timebox. L'Équipe de Développement possède le contenu et le format de son Daily Scrum.",
+                    tip: "The Scrum Master teaches the team to facilitate their own Daily Scrum over time."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "During a Sprint Review, stakeholders are criticizing the work instead of providing constructive feedback. How should the Scrum Master facilitate?",
+                    options: [
+                        "Reframe criticism into constructive feedback by asking clarifying questions",
+                        "Defend the team's work from stakeholder criticism",
+                        "End the meeting early to protect the team",
+                        "Allow the criticism as it's part of stakeholder feedback"
+                    ],
+                    correctAnswer: "Reframe criticism into constructive feedback by asking clarifying questions",
+                    explanation: "The Scrum Master should facilitate constructive dialogue by reframing criticism into actionable feedback and ensuring a respectful environment.",
+                    frenchExplanation: "Le Scrum Master doit faciliter un dialogue constructif en reformulant les critiques en feedback actionnable et en assurant un environnement respectueux.",
+                    tip: "Sprint Reviews are collaborative working sessions, not status reports or approval meetings."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "What facilitation technique is most effective for generating ideas in a retrospective?",
+                    options: [
+                        "Brainstorming with a 'no criticism' rule during the idea generation phase",
+                        "Having each person present their ideas one by one",
+                        "Asking the Scrum Master to suggest improvement ideas",
+                        "Reviewing a predetermined list of common improvements"
+                    ],
+                    correctAnswer: "Brainstorming with a 'no criticism' rule during the idea generation phase",
+                    explanation: "Brainstorming with deferred judgment encourages more ideas. Criticism can be applied later during the evaluation phase.",
+                    frenchExplanation: "Le brainstorming avec jugement différé encourage plus d'idées. La critique peut être appliquée plus tard pendant la phase d'évaluation.",
+                    tip: "Separate idea generation from evaluation to maximize creativity."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "The team's Daily Scrum is consistently running over 30 minutes. What should the Scrum Master do?",
+                    options: [
+                        "Coach the team on keeping discussions focused on planning for the next 24 hours",
+                        "Extend the timebox to 30 minutes since that's what the team needs",
+                        "Take control of the meeting to keep it on track",
+                        "Cancel Daily Scrums and have team members report via email instead"
+                    ],
+                    correctAnswer: "Coach the team on keeping discussions focused on planning for the next 24 hours",
+                    explanation: "The Scrum Master should coach the team on the purpose of the Daily Scrum and facilitate practice in keeping discussions focused and within timebox.",
+                    frenchExplanation: "Le Scrum Master doit coacher l'équipe sur le but du Daily Scrum et faciliter la pratique pour garder les discussions ciblées et dans le timebox.",
+                    tip: "Daily Scrum is for planning, not problem-solving. Detailed discussions should happen after the meeting."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "During Sprint Planning, the Product Owner and Development Team disagree on the priority of items. How should the Scrum Master facilitate?",
+                    options: [
+                        "Help them focus on the Sprint Goal rather than individual items",
+                        "Side with the Product Owner since they own the Product Backlog",
+                        "Let them debate until they reach agreement, regardless of time",
+                        "Postpone the Sprint until agreement is reached"
+                    ],
+                    correctAnswer: "Help them focus on the Sprint Goal rather than individual items",
+                    explanation: "By refocusing on the Sprint Goal, the Scrum Master helps the team see the bigger picture and make decisions that best achieve that goal.",
+                    frenchExplanation: "En se recentrant sur l'Objectif du Sprint, le Scrum Master aide l'équipe à voir la situation dans son ensemble et à prendre des décisions qui atteignent le mieux cet objectif.",
+                    tip: "The Sprint Goal provides alignment and flexibility within the Sprint."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "What is an effective way to facilitate decision-making when the team is split between multiple options?",
+                    options: [
+                        "Use dot voting to gauge preference and discuss the most popular options",
+                        "Have the Scrum Master decide to break the deadlock",
+                        "Choose the option preferred by the most senior team member",
+                        "Flip a coin to randomly select an option"
+                    ],
+                    correctAnswer: "Use dot voting to gauge preference and discuss the most popular options",
+                    explanation: "Dot voting is a simple, visual way to gauge team preferences and focus discussion on the most supported options.",
+                    frenchExplanation: "Le vote par points est un moyen simple et visuel d'évaluer les préférences de l'équipe et de concentrer la discussion sur les options les plus soutenues.",
+                    tip: "Consensus doesn't mean unanimous agreement; it means everyone can support the decision."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "How should the Scrum Master handle a team member who dominates discussions during Scrum events?",
+                    options: [
+                        "Use round-robin or talking stick techniques to ensure everyone participates",
+                        "Ask the dominant person to be quiet to let others speak",
+                        "Allow natural discussion patterns to emerge without intervention",
+                        "Discuss the issue privately with the dominant team member after the meeting"
+                    ],
+                    correctAnswer: "Use round-robin or talking stick techniques to ensure everyone participates",
+                    explanation: "Structured participation techniques like round-robin ensure all voices are heard without singling out individuals.",
+                    frenchExplanation: "Des techniques de participation structurées comme le tour de table assurent que toutes les voix sont entendues sans cibler des individus.",
+                    tip: "Facilitation techniques should address patterns, not punish individuals."
+                },
+                {
+                    thematic: "Facilitation",
+                    question: "What is the Scrum Master's role in facilitating the Sprint Review?",
+                    options: [
+                        "Ensure stakeholders understand they can influence future Sprints through feedback",
+                        "Present the work completed during the Sprint",
+                        "Defend the team's decisions to stakeholders",
+                        "Document all stakeholder requests for the Product Backlog"
+                    ],
+                    correctAnswer: "Ensure stakeholders understand they can influence future Sprints through feedback",
+                    explanation: "The Scrum Master facilitates the Sprint Review by helping stakeholders understand how to effectively participate and provide feedback that influences future direction.",
+                    frenchExplanation: "Le Scrum Master facilite la Revue de Sprint en aidant les parties prenantes à comprendre comment participer efficacement et fournir un feedback qui influence l'orientation future.",
+                    tip: "The Product Owner owns what to build next; stakeholders influence through feedback."
+
+                // ============ KNOWLEDGE AREA 3: COACHING & MENTORING (10 questions) ============
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "What is the key difference between coaching and mentoring in a Scrum context?",
+                    options: [
+                        "Coaching helps people discover their own solutions; mentoring shares experience and advice",
+                        "Coaching is for technical skills; mentoring is for soft skills",
+                        "Coaching is short-term; mentoring is long-term",
+                        "Coaching is done by Scrum Masters; mentoring is done by Product Owners"
+                    ],
+                    correctAnswer: "Coaching helps people discover their own solutions; mentoring shares experience and advice",
+                    explanation: "Coaching uses questions to help individuals find their own answers. Mentoring involves sharing experiences and giving advice based on the mentor's expertise.",
+                    frenchExplanation: "Le coaching utilise des questions pour aider les individus à trouver leurs propres réponses. Le mentorat implique de partager des expériences et de donner des conseils basés sur l'expertise du mentor.",
+                    tip: "PSM II expects Scrum Masters to master professional coaching techniques."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "A team consistently fails to meet its Sprint commitments. What coaching approach should the Scrum Master take?",
+                    options: [
+                        "Help the team analyze why and experiment with improvements",
+                        "Tell the team to commit to less work next Sprint",
+                        "Work with the Product Owner to reduce the Product Backlog",
+                        "Report the team's performance issues to management"
+                    ],
+                    correctAnswer: "Help the team analyze why and experiment with improvements",
+                    explanation: "The Scrum Master should coach the team through root cause analysis and facilitate experiments to improve forecasting accuracy.",
+                    frenchExplanation: "Le Scrum Master doit coacher l'équipe à travers une analyse des causes racines et faciliter des expériences pour améliorer la précision des prévisions.",
+                    tip: "Coaching focuses on enabling teams to solve their own problems, not solving problems for them."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "When coaching the Product Owner, what should be the Scrum Master's primary focus?",
+                    options: [
+                        "Helping the Product Owner maximize product value through effective Product Backlog management",
+                        "Teaching the Product Owner how to write better user stories",
+                        "Ensuring the Product Owner attends all Scrum events",
+                        "Making sure the Product Owner doesn't interfere with the Development Team"
+                    ],
+                    correctAnswer: "Helping the Product Owner maximize product value through effective Product Backlog management",
+                    explanation: "The Scrum Master coaches the Product Owner in techniques for effective Product Backlog management to maximize value.",
+                    frenchExplanation: "Le Scrum Master coache le Product Owner dans les techniques de gestion efficace du Product Backlog pour maximiser la valeur.",
+                    tip: "Scrum Masters serve the Product Owner by coaching on Scrum practices and value maximization."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "What coaching technique is most effective when a team is resistant to trying new practices?",
+                    options: [
+                        "Facilitate small, safe experiments with clear learning goals",
+                        "Mandate the new practice since the Scrum Master knows best",
+                        "Abandon the idea since the team is resistant",
+                        "Implement the change gradually without telling the team"
+                    ],
+                    correctAnswer: "Facilitate small, safe experiments with clear learning goals",
+                    explanation: "Experiments with clear hypotheses and learning goals reduce resistance by making change temporary and focused on learning.",
+                    frenchExplanation: "Les expériences avec des hypothèses claires et des objectifs d'apprentissage réduisent la résistance en rendant le changement temporaire et centré sur l'apprentissage.",
+                    tip: "Treat changes as experiments, not mandates."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "How should a Scrum Master approach coaching a senior developer who believes Scrum is slowing them down?",
+                    options: [
+                        "Listen to their concerns and explore the underlying reasons together",
+                        "Explain why they're wrong about Scrum",
+                        "Ask them to leave the team if they don't embrace Scrum",
+                        "Reduce Scrum ceremonies to accommodate their preference"
+                    ],
+                    correctAnswer: "Listen to their concerns and explore the underlying reasons together",
+                    explanation: "Effective coaching starts with listening and understanding perspectives before collaboratively exploring solutions.",
+                    frenchExplanation: "Un coaching efficace commence par écouter et comprendre les perspectives avant d'explorer collaborativement des solutions.",
+                    tip: "Resistance often points to real problems that need addressing."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "What is the GROW model in coaching?",
+                    options: [
+                        "Goal, Reality, Options, Will - a structured coaching framework",
+                        "A model for team growth through Scrum",
+                        "Goal, Review, Organize, Work - a planning framework",
+                        "A technique for growing Product Backlogs"
+                    ],
+                    correctAnswer: "Goal, Reality, Options, Will - a structured coaching framework",
+                    explanation: "GROW is a coaching model: Goal (what do you want?), Reality (what's happening now?), Options (what could you do?), Will (what will you do?).",
+                    frenchExplanation: "GROW est un modèle de coaching : Objectif (que voulez-vous?), Réalité (que se passe-t-il maintenant?), Options (que pourriez-vous faire?), Volonté (que ferez-vous?).",
+                    tip: "GROW is a fundamental coaching framework tested in PSM II."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "When mentoring a new Scrum Master, what should be the primary focus?",
+                    options: [
+                        "Helping them develop their own style while understanding Scrum principles",
+                        "Teaching them to replicate your exact practices",
+                        "Having them observe all your meetings",
+                        "Giving them a checklist of Scrum Master duties"
+                    ],
+                    correctAnswer: "Helping them develop their own style while understanding Scrum principles",
+                    explanation: "Effective mentoring helps mentees develop their own approach grounded in principles, not simply copy the mentor's practices.",
+                    frenchExplanation: "Un mentorat efficace aide les mentorés à développer leur propre approche ancrée dans les principes, pas simplement à copier les pratiques du mentor.",
+                    tip: "Mentoring develops capability; telling creates dependency."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "What coaching question would be most effective when a team is struggling with estimation?",
+                    options: [
+                        "'What information would help us make better forecasts?'",
+                        "'Why are your estimates always wrong?'",
+                        "'Should we use story points or hours?'",
+                        "'Who on the team is best at estimation?'"
+                    ],
+                    correctAnswer: "'What information would help us make better forecasts?'",
+                    explanation: "This open-ended question encourages the team to think about root causes and potential solutions rather than defending past performance.",
+                    frenchExplanation: "Cette question ouverte encourage l'équipe à réfléchir aux causes profondes et aux solutions potentielles plutôt qu'à défendre les performances passées.",
+                    tip: "Powerful questions start with 'what', 'how', or 'tell me about' rather than 'why' which can sound accusatory."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "How should a Scrum Master coach an organization that wants to measure team productivity?",
+                    options: [
+                        "Educate on the dangers of productivity metrics and suggest outcome-based measures instead",
+                        "Help teams track velocity and report it to management",
+                        "Create dashboards showing story points completed per Sprint",
+                        "Measure individual developer output"
+                    ],
+                    correctAnswer: "Educate on the dangers of productivity metrics and suggest outcome-based measures instead",
+                    explanation: "Productivity metrics often lead to dysfunctional behaviors. Scrum Masters should coach organizations toward outcome-based measures like customer satisfaction or business value delivered.",
+                    frenchExplanation: "Les métriques de productivité conduisent souvent à des comportements dysfonctionnels. Les Scrum Masters doivent coacher les organisations vers des mesures basées sur les résultats comme la satisfaction client ou la valeur commerciale livrée.",
+                    tip: "Outcomes over outputs. Value over velocity."
+                },
+                {
+                    thematic: "Coaching & Mentoring",
+                    question: "What is 'transparency' in the context of coaching a Scrum Team?",
+                    options: [
+                        "Ensuring all aspects of the process are visible to those responsible for outcomes",
+                        "Having open office spaces and glass walls",
+                        "Sharing all team communications with management",
+                        "Making individual performance metrics public"
+                    ],
+                    correctAnswer: "Ensuring all aspects of the process are visible to those responsible for outcomes",
+                    explanation: "Transparency means those responsible for outcomes can see what's happening. This enables inspection and adaptation.",
+                    frenchExplanation: "La transparence signifie que ceux responsables des résultats peuvent voir ce qui se passe. Cela permet l'inspection et l'adaptation.",
+                    tip: "Transparency, inspection, and adaptation are the three pillars of Scrum."
+
+                // ============ KNOWLEDGE AREA 4: SCRUM VALUES (10 questions) ============
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "How does the Scrum value of Courage manifest in a Scrum Team?",
+                    options: [
+                        "Team members speak up about problems and take on challenging work",
+                        "The team always delivers what they promise",
+                        "The Scrum Master protects the team from outside interference",
+                        "The Product Owner makes difficult prioritization decisions"
+                    ],
+                    correctAnswer: "Team members speak up about problems and take on challenging work",
+                    explanation: "Courage enables Scrum Team members to challenge the status quo, admit problems, and take on difficult tasks.",
+                    frenchExplanation: "Le courage permet aux membres de l'Équipe Scrum de remettre en question le statu quo, d'admettre les problèmes et de prendre en charge des tâches difficiles.",
+                    tip: "All five Scrum values (Courage, Focus, Commitment, Respect, Openness) are equally important and interdependent."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "A team member consistently arrives late to Daily Scrum. Which Scrum value is most relevant to address this?",
+                    options: [
+                        "Respect - showing respect for the team's time and commitments",
+                        "Courage - having courage to confront the team member",
+                        "Focus - maintaining focus on the Sprint Goal",
+                        "Openness - being open about why they're late"
+                    ],
+                    correctAnswer: "Respect - showing respect for the team's time and commitments",
+                    explanation: "Consistent lateness shows disrespect for the team's time and shared commitments. The Scrum value of Respect should guide the conversation.",
+                    frenchExplanation: "Des retards constants montrent un manque de respect pour le temps de l'équipe et les engagements partagés. La valeur Scrum du Respect devrait guider la conversation.",
+                    tip: "Address behavior issues through the lens of Scrum values, not personal criticism."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "How does the Scrum value of Focus support the Sprint Goal?",
+                    options: [
+                        "The entire Scrum Team focuses its efforts on achieving the Sprint Goal",
+                        "Team members focus only on their individual tasks",
+                        "The Product Owner focuses on stakeholder management",
+                        "The Scrum Master focuses on removing impediments"
+                    ],
+                    correctAnswer: "The entire Scrum Team focuses its efforts on achieving the Sprint Goal",
+                    explanation: "Focus means the entire Scrum Team works collectively on the Sprint Goal, avoiding distractions and context switching.",
+                    frenchExplanation: "La concentration signifie que l'ensemble de l'Équipe Scrum travaille collectivement sur l'Objectif du Sprint, évitant les distractions et les changements de contexte.",
+                    tip: "The Sprint Goal provides focus; focus enables the Sprint Goal."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "What does Commitment mean in the context of Scrum values?",
+                    options: [
+                        "The Scrum Team commits to achieving the Sprint Goal and supporting each other",
+                        "The Development Team commits to completing all tasks they estimate",
+                        "The Product Owner commits to not changing priorities during the Sprint",
+                        "The organization commits to using Scrum for all projects"
+                    ],
+                    correctAnswer: "The Scrum Team commits to achieving the Sprint Goal and supporting each other",
+                    explanation: "Commitment refers to the Scrum Team's dedication to achieving the Sprint Goal and to each other's success.",
+                    frenchExplanation: "L'engagement fait référence à la détermination de l'Équipe Scrum à atteindre l'Objectif du Sprint et au succès mutuel.",
+                    tip: "Commitment is to goals, not plans. Plans may change as learning occurs."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "A stakeholder asks for a 'small change' mid-Sprint. Which Scrum value helps the Product Owner respond appropriately?",
+                    options: [
+                        "Courage - to say no when it threatens the Sprint Goal",
+                        "Focus - to stay focused on the current work",
+                        "Openness - to explain why changes can't be made",
+                        "Respect - to respect the stakeholder's request"
+                    ],
+                    correctAnswer: "Courage - to say no when it threatens the Sprint Goal",
+                    explanation: "The Product Owner needs courage to protect the Sprint Goal while being open to stakeholder feedback for future Sprints.",
+                    frenchExplanation: "Le Product Owner a besoin de courage pour protéger l'Objectif du Sprint tout en étant ouvert au feedback des parties prenantes pour les futurs Sprints.",
+                    tip: "Scrum values often work together - courage to protect focus, respect for stakeholders, openness about trade-offs."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "How does Openness contribute to effective Scrum Teams?",
+                    options: [
+                        "Team members openly share progress, challenges, and learnings",
+                        "All team meetings are open to anyone in the organization",
+                        "Team metrics are publicly displayed for transparency",
+                        "The team is open to any work assigned to them"
+                    ],
+                    correctAnswer: "Team members openly share progress, challenges, and learnings",
+                    explanation: "Openness creates an environment where information flows freely, enabling better decision-making and collaboration.",
+                    frenchExplanation: "L'ouverture crée un environnement où l'information circule librement, permettant une meilleure prise de décision et collaboration.",
+                    tip: "Openness requires psychological safety - team members must feel safe to be open."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "Which Scrum value is most challenged when management pressures the team to increase velocity?",
+                    options: [
+                        "Courage - to resist pressure that might compromise quality or sustainability",
+                        "Focus - to stay focused on delivering value rather than metrics",
+                        "Commitment - to remain committed to the team's working agreements",
+                        "All of the above"
+                    ],
+                    correctAnswer: "All of the above",
+                    explanation: "Such pressure challenges multiple values: Courage to push back, Focus on value delivery, Commitment to sustainable pace, Respect for the team's professionalism, and Openness about trade-offs.",
+                    frenchExplanation: "Une telle pression met au défi plusieurs valeurs : le Courage pour résister, la Concentration sur la livraison de valeur, l'Engagement envers un rythme durable, le Respect pour le professionnalisme de l'équipe, et l'Ouverture sur les compromis.",
+                    tip: "Scrum values are an integrated system; challenges often affect multiple values simultaneously."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "A team member discovers a critical bug in code they wrote. Which Scrum value guides their response?",
+                    options: [
+                        "Courage - to admit the mistake and Openness - to share it with the team",
+                        "Focus - to fix it quickly without telling anyone",
+                        "Commitment - to work overtime to fix it secretly",
+                        "Respect - for the team by hiding the mistake"
+                    ],
+                    correctAnswer: "Courage - to admit the mistake and Openness - to share it with the team",
+                    explanation: "Scrum values encourage transparency about problems so the team can collectively address them.",
+                    frenchExplanation: "Les valeurs Scrum encouragent la transparence sur les problèmes afin que l'équipe puisse les traiter collectivement.",
+                    tip: "In Scrum, problems are opportunities for improvement, not reasons for blame."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "How do Scrum values differ from traditional project management values?",
+                    options: [
+                        "Scrum values emphasize adaptability, collaboration, and transparency over predictability and control",
+                        "Scrum values are more focused on individual performance",
+                        "Traditional values don't include respect or commitment",
+                        "There is no difference - values are universal"
+                    ],
+                    correctAnswer: "Scrum values emphasize adaptability, collaboration, and transparency over predictability and control",
+                    explanation: "Scrum values support an empirical process control environment, while traditional values often support defined process control.",
+                    frenchExplanation: "Les valeurs Scrum soutiennent un environnement de contrôle de processus empirique, tandis que les valeurs traditionnelles soutiennent souvent un contrôle de processus défini.",
+                    tip: "Scrum values enable empiricism: transparency, inspection, and adaptation."
+                },
+                {
+                    thematic: "Scrum Values",
+                    question: "What is the relationship between Scrum values and the Scrum framework?",
+                    options: [
+                        "Values bring the framework to life; without them, Scrum becomes mechanical",
+                        "Values are optional but recommended for better results",
+                        "The framework ensures teams live the values automatically",
+                        "Values are for team building but not essential for Scrum"
+                    ],
+                    correctAnswer: "Values bring the framework to life; without them, Scrum becomes mechanical",
+                    explanation: "Scrum values animate the framework. Without living the values, teams may follow Scrum practices mechanically without realizing the benefits.",
+                    frenchExplanation: "Les valeurs Scrum animent le framework. Sans vivre les valeurs, les équipes peuvent suivre les pratiques Scrum mécaniquement sans réaliser les bénéfices.",
+                    tip: "Scrum = Framework + Values. Both are essential."
+
+                // ============ KNOWLEDGE AREA 5: STAKEHOLDERS & CLIENTS (10 questions) ============
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "What is the Product Owner's primary responsibility regarding stakeholders?",
+                    options: [
+                        "Representing stakeholder interests and maximizing product value",
+                        "Keeping stakeholders informed of daily progress",
+                        "Managing all stakeholder communications for the team",
+                        "Approving all stakeholder requests before they reach the team"
+                    ],
+                    correctAnswer: "Representing stakeholder interests and maximizing product value",
+                    explanation: "The Product Owner represents stakeholders by understanding their needs and prioritizing work to deliver maximum value.",
+                    frenchExplanation: "Le Product Owner représente les parties prenantes en comprenant leurs besoins et en priorisant le travail pour fournir une valeur maximale.",
+                    tip: "The Product Owner is the single point of contact for stakeholder needs, but stakeholders can talk directly to the Development Team during Sprint Reviews."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "During Sprint Review, stakeholders suggest major changes to the product direction. What should happen?",
+                    options: [
+                        "The Product Owner considers the feedback for future Sprints",
+                        "The team immediately incorporates the changes into the current Sprint",
+                        "The Scrum Master explains that changes can't be discussed until next Sprint Planning",
+                        "Stakeholders are told to submit formal change requests"
+                    ],
+                    correctAnswer: "The Product Owner considers the feedback for future Sprints",
+                    explanation: "Sprint Review is for inspecting the Increment and adapting the Product Backlog. Feedback influences future Sprints, not the current one.",
+                    frenchExplanation: "La Revue de Sprint est pour inspecter l'Incément et adapter le Product Backlog. Le feedback influence les futurs Sprints, pas le Sprint en cours.",
+                    tip: "The current Sprint Goal is protected; stakeholder feedback influences what comes next."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "How should the Scrum Team handle conflicting stakeholder requests?",
+                    options: [
+                        "The Product Owner prioritizes based on value and communicates the rationale",
+                        "The team implements all requests on a first-come, first-served basis",
+                        "The Scrum Master facilitates a stakeholder meeting to reach consensus",
+                        "The highest-ranking stakeholder's request is prioritized"
+                    ],
+                    correctAnswer: "The Product Owner prioritizes based on value and communicates the rationale",
+                    explanation: "The Product Owner is accountable for maximizing value and must make prioritization decisions, communicating the rationale transparently.",
+                    frenchExplanation: "Le Product Owner est responsable de maximiser la valeur et doit prendre des décisions de priorisation, communiquant la justification de manière transparente.",
+                    tip: "Product Owners need courage to say 'no' or 'not now' to some stakeholders."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "What is the most effective way to engage stakeholders in the Scrum process?",
+                    options: [
+                        "Invite them to Sprint Reviews and encourage candid feedback",
+                        "Send them weekly status reports",
+                        "Include them in Daily Scrums for transparency",
+                        "Have them approve each Sprint Backlog"
+                    ],
+                    correctAnswer: "Invite them to Sprint Reviews and encourage candid feedback",
+                    explanation: "Sprint Reviews are the formal opportunity for stakeholder collaboration and feedback on the product.",
+                    frenchExplanation: "Les Revues de Sprint sont l'opportunité formelle de collaboration des parties prenantes et de feedback sur le produit.",
+                    tip: "Stakeholder engagement is about collaboration, not just communication."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "A key stakeholder insists on adding a feature mid-Sprint. What should the Product Owner do?",
+                    options: [
+                        "Explain that the current Sprint is committed and discuss the feature for a future Sprint",
+                        "Ask the Development Team if they can accommodate the request",
+                        "Add the feature to the current Sprint Backlog immediately",
+                        "Escalate to the Scrum Master to handle the stakeholder"
+                    ],
+                    correctAnswer: "Explain that the current Sprint is committed and discuss the feature for a future Sprint",
+                    explanation: "The Sprint Goal provides stability during the Sprint. New work can be discussed for future Sprints unless it's an emergency that invalidates the Sprint Goal.",
+                    frenchExplanation: "L'Objectif du Sprint fournit une stabilité pendant le Sprint. Le nouveau travail peut être discuté pour les futurs Sprints à moins qu'il ne s'agisse d'une urgence qui invalide l'Objectif du Sprint.",
+                    tip: "Protecting the Sprint enables focus and predictability."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "What information should stakeholders receive about the team's progress?",
+                    options: [
+                        "The Increment at Sprint Reviews and any updates to the Product Backlog",
+                        "Daily status reports and velocity metrics",
+                        "Individual team member task completion rates",
+                        "Detailed technical documentation of all work"
+                    ],
+                    correctAnswer: "The Increment at Sprint Reviews and any updates to the Product Backlog",
+                    explanation: "Stakeholders care about working product and future plans, not internal team metrics or task completion.",
+                    frenchExplanation: "Les parties prenantes se soucient du produit fonctionnel et des plans futurs, pas des métriques internes de l'équipe ou de l'achèvement des tâches.",
+                    tip: "Working software is the primary measure of progress."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "How can the Scrum Master help stakeholders understand their role in Scrum?",
+                    options: [
+                        "Educate them on how to provide effective feedback during Sprint Reviews",
+                        "Invite them to all Scrum events for full transparency",
+                        "Send them the Scrum Guide to read",
+                        "Have them attend Scrum Master certification training"
+                    ],
+                    correctAnswer: "Educate them on how to provide effective feedback during Sprint Reviews",
+                    explanation: "Stakeholders often need coaching on how to effectively participate in Scrum, particularly in providing constructive feedback.",
+                    frenchExplanation: "Les parties prenantes ont souvent besoin de coaching sur la façon de participer efficacement à Scrum, en particulier pour fournir un feedback constructif.",
+                    tip: "Effective stakeholder engagement is a skill that can be developed."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "What should the Development Team do if stakeholders approach them directly with feature requests?",
+                    options: [
+                        "Direct them to the Product Owner while being helpful and respectful",
+                        "Listen and incorporate the requests if they seem valuable",
+                        "Tell them to submit a formal request through proper channels",
+                        "Ignore them since only the Product Owner should talk to stakeholders"
+                    ],
+                    correctAnswer: "Direct them to the Product Owner while being helpful and respectful",
+                    explanation: "While Development Teams can talk to stakeholders (especially during Sprint Reviews), prioritization decisions belong to the Product Owner.",
+                    frenchExplanation: "Bien que les Équipes de Développement puissent parler aux parties prenantes (surtout pendant les Revues de Sprint), les décisions de priorisation appartiennent au Product Owner.",
+                    tip: "Development Teams should be helpful but maintain the Product Owner's role as decision-maker."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "Why is stakeholder feedback crucial in Scrum?",
+                    options: [
+                        "It provides empirical data for adapting the product direction",
+                        "It ensures stakeholders feel involved in the process",
+                        "It helps the team stay busy with requested work",
+                        "It satisfies contractual requirements"
+                    ],
+                    correctAnswer: "It provides empirical data for adapting the product direction",
+                    explanation: "Stakeholder feedback is empirical evidence that informs product decisions, enabling adaptation to maximize value.",
+                    frenchExplanation: "Le feedback des parties prenantes est une preuve empirique qui informe les décisions produit, permettant l'adaptation pour maximiser la valeur.",
+                    tip: "Scrum embraces change based on learning; stakeholder feedback is key learning input."
+                },
+                {
+                    thematic: "Stakeholders & Clients",
+                    question: "How should the Product Owner handle a situation where stakeholders disagree on priorities?",
+                    options: [
+                        "Make a decision based on value and explain the rationale transparently",
+                        "Let the stakeholders debate until they reach consensus",
+                        "Ask the Scrum Master to facilitate a stakeholder meeting",
+                        "Implement the feature with the most vocal supporters"
+                    ],
+                    correctAnswer: "Make a decision based on value and explain the rationale transparently",
+                    explanation: "The Product Owner is accountable for prioritization and must make decisions, communicating transparently about the value-based rationale.",
+                    frenchExplanation: "Le Product Owner est responsable de la priorisation et doit prendre des décisions, communiquant de manière transparente sur la justification basée sur la valeur.",
+                    tip: "Product Owners are decisive, not democratic." 
+					  },
+			]
+        };
+
+      
+        // DOM Elements
+        const settingsPanelEl = document.getElementById('settings-panel');
+        const quizContentEl = document.getElementById('quiz-content');
+        const questionCountEl = document.getElementById('question-count');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const questionCounterEl = document.getElementById('question-counter');
+        const currentScoreEl = document.getElementById('current-score');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionTextEl = document.getElementById('question-text');
+        const thematicBadgeEl = document.getElementById('thematic-badge');
+        const optionsContainerEl = document.getElementById('options-container');
+        const explanationBoxEl = document.getElementById('explanation-box');
+        const explanationTitleEl = document.getElementById('explanation-title');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const frenchExplanationEl = document.getElementById('french-explanation');
+        const frenchTextEl = document.getElementById('french-text');
+        const tipBoxEl = document.getElementById('tip-box');
+        const tipTextEl = document.getElementById('tip-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        
+        // Modal Elements
+        const resultsModal = new bootstrap.Modal(document.getElementById('resultsModal'));
+        const finalScoreCorrectEl = document.getElementById('final-score-correct');
+        const finalScoreTotalEl = document.getElementById('final-score-total');
+        const finalScorePercentageEl = document.getElementById('final-score-percentage');
+        const finalRecommendationsEl = document.getElementById('final-recommendations');
+        const theorySkillsEl = document.getElementById('theory-skills');
+        const theorySkillsTextEl = document.getElementById('theory-skills-text');
+        const advancedSkillsEl = document.getElementById('advanced-skills');
+        const advancedSkillsTextEl = document.getElementById('advanced-skills-text');
+        const shortTermEl = document.getElementById('short-term');
+        const longTermEl = document.getElementById('long-term');
+        const restartQuizBtn = document.getElementById('restart-quiz-btn');
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let questions = [];
+        let selectedQuestionCount = 120;
+
+        // Badge classes mapping
+        const badgeClasses = {
+            "Scrum Team": "badge-scrum",
+            "Facilitation": "badge-agile",
+            "Coaching & Mentoring": "badge-coaching",
+            "Scrum Values": "badge-leadership",
+            "Stakeholders & Clients": "badge-advanced",
+            "Scrum Events": "badge-scrum",
+            "Product Backlog Management": "badge-agile",
+            "Scrum Artifacts": "badge-theory",
+            "The concept of 'Done'": "badge-scrum",
+            "Self-Managing Teams": "badge-agile",
+            "Organizational Design & Agile Culture": "badge-leadership",
+            "Technical Risk Management": "badge-coaching",
+            "Leadership Styles": "badge-advanced"
+        };
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function filterQuestionsByDomain() {
+            const domains = {
+                'domain-scrum': "Scrum Team",
+                'domain-facilitation': "Facilitation", 
+                'domain-coaching': "Coaching & Mentoring",
+                'domain-values': "Scrum Values",
+                'domain-stakeholders': "Stakeholders & Clients",
+                'domain-events': "Scrum Events",
+                'domain-artifacts': "Scrum Artifacts"
+            };
+            
+            const selectedDomains = [];
+            for (const [id, domain] of Object.entries(domains)) {
+                if (document.getElementById(id).checked) {
+                    selectedDomains.push(domain);
+                }
+            }
+            
+            if (selectedDomains.length === 0) {
+                return [...quizData.questions];
+            }
+            
+            return quizData.questions.filter(q => selectedDomains.includes(q.thematic));
+        }
+
+        function startQuiz() {
+            selectedQuestionCount = parseInt(questionCountEl.value);
+            
+            let filteredQuestions = filterQuestionsByDomain();
+            
+            if (filteredQuestions.length === 0) {
+                alert('Please select at least one knowledge area to assess.');
+                return;
+            }
+            
+            if (filteredQuestions.length < selectedQuestionCount) {
+                alert(`Only ${filteredQuestions.length} questions available in selected areas. The quiz will be limited to this number.`);
+                selectedQuestionCount = filteredQuestions.length;
+            }
+            
+            const shuffledQuestions = shuffleArray(filteredQuestions);
+            questions = shuffledQuestions.slice(0, selectedQuestionCount);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            
+            settingsPanelEl.classList.add('d-none');
+            quizContentEl.classList.remove('d-none');
+            
+            displayQuestion(currentQuestionIndex);
+            updateScoreDisplay();
+            resultsModal.hide();
+        }
+
+        function displayQuestion(index) {
+            explanationBoxEl.classList.add('d-none');
+            frenchExplanationEl.classList.add('d-none');
+            tipBoxEl.classList.add('d-none');
+            
+            const question = questions[index];
+            questionTextEl.textContent = question.question;
+            
+            thematicBadgeEl.textContent = question.thematic;
+            thematicBadgeEl.className = 'thematic-badge';
+            thematicBadgeEl.classList.add(badgeClasses[question.thematic] || 'badge-scrum');
+            
+            optionsContainerEl.innerHTML = '';
+            
+            question.options.forEach(optionText => {
+                const button = document.createElement('button');
+                button.textContent = optionText;
+                button.classList.add('btn', 'option-btn');
+                button.onclick = () => selectAnswer(button, optionText, index);
+                optionsContainerEl.appendChild(button);
+            });
+            
+            updateNavigation();
+            updateProgressBar();
+            
+            if (userAnswers[index] !== null) {
+                showAnswerFeedback(index);
+            }
+        }
+        
+        function selectAnswer(button, selectedAnswer, questionIndex) {
+            if (userAnswers[questionIndex] !== null) return;
+            
+            const question = questions[questionIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+            
+            userAnswers[questionIndex] = {
+                selected: selectedAnswer,
+                correct: question.correctAnswer,
+                isCorrect: isCorrect
+            };
+            
+            if(isCorrect) {
+                score++;
+            }
+            updateScoreDisplay();
+            showAnswerFeedback(questionIndex);
+        }
+
+        function showAnswerFeedback(index) {
+            const userAnswer = userAnswers[index];
+            if (!userAnswer) return;
+
+            const question = questions[index];
+
+            const optionButtons = optionsContainerEl.querySelectorAll('.option-btn');
+            optionButtons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === userAnswer.correct) {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === userAnswer.selected) {
+                    btn.classList.add('incorrect');
+                }
+            });
+
+            explanationTextEl.textContent = question.explanation;
+            if (userAnswer.isCorrect) {
+                explanationTitleEl.textContent = "✅ Correct! Knowledge Validated";
+                explanationBoxEl.className = 'explanation-correct';
+            } else {
+                explanationTitleEl.textContent = "💡 Key Learning for PSM II";
+                explanationBoxEl.className = 'explanation-incorrect';
+            }
+            explanationBoxEl.classList.remove('d-none');
+            
+            if (question.frenchExplanation) {
+                frenchTextEl.textContent = question.frenchExplanation;
+                frenchExplanationEl.classList.remove('d-none');
+            }
+            
+            if (question.tip) {
+                tipTextEl.textContent = question.tip;
+                tipBoxEl.classList.remove('d-none');
+            }
+        }
+
+        function updateNavigation() {
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.classList.toggle('d-none', currentQuestionIndex === questions.length - 1);
+            finishBtn.classList.toggle('d-none', currentQuestionIndex !== questions.length - 1);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressBarEl.style.width = `${progress}%`;
+            progressBarEl.setAttribute('aria-valuenow', progress);
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} / ${questions.length}`;
+        }
+        
+        function updateScoreDisplay() {
+            currentScoreEl.textContent = `Score: ${score}/${questions.length}`;
+        }
+
+        function handleNext() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function handlePrev() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion(currentQuestionIndex);
+            }
+        }
+
+        function calculateSkillLevels() {
+            const thematicScores = {};
+            const difficultyScores = { theory: 0, advanced: 0 };
+            let totalAnswered = 0;
+            
+            userAnswers.forEach((answer, index) => {
+                if (answer !== null) {
+                    totalAnswered++;
+                    const question = questions[index];
+                    
+                    if (!thematicScores[question.thematic]) {
+                        thematicScores[question.thematic] = { correct: 0, total: 0 };
+                    }
+                    thematicScores[question.thematic].total++;
+                    if (answer.isCorrect) {
+                        thematicScores[question.thematic].correct++;
+                    }
+                    
+                    if (question.thematic.includes("Scrum Values") || question.thematic.includes("Scrum Artifacts")) {
+                        if (answer.isCorrect) difficultyScores.theory++;
+                    } else {
+                        if (answer.isCorrect) difficultyScores.advanced++;
+                    }
+                }
+            });
+            
+            return {
+                thematicScores,
+                theoryScore: totalAnswered > 0 ? (difficultyScores.theory / totalAnswered) * 100 : 0,
+                advancedScore: totalAnswered > 0 ? (difficultyScores.advanced / totalAnswered) * 100 : 0
+            };
+        }
+
+        function showFinalResults() {
+            const percentage = (score / questions.length) * 100;
+            const skillAnalysis = calculateSkillLevels();
+            
+            let scoreColor, level, recommendationsHtml, shortTerm, longTerm;
+            
+            if (percentage >= 85) {
+                scoreColor = '#10b981';
+                level = "PSM II Ready - Advanced Mastery";
+                recommendationsHtml = `
+                    <h5><i class="fas fa-crown text-warning"></i> Excellent Preparation!</h5>
+                    <p>Your score indicates strong readiness for the PSM II certification. You demonstrate advanced understanding of Scrum principles and practices.</p>
+                    <div class="alert alert-success">
+                        <i class="fas fa-rocket"></i> <strong>Next Step:</strong> Schedule your PSM II exam while this knowledge is fresh. Focus on complex scenario-based questions.
+                    </div>
+                `;
+                shortTerm = "Review difficult questions, practice time management for the exam, focus on complex scenarios";
+                longTerm = "Take PSM II exam within 2 weeks, consider mentoring other Scrum Masters, apply advanced practices in your organization";
+            } else if (percentage >= 70) {
+                scoreColor = '#3b82f6';
+                level = "Good Foundation - Needs Refinement";
+                recommendationsHtml = `
+                    <h5><i class="fas fa-medal text-info"></i> Solid Understanding!</h5>
+                    <p>You have a good foundation but need to strengthen certain areas before attempting PSM II. Focus on advanced Scrum Master responsibilities.</p>
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i> <strong>Focus:</strong> Review Coaching & Mentoring, Facilitation techniques, and handling complex organizational challenges.
+                    </div>
+                `;
+                shortTerm = "Review incorrect answers, study Scrum Guide thoroughly, practice coaching scenarios";
+                longTerm = "Additional study for 2-3 weeks, practice exams, schedule PSM II in 1 month";
+            } else if (percentage >= 55) {
+                scoreColor = '#f59e0b';
+                level = "Developing - Requires More Study";
+                recommendationsHtml = `
+                    <h5><i class="fas fa-graduation-cap text-warning"></i> Foundation Building</h5>
+                    <p>You're developing your understanding but need significant study before attempting PSM II. Focus on mastering PSM I concepts first.</p>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-book"></i> <strong>Priority:</strong> Strengthen fundamental Scrum knowledge before tackling advanced PSM II topics.
+                    </div>
+                `;
+                shortTerm = "Complete PSM I preparation first, review basic Scrum framework, understand roles and events deeply";
+                longTerm = "Consider PSM I certification first, then prepare for PSM II over 2-3 months of study";
+            } else {
+                scoreColor = '#ef4444';
+                level = "Needs Fundamental Review";
+                recommendationsHtml = `
+                    <h5><i class="fas fa-book-open text-primary"></i> Back to Basics</h5>
+                    <p>You need to strengthen fundamental Scrum knowledge before considering PSM II. Start with PSM I level understanding.</p>
+                    <div class="alert alert-primary">
+                        <i class="fas fa-redo"></i> <strong>Action:</strong> Begin with Scrum Open assessment, then PSM I preparation before attempting PSM II.
+                    </div>
+                `;
+                shortTerm = "Start with Scrum Open free assessment, study Scrum Guide line by line, take PSM I preparation course";
+                longTerm = "Aim for PSM I certification first, gain practical Scrum experience, prepare for PSM II in 6+ months";
+            }
+
+            finalScoreCorrectEl.textContent = score;
+            finalScoreTotalEl.textContent = questions.length;
+            finalScorePercentageEl.textContent = `${percentage.toFixed(0)}% - ${level}`;
+            finalScorePercentageEl.style.background = `linear-gradient(135deg, ${scoreColor} 0%, ${scoreColor}00 100%)`;
+            
+            theorySkillsEl.style.width = `${skillAnalysis.theoryScore}%`;
+            advancedSkillsEl.style.width = `${skillAnalysis.advancedScore}%`;
+            theorySkillsTextEl.textContent = `Scrum Theory: ${skillAnalysis.theoryScore.toFixed(0)}%`;
+            advancedSkillsTextEl.textContent = `Advanced Mastery: ${skillAnalysis.advancedScore.toFixed(0)}%`;
+            
+            finalRecommendationsEl.innerHTML = recommendationsHtml;
+            shortTermEl.textContent = shortTerm;
+            longTermEl.textContent = longTerm;
+            
+            const thematicAnalysis = Object.entries(skillAnalysis.thematicScores)
+                .map(([theme, scores]) => {
+                    const themePercentage = (scores.correct / scores.total) * 100;
+                    return `<div class="mb-2">
+                        <small>${theme}: <strong>${themePercentage.toFixed(0)}%</strong> (${scores.correct}/${scores.total})</small>
+                        <div class="progress" style="height: 5px;">
+                            <div class="progress-bar" style="width: ${themePercentage}%"></div>
+                        </div>
+                    </div>`;
+                })
+                .join('');
+            
+            if (thematicAnalysis) {
+                finalRecommendationsEl.innerHTML += `
+                    <div class="mt-3">
+                        <h6><i class="fas fa-chart-bar"></i> Performance by Knowledge Area</h6>
+                        ${thematicAnalysis}
+                    </div>
+                `;
+            }
+
+            resultsModal.show();
+        }
+
+        function restartQuiz() {
+            settingsPanelEl.classList.remove('d-none');
+            quizContentEl.classList.add('d-none');
+            resultsModal.hide();
+        }
+
+        startQuizBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNext);
+        prevBtn.addEventListener('click', handlePrev);
+        finishBtn.addEventListener('click', showFinalResults);
+        restartQuizBtn.addEventListener('click', restartQuiz);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            settingsPanelEl.classList.remove('d-none');
+            quizContentEl.classList.add('d-none');
+        });
+    </script>
+</body>
+</html>
